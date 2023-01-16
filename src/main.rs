@@ -1,5 +1,8 @@
-mod pr_4375;
-mod pr_1629;
+use std::os::macos::raw::stat;
+
+static mut visit:Vec<bool> = vec![false; 10];
+static mut a:Vec<Vec<bool>> = vec![];
 
 fn main() {
 }
+
