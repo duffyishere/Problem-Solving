@@ -1,6 +1,4 @@
-mod adjacency_matrix;
-
-use std::os::macos::raw::stat;
+use std::io::{Read, stdin};
 
 fn main() {
 }
