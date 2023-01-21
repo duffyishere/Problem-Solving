@@ -1,4 +1,4 @@
-use std::io::{Read, stdin};
+use std::io;
 
 fn main() {
 }
