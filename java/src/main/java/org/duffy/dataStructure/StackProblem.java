@@ -1,9 +1,15 @@
 package org.duffy.dataStructure;
 
+import org.duffy.Main;
+
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
+// https://www.acmicpc.net/problem/{pid}
 public class StackProblem {
+
     public void pr9093() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         int t = Integer.valueOf(reader.readLine());
@@ -56,5 +62,41 @@ public class StackProblem {
                 System.out.println("NO");
             }
         }
+    }
+
+    public void pr1874() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.valueOf(br.readLine());
+        List<Integer> arr = new ArrayList<>();
+        while (t-- > 0) {
+            arr.add(Integer.valueOf(br.readLine()));
+        }
+
+        this.pr1874Method(arr);
+    }
+
+    private void pr1874Method(List<Integer> arr) {
+        Stack<Integer> stack = new Stack<>();
+        int max = 0;
+        StringBuilder sb = new StringBuilder();
+        for (int input : arr) {
+            if (max < input) {
+                while (max < input) {
+                    stack.push(++max);
+                    sb.append("+\n");
+                }
+                stack.pop();
+                sb.append("-\n");
+            } else {
+                if (stack.peek() == input) {
+                    stack.pop();
+                    sb.append("-\n");
+                } else {
+                    System.out.println("NO");
+                    return;
+                }
+            }
+        }
+        System.out.println(sb);
     }
 }
