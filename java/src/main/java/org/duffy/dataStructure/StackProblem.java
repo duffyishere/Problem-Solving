@@ -1,13 +1,12 @@
 package org.duffy.dataStructure;
 
-import org.duffy.Main;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import java.util.StringTokenizer;
 
-// https://www.acmicpc.net/problem/{pid}
+// https://www.acmicpc.net/problem/{p_id}
 public class StackProblem {
 
     public void pr9093() throws IOException {
@@ -97,6 +96,50 @@ public class StackProblem {
                 }
             }
         }
+        System.out.println(sb);
+    }
+
+    public void pr1406() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        // 커서 기준 왼쪽
+        Stack<Character> l = new Stack<>();
+        // 커서 기준 오른쪽
+        Stack<Character> r = new Stack<>();
+        for (char ch: br.readLine().toCharArray()) {
+            l.push(ch);
+        }
+        int m  = Integer.valueOf(br.readLine());
+        while (m-- > 0) {
+            String cmd = br.readLine();
+            StringTokenizer stk = new StringTokenizer(cmd);
+            switch (stk.nextToken()) {
+                case "L":
+                    if (!l.isEmpty())
+                        r.push(l.pop());
+                    break;
+                case "D":
+                    if (!r.isEmpty())
+                        l.push(r.pop());
+                    break;
+                case "B":
+                    if (!l.isEmpty())
+                        l.pop();
+                    break;
+                case "P":
+                    l.push(stk.nextToken().charAt(0));
+                    break;
+            }
+        }
+
+        while (!l.isEmpty()) {
+            r.push(l.pop());
+        }
+
+        StringBuilder sb = new StringBuilder();
+        while (!r.isEmpty()) {
+            sb.append(r.pop());
+        }
+
         System.out.println(sb);
     }
 }
