@@ -1,8 +1,7 @@
 package org.duffy.dataStructure;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.util.Arrays;
 import java.util.Stack;
 
 public class Practice {
@@ -39,5 +38,62 @@ public class Practice {
         }
 
         System.out.println(sb);
+    }
+
+    public void pr10799() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String str = br.readLine();
+
+        int result = 0;
+        int cnt = 0;
+        Stack<Character> stack = new Stack<>();
+        for (char ch: str.toCharArray()) {
+            // 레이저
+            if (ch == ')' && stack.peek() == '(') {
+                if (cnt > 0)
+                    cnt--;
+                result += cnt;
+            }
+            // 막대기 시작
+            else if (ch == '(') {
+                cnt++;
+            }
+            // 막대기 끝
+            else if (ch == ')' && stack.peek() == ')') {
+                cnt--;
+                result++;
+            }
+
+            stack.push(ch);
+        }
+        System.out.println(result);
+    }
+
+    public void pr17298() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.valueOf(br.readLine());
+        Integer[] result = new Integer[n];
+        Integer[] num = Arrays.stream(br.readLine().split(" "))
+                .map(Integer::valueOf)
+                .toArray(Integer[]::new);
+        Stack<Integer> stack = new Stack<>();
+        stack.push(0);
+        for (int i=1; i<n; i++) {
+            while (!stack.isEmpty() && num[i] > num[stack.peek()]) {
+                result[stack.pop()] = num[i];
+            }
+            stack.push(i);
+        }
+
+        while (!stack.isEmpty()) {
+            result[stack.pop()] = -1;
+        }
+
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        for (int i=0; i<n; i++) {
+            bw.write(result[i] + " ");
+        }
+        bw.write("\n");
+        bw.flush();
     }
 }
