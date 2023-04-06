@@ -96,4 +96,35 @@ public class Practice {
         bw.write("\n");
         bw.flush();
     }
+
+    public void pr17299() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.valueOf(br.readLine());
+        int[] result = new int[n];
+        Integer[] num = Arrays.stream(br.readLine().split(" "))
+                .map(Integer::valueOf)
+                .toArray(Integer[]::new);
+        int[] cnt = new int[1000001];
+        for (int i=0; i<n; i++) {
+            cnt[num[i]] += 1;
+        }
+
+        Stack<Integer> stack = new Stack<>();
+        stack.push(0);
+        for (int i=1; i<n; i++) {
+            while (!stack.isEmpty() && cnt[num[stack.peek()]] < cnt[num[i]]) {
+                result[stack.pop()] = num[i];
+            }
+            stack.push(i);
+        }
+        while (!stack.isEmpty()) {
+            result[stack.pop()] = -1;
+        }
+
+        StringBuffer sb = new StringBuffer();
+        for (int r: result) {
+            sb.append(r + " ");
+        }
+        System.out.println(sb);
+    }
 }
