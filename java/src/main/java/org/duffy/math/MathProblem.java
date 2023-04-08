@@ -1,8 +1,7 @@
 package org.duffy.math;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -52,6 +51,38 @@ public class MathProblem {
         for (int i=m; i<=n; i++) {
             if (!check[i]) {
                 System.out.println(i);
+            }
+        }
+    }
+
+    public void pr6588() throws IOException {
+        int MAX = 1000000;
+        boolean[] check = new boolean[MAX+1];
+        List<Integer> primeNum = new ArrayList<>();
+        int cnt = 0;
+        check[0] = check[1] = true;
+        for (int i=2; i*i<=MAX; i++) {
+            if (!check[i]) {
+                primeNum.add(i);
+                cnt++;
+                for (int j=i*2; j<=MAX; j+=i)
+                    check[j] = true;
+            }
+        }
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        while (true) {
+            int num = Integer.valueOf(br.readLine());
+            if (num == 0) break;
+//            if (num <= 4 || num %2 == 1) continue;
+            for (int i=0; i<cnt; i++) {
+                int p = primeNum.get(i);
+                if (!check[num - p]) {
+                    bw.write(num+" = "+p+" + "+ Integer.valueOf(num - p)+"\n");
+                    bw.flush();
+                    break;
+                }
             }
         }
     }
