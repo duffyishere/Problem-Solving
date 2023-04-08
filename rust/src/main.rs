@@ -2,53 +2,47 @@ extern crate core;
 
 use std::cmp::Ordering;
 use std::collections::HashMap;
+use std::io::stdin;
 use std::iter::Map;
 
 fn main() {
-    let mut buffer = String::new();
-    std::io::stdin().read_line(&mut buffer).unwrap();
-    let buffer:Vec<usize> = buffer.split_ascii_whitespace()
-        .map(|x| x.trim().parse::<usize>().unwrap())
-        .collect();
-    let (n, c):(usize, usize) = (buffer[0], buffer[1]);
+    const MAX: usize = 1000000;
+    let mut check:[bool; 1000001] = [false; 1000001];
+    let mut prime:Vec<usize> = vec![];
+    check[0] = true;
+    check[1] = true;
 
-    let mut buffer = String::new();
-    std::io::stdin().read_line(&mut buffer).unwrap();
-    let messages:Vec<usize> = buffer.split_ascii_whitespace()
-        .map(|x| x.trim().parse::<usize>().unwrap())
-        .collect();
-
-    // 정렬 조건: 1. 많이 나온 것, 2. 먼저 나온 것
-    // key = 문자열, value = 문자열의 index
-    let mut vector: Vec<(usize, usize)> = vec![];
-    let mut map: HashMap<usize, usize> = HashMap::new();
-    for i in 0..messages.len() {
-        if map.get(&i).is_none() {
-           map.insert(messages[i], i);
+    let mut i = 2;
+    while i <= MAX {
+        if !check[i] {
+            prime.push(i);
+            let mut j= i*2;
+            while j <= MAX {
+                check[j] = true;
+                j += i;
+            }
         }
+        i += 1;
     }
 
-    for (key, value) in &map {
-        vector.push((*value, *key));
+    loop {
+        let mut num = String::new();
+        stdin().read_line(&mut num).unwrap();
+        let num =  num.trim().parse::<usize>().unwrap();
+        if num == 0 {
+            break;
+        }
+        if num <= 4 || num % 2 == 1 {
+            break;
+        }
+        let mut p = 0;
+        while p < prime.len() {
+            let p_num = prime[p];
+            if !check[num - p_num] {
+                println!("{} = {} + {}", num, p_num, num-p_num);
+                break;
+            }
+            p += 1;
+        }
     }
-
-    vector.sort_by(|&(a1, a2), &(b1, b2)| {
-        if a1 == b1 {
-            if &map[&a2] < &map[&b2] {
-                Ordering::Greater
-            } else {
-                Ordering::Less
-            }
-        }
-        else {
-            if a1 > b1 {
-                Ordering::Greater
-            }
-            else {
-                Ordering::Less
-            }
-        }
-    })
-
-    for
 }
