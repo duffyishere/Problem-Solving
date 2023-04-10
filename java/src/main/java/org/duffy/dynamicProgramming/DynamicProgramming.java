@@ -1,0 +1,43 @@
+package org.duffy.dynamicProgramming;
+
+public class DynamicProgramming {
+
+    public long[] temp = new long[101];
+
+    public long fibonacci(int a) {
+        if (a <= 1)
+            return 1;
+        else {
+            if (temp[a] != 0)
+                return temp[a];
+            temp[a] = fibonacci(a-1) + fibonacci(a-2);
+            return temp[a];
+        }
+    }
+
+    public int[] d;
+
+    public int pr1463(int n) {
+        if (n == 1)
+            return 0;
+        if (d[n] != 0)
+            return d[n];
+
+        d[n] = pr1463(n-1)+1;
+
+        if (n%2 == 0) {
+            int temp = pr1463(n/2) + 1;
+            if (d[n] > temp) {
+                d[n] = temp;
+            }
+        }
+        if (n%3 == 0) {
+            int temp = pr1463(n/3) + 1;
+            if (d[n] > temp) {
+                d[n] = temp;
+            }
+        }
+
+        return d[n];
+    }
+}
