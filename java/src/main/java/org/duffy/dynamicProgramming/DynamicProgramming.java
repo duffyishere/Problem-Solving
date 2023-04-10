@@ -3,6 +3,7 @@ package org.duffy.dynamicProgramming;
 public class DynamicProgramming {
 
     public long[] temp = new long[101];
+    public int[] d;
 
     public long fibonacci(int a) {
         if (a <= 1)
@@ -14,8 +15,6 @@ public class DynamicProgramming {
             return temp[a];
         }
     }
-
-    public int[] d;
 
     public int pr1463(int n) {
         if (n == 1)
@@ -38,6 +37,16 @@ public class DynamicProgramming {
             }
         }
 
+        return d[n];
+    }
+
+    public int pr11726(int n) {
+        if (n <= 1)
+            return 1;
+        if (d[n] != 0)
+            return d[n];
+        d[n] = pr11726(n-1) + pr11726(n-2);
+        d[n] %= 10007;
         return d[n];
     }
 }
