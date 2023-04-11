@@ -9,6 +9,6 @@ public class Main {
     public static int[] d = new int[10001];
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int num = Integer.valueOf(br.readLine());
+        int n = Integer.valueOf(br.readLine());
     }
 }

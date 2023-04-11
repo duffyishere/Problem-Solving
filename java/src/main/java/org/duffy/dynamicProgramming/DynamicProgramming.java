@@ -60,4 +60,17 @@ public class DynamicProgramming {
 
         return d[n];
     }
+
+    public int pr9095(int n) {
+        if (n <= 1)
+            return 1;
+        else if (n==2)
+            return 2;
+
+        if (d[n] != 0)
+            return d[n];
+
+        d[n] = pr9095(n-3) + pr9095(n-2) + pr9095(n-1);
+        return d[n];
+    }
 }
