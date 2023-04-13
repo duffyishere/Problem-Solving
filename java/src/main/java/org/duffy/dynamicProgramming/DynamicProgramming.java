@@ -4,6 +4,7 @@ public class DynamicProgramming {
 
     public long[] temp = new long[101];
     public int[] d = new int[1001];
+    public static Integer[] price;
 
     public long fibonacci(int a) {
         if (a <= 1)
@@ -71,6 +72,18 @@ public class DynamicProgramming {
             return d[n];
 
         d[n] = pr9095(n-3) + pr9095(n-2) + pr9095(n-1);
+        return d[n];
+    }
+
+    public int pr11052(int n) {
+        if (n == 1) return price[0];
+        if(d[n] != 0) return d[n];
+
+        for (int i=1; i<=n; i++) {
+            int tmp = pr11052(n-i) + price[i-1];
+            if (d[n] < tmp)
+                d[n] = tmp;
+        }
         return d[n];
     }
 }
