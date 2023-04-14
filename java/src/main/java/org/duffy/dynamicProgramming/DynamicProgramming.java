@@ -1,5 +1,9 @@
 package org.duffy.dynamicProgramming;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class DynamicProgramming {
 
     public long[] temp = new long[101];
@@ -85,5 +89,35 @@ public class DynamicProgramming {
                 d[n] = tmp;
         }
         return d[n];
+    }
+
+    public void pr15990() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        long[][] dd = new long[100001][4];
+        long mod = 1000000009L;
+
+        for (int i=1; i<=100000; i++) {
+            if (i-1 >= 0) {
+                dd[i][1] = dd[i-1][2] + dd[i-1][3];
+                if (i == 1)
+                    dd[i][1] = 1;
+            }
+            if (i-2 >= 0) {
+                dd[i][2] = dd[i-2][1] + dd[i-2][3];
+                if (i == 2) dd[i][2] = 1;
+            }
+            if (i-3  >= 0) {
+                dd[i][3] = dd[i-3][1] + dd[i-3][2];
+                if (i == 3) dd[i][3] = 1;
+            }
+            dd[i][1] %= mod;
+            dd[i][2] %= mod;
+            dd[i][3] %= mod;
+        }
+        int n = Integer.valueOf(br.readLine());
+        while (n-- > 0) {
+            int t = Integer.valueOf(br.readLine());
+            System.out.println((dd[t][1] + dd[t][2] + dd[t][3])%mod);
+        }
     }
 }
