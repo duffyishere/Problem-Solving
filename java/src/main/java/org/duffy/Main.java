@@ -3,6 +3,7 @@ package org.duffy;
 import org.duffy.dynamicProgramming.DynamicProgramming;
 
 import java.io.*;
+import java.util.Arrays;
 
 public class Main {
 
