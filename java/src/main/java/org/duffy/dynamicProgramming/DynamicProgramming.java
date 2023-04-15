@@ -7,9 +7,9 @@ import java.util.Arrays;
 
 public class DynamicProgramming {
 
-    public long[] temp = new long[101];
-    public int[] d = new int[1001];
-    public static Integer[] price;
+    private long[] temp = new long[101];
+    private int[] d = new int[1001];
+    private Integer[] price;
 
     public long fibonacci(int a) {
         if (a <= 1)
@@ -184,5 +184,44 @@ public class DynamicProgramming {
             }
         }
         System.out.println(ans);
+    }
+
+    private Integer[] a;
+    private int[] v;
+    public void pr14002() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.valueOf(br.readLine());
+        a = Arrays.stream(br.readLine().split(" "))
+                .map(Integer::new)
+                .toArray(Integer[]::new);
+        d = new int[n];
+        v = new int[n];
+        for (int i=0; i<n; i++) {
+            d[i] = 1;
+            v[i] = -1;
+            for (int j=0; j<i; j++) {
+                if (a[j] < a[i] && d[i] < d[j]+1) {
+                    d[i] = d[j]+1;
+                    v[i] = j;
+                }
+            }
+        }
+        int ans = d[0];
+        int p = 0;
+        for (int i=0; i<n; i++) {
+            if (ans < d[i]) {
+                ans = d[i];
+                p = i;
+            }
+        }
+        System.out.println(ans);
+        print(p);
+        System.out.println();
+    }
+
+    private void print(int p) {
+        if (p == -1) return;
+        print(v[p]);
+        System.out.print(a[p] + " ");
     }
 }
