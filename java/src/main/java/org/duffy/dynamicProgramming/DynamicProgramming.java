@@ -268,4 +268,30 @@ public class DynamicProgramming {
         print(v[p]);
         System.out.print(a[p] + " ");
     }
+
+    public void pr1912() {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] a = new int[n];
+        int[] d = new int[n];
+        for (int i=0; i<n; i++)
+            a[i] = sc.nextInt();
+
+        for (int i=0; i<n; i++) {
+            // d[i] = a[i] || d[i-1] + a[i]
+            d[i] = a[i];
+            if (i == 0)
+                continue;
+            if (d[i-1] + a[i] > a[i])
+                d[i] = d[i-1] + a[i];
+        }
+
+        int rst = d[0];
+        for (int i=0; i<n; i++) {
+            if (rst < d[i])
+                rst = d[i];
+        }
+
+        System.out.println(rst);
+    }
 }
