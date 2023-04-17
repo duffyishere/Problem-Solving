@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class DynamicProgramming {
 
@@ -186,14 +187,15 @@ public class DynamicProgramming {
         System.out.println(ans);
     }
 
-    private Integer[] a;
+    private int[] a;
     private int[] v;
-    public void pr14002() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.valueOf(br.readLine());
-        a = Arrays.stream(br.readLine().split(" "))
-                .map(Integer::new)
-                .toArray(Integer[]::new);
+    public void pr14002_1() throws IOException {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        a = new int[n];
+        for (int i=0; i<n; i++) {
+            a[i] = sc.nextInt();
+        }
         d = new int[n];
         v = new int[n];
         for (int i=0; i<n; i++) {
@@ -217,6 +219,48 @@ public class DynamicProgramming {
         System.out.println(ans);
         print(p);
         System.out.println();
+    }
+
+    public void pr14002_2() {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        a = new int[n];
+        for (int i=0; i<n; i++) {
+            a[i] = sc.nextInt();
+        }
+        d = new int[n];
+        v = new int[n];
+        for (int i=0; i<n; i++) {
+            d[i] = 1;
+            v[i] = -1;
+            for (int j=0; j<=i; j++) {
+                if (a[j]<a[i] && d[i] <= d[j]+1) {
+                    d[i] = d[j]+1;
+                    v[i] = j;
+                }
+            }
+        }
+
+        int rst = d[0];
+        int p = 0;
+        for (int i=0; i<n; i++) {
+            if (d[i] > rst) {
+                rst = d[i];
+                p = i;
+            }
+        }
+
+        System.out.println(rst);
+        pr14002_go(p);
+        System.out.println();
+    }
+
+    private void pr14002_go(int n) {
+        if (n == -1) {
+            return;
+        }
+        pr14002_go(v[n]);
+        System.out.print(a[n]+" ");
     }
 
     private void print(int p) {
