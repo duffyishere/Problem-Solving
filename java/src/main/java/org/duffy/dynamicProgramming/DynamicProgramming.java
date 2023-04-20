@@ -330,4 +330,25 @@ public class DynamicProgramming {
 
         System.out.println(d[k][n]);
     }
+
+    public void pr15988() throws IOException {
+        final long mod = 1000000009L;
+        final int max = 1000000;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        long[] d = new long[max+1];
+        d[0] = 1;
+        for (int i=1; i<=max; i++) {
+            for (int j=1; j<4; j++) {
+                if (i-j >= 0)
+                    d[i] += d[i-j];
+            }
+            d[i] %= mod;
+        }
+
+        int t = Integer.valueOf(br.readLine());
+        while (t-- > 0) {
+            int n = Integer.valueOf(br.readLine());
+            System.out.println(d[n]);
+        }
+    }
 }
