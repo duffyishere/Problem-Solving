@@ -351,4 +351,43 @@ public class DynamicProgramming {
             System.out.println(d[n]);
         }
     }
+
+    public void pr1149() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+        int[][] d = new int[n+1][3];
+        int[][] price = new int[n+1][3];
+
+        for (int i=1; i<=n; i++) {
+            String[] str = br.readLine().split(" ");
+            for (int j=0; j<3; j++) {
+                price[i][j] = Integer.parseInt(str[j]);
+                if (i==1) {
+                    d[i][j] = price[i][j];
+                }
+                else {
+                    switch (j) {
+                        case 0:
+                            d[i][j] = d[i-1][1] < d[i-1][2]? d[i-1][1]: d[i-1][2];
+                            break;
+                        case 1:
+                            d[i][j] += d[i-1][0] < d[i-1][2]? d[i-1][0]: d[i-1][2];
+                            break;
+                        case 2:
+                            d[i][j] += d[i-1][0] < d[i-1][1]? d[i-1][0]: d[i-1][1];
+                            break;
+                    }
+                    d[i][j] += price[i][j];
+                }
+            }
+        }
+
+        int rst = d[n][0];
+        for (int i=0; i<3; i++) {
+            if (d[n][i] < rst)
+                rst = d[n][i];
+        }
+
+        System.out.println(rst);
+    }
 }
