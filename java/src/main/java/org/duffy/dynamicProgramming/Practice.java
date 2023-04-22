@@ -82,4 +82,27 @@ public class Practice {
 
         System.out.println((d[n][0] + d[n][1] + d[n][2])%9901);
     }
+
+    public void pr11057() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.valueOf(br.readLine());
+        final int mod = 10007;
+        int[][] d = new int[n+1][10];
+        for (int i=0; i<10; i++) d[1][i] = 1;
+        for (int i=2; i<=n; i++) {
+            for (int j=0; j<10; j++) {
+                for (int k=0; k<=j; k++) {
+                    d[i][j] += d[i-1][k];
+                }
+                d[i][j] %= mod;
+            }
+        }
+
+        int rst = 0;
+        for(int i=0; i<10; i++) {
+            rst += d[n][i];
+        }
+
+        System.out.println(rst%mod);
+    }
 }
