@@ -369,4 +369,26 @@ public class DynamicProgramming {
             System.out.println(ans);
         }
     }
+
+    public void pr2156() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+        int[] a = new int[n+1];
+        for (int i=1; i<=n; i++) {
+            a[i] = Integer.parseInt(br.readLine());
+        }
+
+        int[][] d = new int[n+1][3];
+        for (int i=1; i<=n; i++) {
+            d[i][0] = Math.max(Math.max(d[i-1][0], d[i-1][1]), d[i-1][2]);
+            d[i][1] = d[i-1][0] + a[i];
+            d[i][2] = d[i-1][1] + a[i];
+        }
+
+        int ret = d[n][0];
+        for (int i=1; i<=2; i++) {
+            ret = (d[n][i] > ret) ? d[n][i] : ret;
+        }
+        System.out.println(ret);
+    }
 }
