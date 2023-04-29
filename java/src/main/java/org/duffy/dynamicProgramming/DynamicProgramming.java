@@ -391,4 +391,30 @@ public class DynamicProgramming {
         }
         System.out.println(ret);
     }
+
+    public void pr1932() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+        int[][] a = new int[n+1][n+1];
+        for (int i=1; i<=n; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            for (int j=1; j<=i; j++) {
+                a[i][j] = Integer.parseInt(st.nextToken());
+            }
+        }
+
+        int[][] d = new int[n+1][n+1];
+        d[1][1] = a[1][1];
+        for (int i=2; i<=n; i++) {
+            for (int j=1; j<=i; j++) {
+                d[i][j] = Math.max(d[i-1][j], d[i-1][j-1]) + a[i][j];
+            }
+        }
+
+        int ret = d[n][1];
+        for (int i=2; i<=n; i++) {
+            ret = (d[n][i] > ret) ? d[n][i] : ret;
+        }
+        System.out.println(ret);
+    }
 }
