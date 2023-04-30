@@ -130,4 +130,40 @@ public class Practice {
             ret = ret < d[i]? d[i]: ret;
         System.out.println(ret);
     }
+
+    public void pr11054() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+        int[] a = new int[n+1];
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        for (int i=1; i<=n; i++) {
+            a[i] = Integer.parseInt(st.nextToken());
+        }
+
+        int[] d1 = new int[n+1];
+        for (int i=1; i<=n; i++) {
+            d1[i] = 1;
+            for (int j=1; j<i; j++) {
+                if (a[i] > a[j] && d1[i] < d1[j]+1)
+                    d1[i] = d1[j]+1;
+            }
+        }
+
+        int[] d2 = new int[n+1];
+        for (int i=n; i>=1; i--) {
+            d2[i] = 1;
+            for (int j=n; j>=i; j--) {
+                if (a[i] > a[j] && d2[i] < d2[j]+1)
+                    d2[i] = d2[j]+1;
+            }
+        }
+
+
+        int ret = d1[1] + d2[1] - 1;
+        for (int i=2; i<=n; i++) {
+            ret = Math.max(ret, d1[i] + d2[i] - 1);
+        }
+
+        System.out.println(ret);
+    }
 }
