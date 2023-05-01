@@ -7,10 +7,11 @@ import java.util.StringTokenizer;
 
 public class Practice {
 
+    private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
     public void pr15988() throws IOException {
         final long mod = 1000000009L;
         final int max = 1000000;
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         long[] d = new long[max+1];
         d[0] = 1;
         for (int i=1; i<=max; i++) {
@@ -29,7 +30,6 @@ public class Practice {
     }
 
     public void pr1149() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         int[][] d = new int[n+1][3];
         int[][] price = new int[n+1][3];
@@ -68,7 +68,6 @@ public class Practice {
     }
 
     public void pr1309() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.valueOf(br.readLine());
         int[][] d = new int[n+1][3];
         d[0][0] = 1;
@@ -85,7 +84,6 @@ public class Practice {
     }
 
     public void pr11057() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.valueOf(br.readLine());
         final int mod = 10007;
         int[][] d = new int[n+1][10];
@@ -108,7 +106,6 @@ public class Practice {
     }
 
     public void pr11722() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         int[] a = new int[n+1];
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -129,6 +126,89 @@ public class Practice {
         for (int i=2; i<=n; i++)
             ret = ret < d[i]? d[i]: ret;
         System.out.println(ret);
+    }
+
+    public void pr11054() throws IOException {
+        int n = Integer.parseInt(br.readLine());
+        int[] a = new int[n+1];
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        for (int i=1; i<=n; i++) {
+            a[i] = Integer.parseInt(st.nextToken());
+        }
+
+        int[] d1 = new int[n+1];
+        for (int i=1; i<=n; i++) {
+            d1[i] = 1;
+            for (int j=1; j<i; j++) {
+                if (a[i] > a[j] && d1[i] < d1[j]+1)
+                    d1[i] = d1[j]+1;
+            }
+        }
+
+        int[] d2 = new int[n+1];
+        for (int i=n; i>=1; i--) {
+            d2[i] = 1;
+            for (int j=n; j>=i; j--) {
+                if (a[i] > a[j] && d2[i] < d2[j]+1)
+                    d2[i] = d2[j]+1;
+            }
+        }
+
+
+        int ret = d1[1] + d2[1] - 1;
+        for (int i=2; i<=n; i++) {
+            ret = Math.max(ret, d1[i] + d2[i] - 1);
+        }
+
+        System.out.println(ret);
+    }
+
+    public void pr13398() throws IOException {
+        int n = Integer.parseInt(br.readLine());
+        int[] a = new int[n+1];
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        for (int i=1; i<=n; i++)
+            a[i] = Integer.parseInt(st.nextToken());
+
+        int[] d1 = new int[n+1];
+        for (int i=1; i<=n; i++) {
+            d1[i] = a[i];
+            int tmp = d1[i-1] + a[i];
+            if (d1[i] < tmp)
+                d1[i] = tmp;
+        }
+
+        int[] d2 = new int[n+1];
+        for (int i=n; i>=1; i--) {
+            d2[i] = a[i];
+            if (i != n && d2[i] < d2[i+1] + a[i])
+                d2[i] = d2[i+1] + a[i];
+        }
+
+        int ret = d1[1];
+        for (int i=2; i<=n; i++) {
+            ret = Math.max(ret, d1[i]);
+        }
+
+        for (int i=2; i<n; i++) {
+            ret = Math.max(ret,  d1[i-1] + d2[i+1]);
+        }
+        System.out.println(ret);
+    }
+
+    public void pr2133() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+        int[] d = new int[n+1];
+        d[0] = 1;
+        for (int i=2; i<=n; i++) {
+            d[i] = d[i-2] * 3;
+            for (int j=i-4; j>=0; j-=2) {
+                d[i] += d[j] * 2;
+            }
+        }
+
+        System.out.println(d[n]);
     }
 
     public void pr17404() throws IOException {
