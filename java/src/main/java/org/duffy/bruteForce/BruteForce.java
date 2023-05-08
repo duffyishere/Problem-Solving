@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.StringTokenizer;
 
 public class BruteForce {
 
@@ -89,5 +90,28 @@ public class BruteForce {
         }
 
         return ret;
+    }
+
+    public void pr1476() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int[] a = new int[3];
+        for (int i=0; i<3; i++)
+            a[i] = Integer.parseInt(st.nextToken());
+
+        int[] d = new int[3];
+        d[0] = d[1] = d[2] = 1;
+        int ret = 1;
+        while (true) {
+            if (d[0] == a[0] && d[1] == a[1] && d[2] == a[2]) {
+                System.out.println(ret);
+                break;
+            }
+            d[0] ++; d[1]++; d[2]++;
+            if (d[0]%15 == 1) d[0] %= 15;
+            if (d[1]%28 == 1) d[1] %= 28;
+            if (d[2]%19 == 1) d[2] %= 19;
+            ret++;
+        }
     }
 }
