@@ -149,4 +149,26 @@ public class BruteForce {
         }
         return len;
     }
+
+    public void pr6064() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine());
+        while (t-- > 0) {
+            String[] line = br.readLine().split(" ");
+            int m = Integer.valueOf(line[0]);
+            int n = Integer.valueOf(line[1]);
+            int x = Integer.valueOf(line[2])-1;
+            int y = Integer.valueOf(line[3])-1;
+            boolean flag = false;
+            for (int k=x; k<n*m; k+=m) {
+                if (k%n==y) {
+                    flag = true;
+                    System.out.println(k+1);
+                    break;
+                }
+            }
+            if (!flag)
+                System.out.println(-1);
+        }
+    }
 }
