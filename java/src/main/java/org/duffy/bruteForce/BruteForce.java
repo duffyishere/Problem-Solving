@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class BruteForce {
@@ -113,5 +114,39 @@ public class BruteForce {
             if (d[2]%19 == 1) d[2] %= 19;
             ret++;
         }
+    }
+
+    public void pr1107() {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        boolean[] a = new boolean[10];
+        for (int i = 0; i < m; i++) {
+            int x = sc.nextInt();
+            a[x] = true;
+        }
+        int ret = Math.abs(n - 100);
+
+        for (int i=0; i<1000000; i++) {
+            int len = check1107(i, a);
+            if (len > 0) {
+                int press = Math.abs(n - i);
+                ret = (press + len < ret)? press + len: ret;
+            }
+        }
+        System.out.println(ret);
+    }
+
+    private int check1107(int n, boolean[] a) {
+        int len = 0;
+        if (n == 0)
+            return a[0]? 0: 1;
+        while(n > 0) {
+            if (a[n%10])
+                return 0;
+            len++;
+            n /= 10;
+        }
+        return len;
     }
 }
