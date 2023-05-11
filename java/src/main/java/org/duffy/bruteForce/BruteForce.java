@@ -171,4 +171,17 @@ public class BruteForce {
                 System.out.println(-1);
         }
     }
+
+    public void pr1748() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+        long ret = 0;
+        for (long start=1, len =1; start<=n; start*=10, len++) {
+            long end = start*10-1;
+            if (end > n)
+                end = n;
+            ret += (end - start + 1) * len;
+        }
+        System.out.println(ret);
+    }
 }
