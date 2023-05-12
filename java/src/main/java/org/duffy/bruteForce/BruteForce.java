@@ -275,4 +275,24 @@ public class BruteForce {
             c[i] = false;
         }
     }
+
+    private void pr15655(int index, int n, int m) {
+        if (index == m) {
+            for (int i=0; i<m; i++) {
+                sb.append(num[a[i]]);
+                if (i != m-1)
+                    sb.append(" ");
+            }
+            sb.append("\n");
+            return;
+        }
+
+        for (int i=0; i<n; i++) {
+            if (c[i] || index!=0 && num[i] < num[a[index-1]]) continue;
+            c[i] = true;
+            a[index] = i;
+            pr15655(index+1, n, m);
+            c[i] = false;
+        }
+    }
 }
