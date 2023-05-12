@@ -253,4 +253,26 @@ public class BruteForce {
             go15651(index+1, n, m);
         }
     }
+
+    private static Integer[] num;
+
+    private void go15652(int index, int n, int m) {
+        if (index == m) {
+            for (int i=0; i<m; i++) {
+                sb.append(num[a[i]-1]);
+                if (i != m-1)
+                    sb.append(" ");
+            }
+            sb.append("\n");
+            return;
+        }
+
+        for (int i=1; i<=n; i++) {
+            if (c[i]) continue;
+            c[i] = true;
+            a[index] = i;
+            go15652(index+1, n, m);
+            c[i] = false;
+        }
+    }
 }
