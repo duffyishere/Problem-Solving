@@ -184,4 +184,36 @@ public class BruteForce {
         }
         System.out.println(ret);
     }
+
+    private boolean[] check = new boolean[10];
+    private int[] ret = new int[10];
+    private StringBuilder sb = new StringBuilder();
+
+    public void pr15649() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        go15649(0, n, m);
+        System.out.println(sb.toString());
+    }
+
+    private void go15649(int index, int n, int m) {
+        if (m == index) {
+            for (int i=0; i<m; i++) {
+                sb.append(ret[i]);
+                if (i != m-1) sb.append(" ");
+            }
+            sb.append("\n");
+            return;
+        }
+        for (int i=1; i<=n; i++) {
+            if (!check[i]) {
+                check[i] = true;
+                ret[index] = i;
+                go15649(index+1, n, m);
+                check[i] = false;
+            }
+        }
+    }
 }
