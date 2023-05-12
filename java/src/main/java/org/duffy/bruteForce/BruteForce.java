@@ -185,8 +185,8 @@ public class BruteForce {
         System.out.println(ret);
     }
 
-    private boolean[] check = new boolean[10];
-    private int[] ret = new int[10];
+    private boolean[] c = new boolean[10];
+    private int[] a = new int[10];
     private StringBuilder sb = new StringBuilder();
 
     public void pr15649() throws IOException {
@@ -201,19 +201,39 @@ public class BruteForce {
     private void go15649(int index, int n, int m) {
         if (m == index) {
             for (int i=0; i<m; i++) {
-                sb.append(ret[i]);
+                sb.append(a[i]);
                 if (i != m-1) sb.append(" ");
             }
             sb.append("\n");
             return;
         }
         for (int i=1; i<=n; i++) {
-            if (!check[i]) {
-                check[i] = true;
-                ret[index] = i;
+            if (!c[i]) {
+                c[i] = true;
+                a[index] = i;
                 go15649(index+1, n, m);
-                check[i] = false;
+                c[i] = false;
             }
+        }
+    }
+
+    private void go15650(int index, int n, int m) {
+        if (index == m) {
+            for (int i=0; i<m; i++) {
+                sb.append(a[i]);
+                if (i != m-1)
+                    sb.append(" ");
+            }
+            sb.append("\n");
+            return;
+        }
+
+        for (int i=1; i<=n; i++) {
+            if (c[i] || index != 0 && i < a[index-1]) continue;
+            c[i] = true;
+            a[index] = i;
+            go15650(index+1, n, m);
+            c[i] = false;
         }
     }
 }
