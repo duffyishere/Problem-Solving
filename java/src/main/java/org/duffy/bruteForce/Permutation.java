@@ -29,4 +29,30 @@ public class Permutation {
         }
         System.out.println(ret);
     }
+
+    private static boolean nextPermutation(Integer[] a) {
+        int i = a.length-1;
+        while (i > 0 && a[i-1] >= a[i])
+            i--;
+        if (i <= 0) return false;
+
+        int j = a.length-1;
+        while (a[j] <= a[i-1])
+            j--;
+
+        swap(a, i-1, j);
+
+        j = a.length-1;
+        while (i < j) {
+            swap(a, i, j);
+            i++; j--;
+        }
+        return true;
+    }
+
+    private static void swap(Integer[] a, int from, int to) {
+        int tmp = a[from];
+        a[from] = a[to];
+        a[to] = tmp;
+    }
 }
