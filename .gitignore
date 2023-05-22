@@ -13,3 +13,4 @@ testData
 /native-helper/target
 /attributes-info/target
 /target
+**/target
