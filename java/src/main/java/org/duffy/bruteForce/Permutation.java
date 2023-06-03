@@ -50,6 +50,28 @@ public class Permutation {
         return true;
     }
 
+    private static boolean nextPermutation2(Integer[] nums) {
+        int l = nums.length-1;
+        int i = l;
+        while (i > 0 && nums[i-1] >= nums[i]) i--;
+        if (i <= 0) return false;
+
+        int j = l;
+        while (nums[j] <= nums[i-1]) j--;
+
+        swap(nums, i-1, j);
+
+        j = l;
+        while (i < j) {
+            swap(nums, i, j);
+            i++; j--;
+        }
+
+        return true;
+    }
+
+
+
     private static void swap(Integer[] a, int from, int to) {
         int tmp = a[from];
         a[from] = a[to];
