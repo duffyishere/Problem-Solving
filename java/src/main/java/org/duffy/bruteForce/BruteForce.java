@@ -3,9 +3,7 @@ package org.duffy.bruteForce;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class BruteForce {
 
@@ -293,6 +291,26 @@ public class BruteForce {
             a[index] = i;
             pr15655(index+1, n, m);
             c[i] = false;
+        }
+    }
+
+    public void pr9375() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int caseCount = Integer.parseInt(br.readLine());
+        while (caseCount-- > 0) {
+            Map<String, Integer> clothes = new HashMap<>();
+            Set<String> clothTypes = new HashSet<>();
+            int n = Integer.parseInt(br.readLine());
+            for (int i = 0; i < n; i++) {
+                String[] strings = br.readLine().split(" ");
+                clothTypes.add(strings[1]);
+                clothes.put(strings[1], clothes.getOrDefault(strings[1], 0) + 1);
+            }
+            long ret = 1;
+            for (String type: clothTypes) {
+                ret *= clothes.get(type)+1;
+            }
+            System.out.println(--ret);
         }
     }
 }
