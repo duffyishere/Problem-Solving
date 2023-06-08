@@ -3,6 +3,7 @@ package org.duffy.etc;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.util.*;
 
 public class ETC {
@@ -62,6 +63,9 @@ public class ETC {
     }
 
     public List<String> vowels = Arrays.asList("a", "e", "i", "o", "u");
+
+    public List<String> numerics = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "0");
+
     public void pr4659() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String input;
@@ -103,5 +107,41 @@ public class ETC {
 
     private boolean isVowel(String str) {
         return vowels.contains(str);
+    }
+
+    public List<String> numerics = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "0");
+
+    public void pr2870() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+        List<BigDecimal> nums = new ArrayList<>();
+        while (n-- > 0) {
+            String[] strings = br.readLine().split("");
+            Stack<BigDecimal> tmp = new Stack<>();
+            boolean flag = false;
+            for (int i = 0; i <strings.length; i++) {
+                String str = strings[i];
+                if (isNumeric(str)) {
+                    if (flag) // 이전 값이 숫자인 경우
+                        tmp.push(tmp.pop().multiply(BigDecimal.valueOf(10)).add(BigDecimal.valueOf(Integer.valueOf(str))));
+                    else
+                        tmp.push(BigDecimal.valueOf(Integer.valueOf(str)));
+                    flag = true;
+                }
+                else {
+                    flag = false;
+                }
+            }
+            nums.addAll(tmp);
+        }
+
+        Collections.sort(nums);
+        for (BigDecimal num: nums) {
+            System.out.println(num);
+        }
+    }
+
+    private boolean isNumeric(String str) {
+        return numerics.contains(str);
     }
 }
