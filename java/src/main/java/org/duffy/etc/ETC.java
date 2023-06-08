@@ -64,7 +64,6 @@ public class ETC {
 
     public List<String> vowels = Arrays.asList("a", "e", "i", "o", "u");
 
-    public List<String> numerics = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "0");
 
     public void pr4659() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -109,6 +108,7 @@ public class ETC {
         return vowels.contains(str);
     }
 
+
     public List<String> numerics = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "0");
 
     public void pr2870() throws IOException {
@@ -143,5 +143,38 @@ public class ETC {
 
     private boolean isNumeric(String str) {
         return numerics.contains(str);
+    }
+
+
+    public void pr10709() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] buffer = br.readLine().split(" ");
+        int height = Integer.parseInt(buffer[0]);
+        int width = Integer.parseInt(buffer[1]);
+        int[][] ret = new int[height][width];
+
+        for (int h=0; h<height; h++) {
+            int cnt = -1;
+            buffer = br.readLine().split("");
+            for (int w=0; w<width; w++) {
+                String ch = buffer[w];
+                if (ch.equals("c")) {
+                    cnt = 0;
+                    continue;
+                }
+                if (0 <= w-1 && 0 <= ret[h][w-1])
+                    cnt++;
+                ret[h][w] = cnt;
+            }
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i=0; i<height; i++) {
+            for (int j = 0; j < width; j++) {
+                sb.append(ret[i][j] + " ");
+            }
+            sb.append("\n");
+        }
+        System.out.println(sb);
     }
 }
