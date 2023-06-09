@@ -124,4 +124,55 @@ public class BFS {
         }
         return count;
     }
+
+    public void pr2636() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] buffer = br.readLine().split(" ");
+        height = Integer.parseInt(buffer[0]);
+        width = Integer.parseInt(buffer[1]);
+        grid = new int[height][width];
+        for (int i = 0; i < height; i++) {
+            buffer = br.readLine().split(" ");
+            for (int j = 0; j < width; j++) {
+                int num = Integer.parseInt(buffer[j]);
+                grid[i][j] = num;
+            }
+        }
+
+        int timeCount = 0;
+        int tmp = 0;
+        while (true) {
+            visited = new int[height][width];
+            int edgeCount = dfs2636(0, 0);
+            if (edgeCount == 0)
+                break;
+            visited[0][0] = 1;
+
+            timeCount++;
+            tmp = edgeCount;
+        }
+        System.out.println(timeCount);
+        System.out.println(tmp);
+    }
+
+    public int dfs2636(int y, int x) {
+        int edgeCount = 0;
+        for (int i = 0; i < 4; i++) {
+            int movedY = y + dy[i];
+            int movedX = x + dx[i];
+
+            if (movedY < 0 || movedX < 0 || height <= movedY || width <= movedX) continue;
+            if (visited[movedY][movedX] == 1) continue;
+            if (grid[movedY][movedX] == 1) {
+                edgeCount++;
+                grid[movedY][movedX] = 0;
+                visited[movedY][movedX] = 1;
+                continue;
+            }
+
+            visited[movedY][movedX] = 1;
+            edgeCount+=dfs2636(movedY, movedX);
+        }
+        return edgeCount;
+    }
 }
