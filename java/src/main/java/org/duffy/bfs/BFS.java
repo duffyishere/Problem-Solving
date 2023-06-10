@@ -175,4 +175,40 @@ public class BFS {
         }
         return edgeCount;
     }
+
+    public List<Integer>[] tree;
+    public int removedNode;
+    public void pr1068() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+        tree = new ArrayList[n];
+        for (int i = 0; i < n; i++) {
+            tree[i] = new ArrayList<>();
+        }
+        String[] buffer =  br.readLine().split(" ");
+        int rootIndex = 0;
+        for (int i = 0; i < n; i++) {
+            int parent = Integer.parseInt(buffer[i]);
+            if (parent == -1) rootIndex = i;
+            else tree[parent].add(i);
+        }
+        removedNode = Integer.parseInt(br.readLine());
+
+        if (rootIndex == removedNode) {
+            System.out.println(0);
+            return;
+        }
+        System.out.println(dfs1068(rootIndex));
+    }
+
+    private int dfs1068(int there) {
+        int ret = 0;
+        int childrenCount = 0;
+        for (int here: tree[there]) {
+            if (here == removedNode) continue;
+            ret += dfs1068(here);
+            childrenCount++;
+        }
+        return childrenCount == 0? 1: ret;
+    }
 }
