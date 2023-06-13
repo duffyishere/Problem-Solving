@@ -13,9 +13,9 @@ public class Permutation {
         StringTokenizer st = new StringTokenizer(br.readLine());
         int n = Integer.parseInt(st.nextToken());
         int k = Integer.parseInt(st.nextToken());
-        Integer[] a = Arrays.stream(br.readLine().split(" "))
-                .map(Integer::parseInt)
-                .toArray(Integer[]::new);
+        int[] a = new int[n];
+        for (int i = 0; i < n; i++)
+            a[i] = Integer.parseInt(st.nextToken());
 
         long ret = 0;
         for (int i=0; i<k; i++) {
@@ -30,7 +30,26 @@ public class Permutation {
         System.out.println(ret);
     }
 
-    private static boolean nextPermutation(Integer[] a) {
+    public void pr10819(int[] nums) {
+        Arrays.sort(nums);
+        int ret  = 0;
+        do {
+            int tmp = count(nums);
+            ret = Math.max(ret, tmp);
+        } while (nextPermutation(nums));
+
+        System.out.println(ret);
+    }
+
+    public int count(int[] nums) {
+        int sum = 0;
+        for (int i = 1; i < nums.length; i++) {
+            sum += Math.abs(nums[i-1] - nums[i]);
+        }
+        return sum;
+    }
+
+    public static boolean nextPermutation(int[] a) {
         int i = a.length-1;
         while (i > 0 && a[i-1] >= a[i])
             i--;
@@ -50,29 +69,7 @@ public class Permutation {
         return true;
     }
 
-    private static boolean nextPermutation2(Integer[] nums) {
-        int l = nums.length-1;
-        int i = l;
-        while (i > 0 && nums[i-1] >= nums[i]) i--;
-        if (i <= 0) return false;
-
-        int j = l;
-        while (nums[j] <= nums[i-1]) j--;
-
-        swap(nums, i-1, j);
-
-        j = l;
-        while (i < j) {
-            swap(nums, i, j);
-            i++; j--;
-        }
-
-        return true;
-    }
-
-
-
-    private static void swap(Integer[] a, int from, int to) {
+    public static void swap(int[] a, int from, int to) {
         int tmp = a[from];
         a[from] = a[to];
         a[to] = tmp;
