@@ -49,6 +49,32 @@ public class Permutation {
         return sum;
     }
 
+    public void pr10971(int n, int[][] grid) {
+        int ret = Integer.MAX_VALUE;
+        int[] d = new int[n];
+        for (int i = 0; i < n; i++) {
+            d[i] = i;
+        }
+
+        do {
+            boolean flag = true;
+            int sum = 0;
+            for (int i = 0; i < n-1; i++) {
+                if (grid[d[i]][d[i+1]] == 0)
+                    flag = false;
+                else
+                    sum += grid[d[i]][d[i+1]];
+            }
+            if (flag && grid[d[n-1]][d[0]] != 0) {
+                sum += grid[d[n-1]][d[0]];
+                if (ret > sum)
+                    ret = sum;
+            }
+        } while (nextPermutation(d));
+
+        System.out.println(ret);
+    }
+
     public static boolean nextPermutation(int[] a) {
         int i = a.length-1;
         while (i > 0 && a[i-1] >= a[i])
