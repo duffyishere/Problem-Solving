@@ -15,4 +15,29 @@ public class Recursive {
         }
         return ret;
     }
+
+    public void go1759(int n, String[] strings, String password, int i) {
+        if (password.length() == n) {
+            if (check1759(password)) {
+                System.out.println(password);
+            }
+            return;
+        }
+        if (strings.length <= i) return;
+        go1759(n, strings, password+strings[i], i+1);
+        go1759(n, strings, password, i+1);
+    }
+
+    private boolean check1759(String password) {
+        int consonantCount = 0;
+        int vowelCount = 0;
+        for (char c: password.toCharArray()) {
+            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u')
+                vowelCount++;
+            else
+                consonantCount++;
+        }
+
+        return vowelCount >= 1 && consonantCount >= 2;
+    }
 }
