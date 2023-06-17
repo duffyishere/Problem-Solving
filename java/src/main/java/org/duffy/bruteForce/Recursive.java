@@ -112,4 +112,42 @@ public class Recursive {
 
         return ret;
     }
+
+    public int go15661(int index, List<Integer> first, List<Integer> second) {
+        if (n == index) {
+            if (first.size() == 0) return -1;
+            if (second.size() == 0) return -1;
+            int team1 = 0;
+            int team2 = 0;
+            for (int i = 0; i < first.size(); i++) {
+                for (int j = 0; j < first.size(); j++) {
+                    if (i == j) continue;
+                    team1 += grid[first.get(i)][first.get(j)];
+                }
+            }
+            for (int i = 0; i < second.size(); i++) {
+                for (int j = 0; j < second.size(); j++) {
+                    if (i == j) continue;
+                    team2 += grid[second.get(i)][second.get(j)];
+                }
+            }
+
+            return Math.abs(team1 - team2);
+        }
+
+        int ret = -1;
+        first.add(index);
+        int team1 = go15661(index + 1, first, second);
+        if (ret == -1 || team1 != -1 && team1 < ret)
+            ret = team1;
+        first.remove(first.size() - 1);
+
+        second.add(index);
+        int team2 = go15661(index + 1, first, second);
+        if (ret == -1 || team2 != -1 && team2 < ret)
+            ret = team2;
+        second.remove(second.size() - 1);
+
+        return ret;
+    }
 }
