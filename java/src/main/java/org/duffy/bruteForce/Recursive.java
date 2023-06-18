@@ -1,5 +1,6 @@
 package org.duffy.bruteForce;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Recursive {
@@ -149,5 +150,36 @@ public class Recursive {
         second.remove(second.size() - 1);
 
         return ret;
+    }
+
+    List<String> ret2529 = new ArrayList<>();
+    char[] a;
+    boolean[] visited = new boolean[10];
+
+    public void go2529(int index, String num) {
+        if (index == n + 1) {
+            ret2529.add(num);
+            return;
+        }
+
+        // else
+        for (int i = 0; i < 10; i++) {
+            if (visited[i]) continue;
+            if (index == 0 || isGood2529(num.charAt(index-1), (char) (i + '0'), a[index - 1])) {
+                visited[i] = true;
+                go2529(index + 1, num + i);
+                visited[i] = false;
+            }
+        }
+    }
+
+    static boolean isGood2529(char x, char y, char op) {
+        if (op == '<') {
+            if (x > y) return false;
+        }
+        if (op == '>') {
+            if (x < y) return false;
+        }
+        return true;
     }
 }
