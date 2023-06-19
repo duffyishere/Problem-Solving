@@ -60,4 +60,25 @@ public class Graph {
         }
         System.out.println(0);
     }
+
+    List<Integer>[] graph;
+    boolean[] visited;
+    int ret = 0;
+    public void pr11724(int n) {
+        for (int i = 1; i <= n - 1; i++) {
+            if (visited[i] == false) {
+                dfs11724(i);
+                ret++;
+            }
+        }
+        System.out.println(ret);
+    }
+
+    public void dfs11724(int start) {
+        if (visited[start]) return;
+        visited[start] = true;
+        for (Integer next: graph[start]) {
+            dfs11724(next);
+        }
+    }
 }
