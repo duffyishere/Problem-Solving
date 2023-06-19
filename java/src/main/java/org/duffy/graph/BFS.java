@@ -54,4 +54,40 @@ public class BFS {
 
         System.out.println(visited[length-1][width-1]);
     }
+
+    public void pr7576(int h, int w, int[][]graph, List<Integer[]> tomatoes) {
+        Queue<Integer[]> workQueue = new LinkedList<>();
+        int[][] visited = new int[h][w];
+        for (Integer[] tomato: tomatoes) {
+            workQueue.add(tomato);
+            visited[tomato[0]][tomato[1]] = 1;
+        }
+
+        while (workQueue.size() > 0) {
+            Integer[] work = workQueue.poll();
+            int y = work[0];
+            int x = work[1];
+            for (int i = 0; i < 4; i++) {
+                int my = y + dy[i];
+                int mx = x + dx[i];
+                if (0 <= my && my < h && 0 <= mx && mx < w) {
+                    if (visited[my][mx] == 0 && graph[my][mx] == 0) {
+                        visited[my][mx] = visited[y][x] + 1;
+                        graph[my][mx] = 1;
+                        workQueue.add(new Integer[]{my, mx});
+                    }
+                }
+            }
+        }
+
+        boolean flag = false;
+        int ret = 0;
+        for (int i = 0; i < h; i++) {
+            for (int j = 0; j < w; j++) {
+                ret = Math.max(visited[i][j], ret);
+                if (visited[i][j] == 0 && graph[i][j] != -1) flag = true;
+            }
+        }
+        System.out.println(flag? -1: ret - 1);
+    }
 }
