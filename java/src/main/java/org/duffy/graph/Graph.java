@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -80,5 +81,47 @@ public class Graph {
         for (Integer next: graph[start]) {
             dfs11724(next);
         }
+    }
+
+    public void pr2667(List<Integer>[] graph, int n) {
+        this.n = n;
+        boolean[][] visited = new boolean[n][n];
+        List<Integer> ret = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (visited[i][j] == false && graph[i].get(j) == 1) {
+                    int count = dfs(graph, visited, i, j);
+                    if (count == 1)
+                        ret.add(1);
+                    else
+                        ret.add(count - 1);
+                }
+            }
+        }
+
+        Collections.sort(ret);
+        System.out.println(ret.size());
+        for (Integer i: ret) {
+            System.out.println(i);
+        }
+    }
+    public int n;
+    public int[] dy = {1, 0, -1, 0};
+    public int[] dx = {0, -1, 0, 1};
+    private Integer dfs(List<Integer>[] graph, boolean[][] visited, int y, int x) {
+        int count = 1;
+        for (int i = 0; i < 4; i++) {
+            int my = y + dy[i];
+            int mx = x + dx[i];
+
+            if (my < 0 || mx < 0 || n-1 < my || n-1 < mx) continue;
+            if (visited[my][mx]) continue;
+            if (graph[my].get(mx) == 0) continue;
+
+            visited[my][mx] = true;
+            count += dfs(graph, visited, my, mx);
+        }
+
+        return count;
     }
 }
