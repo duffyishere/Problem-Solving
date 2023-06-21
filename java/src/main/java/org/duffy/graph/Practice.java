@@ -1,5 +1,9 @@
 package org.duffy.graph;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 public class Practice {
     int y, x;
 
@@ -44,5 +48,52 @@ public class Practice {
             }
         }
         return false;
+    }
+
+    public void pr16947(int n, List<Integer>[] graph) {
+        visited = new int[n];
+        findCycle(graph, 0, 0);
+        Queue<Integer> workQueue = new LinkedList<>();
+        int[] count = new int[n];
+        for (int i = 0; i < n; i++) {
+            if (visited[i] == 2) {
+                workQueue.add(i);
+            }
+            else
+                count[i] = -1;
+        }
+        while (!workQueue.isEmpty()) {
+            int now = workQueue.remove();
+            for (int next: graph[now]) {
+                if (count[next] == -1) {
+                    count[next] = count[now] + 1;
+                    workQueue.add(next);
+                }
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            System.out.print(count[i] + " ");
+        }
+        System.out.println();
+    }
+
+    // If it's a cycle, visited is 2.
+    int[] visited;
+    public int findCycle(List<Integer>[] graph, int now, int prev) {
+        if (0 < visited[now]) return now;
+        visited[now] = 1;
+        for (Integer next: graph[now]) {
+            if (next == prev) continue;
+            int res = findCycle(graph, next, now);
+            if (res == -2) return -2;
+            if (0 <= res) {
+                visited[now] = 2;
+                if (res == now) return -2;
+                else return res;
+            }
+        }
+
+        return -1;
     }
 }
