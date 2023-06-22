@@ -1,8 +1,6 @@
 package org.duffy.graph;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class Challenge {
     public void pr16940(int n, List<Integer>[] graph, int[] sequence) {
@@ -40,5 +38,43 @@ public class Challenge {
             startIndex += count;
         }
         System.out.println(1);
+    }
+
+    public void pr16964(int n, List<Integer>[] graph, int[] seq, int[] b) {
+        boolean[] visited = new boolean[n];
+        this.n = n;
+        this.visited = visited;
+        this.graph = graph;
+
+        for (int i = 0; i < n; i++) {
+            Collections.sort(graph[i], (u, v) -> {
+                if (seq[u] < seq[v])
+                    return -1;
+                else if (seq[u] == seq[v])
+                    return 0;
+                else
+                    return 1;
+            });
+        }
+
+        dfs(0);
+        boolean flag = true;
+        for (int i = 0; i < n; i++) {
+            if (dfsOrder.get(i) != b[i])
+                flag = false;
+        }
+        System.out.println(flag? 1: 0);
+    }
+
+    int n;
+    List<Integer>[] graph;
+    boolean[] visited;
+    List<Integer> dfsOrder = new ArrayList<>();
+    public void dfs(int now) {
+        if (visited[now]) return;
+        dfsOrder.add(now);
+        visited[now] = true;
+        for (int next: graph[now])
+            dfs(next);
     }
 }
