@@ -1,5 +1,7 @@
 package org.duffy;
 
+import org.duffy.graph.Challenge;
+
 import java.io.*;
 import java.util.*;
 
