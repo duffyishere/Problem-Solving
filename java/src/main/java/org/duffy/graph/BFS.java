@@ -90,4 +90,36 @@ public class BFS {
         }
         System.out.println(flag? -1: ret - 1);
     }
+
+    public void pr1679(int n, int k) {
+        final int MAX = 100001;
+        int[] visited = new int[MAX];
+        Queue<Integer> workQueue = new LinkedList<>();
+
+        visited[n] = 1;
+        workQueue.add(n);
+        while (!workQueue.isEmpty()) {
+            int now = workQueue.remove();
+
+            if (0 <= now - 1) {
+                if (visited[now - 1] < 1) {
+                    visited[now - 1] = visited[now] + 1;
+                    workQueue.add(now - 1);
+                }
+            }
+            if (now + 1 < MAX) {
+                if (visited[now + 1] < 1) {
+                    visited[now + 1] = visited[now] + 1;
+                    workQueue.add(now + 1);
+                }
+            }
+            if (now * 2 < MAX) {
+                if (visited[now * 2] < 1) {
+                    visited[now * 2] = visited[now] + 1;
+                    workQueue.add(now * 2);
+                }
+            }
+        }
+        System.out.println(visited[k] - 1);
+    }
 }
