@@ -3,10 +3,7 @@ package org.duffy.graph;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class BFS {
 
@@ -121,5 +118,57 @@ public class BFS {
             }
         }
         System.out.println(visited[k] - 1);
+    }
+
+    public void pr13913(int n, int k) {
+        final int MAX = 1000001;
+        int[] visited = new int[MAX];
+        int[] from = new int[MAX];
+        Queue<Integer> visitQueue = new LinkedList<>();
+
+        visitQueue.add(n);
+        visited[n] = 1;
+        while (!visitQueue.isEmpty()) {
+            if (visited[k] != 0)
+                break;
+
+            int now = visitQueue.remove();
+            if (0 <= now - 1) {
+                if (visited[now - 1] < 1) {
+                    visited[now - 1] = visited[now] + 1;
+                    visitQueue.add(now - 1);
+                    from[now - 1] = now;
+                }
+            }
+            if (now + 1 < MAX) {
+                if (visited[now + 1] < 1) {
+                    visited[now + 1] =  visited[now] + 1;
+                    visitQueue.add(now + 1);
+                    from[now + 1] = now;
+                }
+            }
+            if (now * 2 < MAX) {
+                if (visited[now * 2] < 1) {
+                    visited[now * 2] = visited[now] + 1;
+                    visitQueue.add(now * 2);
+                    from[now * 2] = now;
+                }
+            }
+        }
+
+
+        Stack<Integer> ret = new Stack<>();
+        for (int i = k; i != n; i = from[i]) {
+            ret.push(i);
+        }
+        ret.push(n);
+
+        StringBuilder sb = new StringBuilder();
+        while (!ret.isEmpty()) {
+            sb.append(ret.pop() + " ");
+        }
+
+        System.out.println(visited[k] - 1);
+        System.out.println(sb);
     }
 }
