@@ -213,4 +213,34 @@ public class BFS {
 
         System.out.println(ret - 1);
     }
+
+    public void pr13549(int n, int k) {
+        final int MAX = 1000100;
+        boolean[] checked = new boolean[MAX];
+        int[] visited = new int[MAX];
+        ArrayDeque<Integer> visitDeck = new ArrayDeque<>();
+
+        visitDeck.add(n);
+        visited[n] = 1;
+        while (!visitDeck.isEmpty()) {
+            if (visited[k] != 0) break;
+            int now = visitDeck.poll();
+            for (int next: new int[] {now * 2, now - 1, now + 1}) {
+                if (0 <= next && next < MAX) {
+                    if (checked[next]) continue;
+                    checked[next] = true;
+                    if (next == now * 2) {
+                        visited[next] = visited[now];
+                        visitDeck.addFirst(next);
+                    }
+                    else {
+                        visited[next] = visited[now] + 1;
+                        visitDeck.addLast(next);
+                    }
+                }
+            }
+        }
+
+        System.out.println(visited[k]- 1);
+    }
 }
