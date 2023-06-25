@@ -171,4 +171,46 @@ public class BFS {
         System.out.println(visited[k] - 1);
         System.out.println(sb);
     }
+
+    public void pr14226(int s) {
+        int[][] visited = new int[s + 1][s + 1];
+        Queue<Integer[]> visitQueue = new LinkedList<>();
+        visitQueue.add(new Integer[] {1, 0});
+        visited[1][0] = 1;
+
+        while (!visitQueue.isEmpty()) {
+            Integer[] buffer = visitQueue.remove();
+            int screen = buffer[0];
+            int clipboard = buffer[1];
+
+            if (0 < screen) {
+                if (visited[screen][screen] == 0) {
+                    visited[screen][screen] = visited[screen][clipboard] + 1;
+                    visitQueue.add(new Integer[]{screen, screen});
+                }
+            }
+
+            if (0 < clipboard && screen + clipboard <= s) {
+                if (visited[screen + clipboard][clipboard] == 0) {
+                    visited[screen + clipboard][clipboard] = visited[screen][clipboard] + 1;
+                    visitQueue.add(new Integer[]{screen + clipboard, clipboard});
+                }
+            }
+
+            if (0 < screen) {
+                if (visited[screen - 1][clipboard] == 0) {
+                    visited[screen - 1][clipboard] = visited[screen][clipboard] + 1;
+                    visitQueue.add(new Integer[]{screen - 1, clipboard});
+                }
+            }
+        }
+
+        int ret = Integer.MAX_VALUE;
+        for (int i = 0; i < s + 1; i++) {
+            if (visited[s][i] == 0) continue;
+            ret = Math.min(ret, visited[s][i]);
+        }
+
+        System.out.println(ret - 1);
+    }
 }
