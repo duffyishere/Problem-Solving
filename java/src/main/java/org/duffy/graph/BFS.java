@@ -218,29 +218,59 @@ public class BFS {
         final int MAX = 1000100;
         boolean[] checked = new boolean[MAX];
         int[] visited = new int[MAX];
-        ArrayDeque<Integer> visitDeck = new ArrayDeque<>();
+        ArrayDeque<Integer> visitDeque = new ArrayDeque<>();
 
-        visitDeck.add(n);
+        visitDeque.add(n);
         visited[n] = 1;
-        while (!visitDeck.isEmpty()) {
+        while (!visitDeque.isEmpty()) {
             if (visited[k] != 0) break;
-            int now = visitDeck.poll();
+            int now = visitDeque.poll();
             for (int next: new int[] {now * 2, now - 1, now + 1}) {
                 if (0 <= next && next < MAX) {
                     if (checked[next]) continue;
                     checked[next] = true;
                     if (next == now * 2) {
                         visited[next] = visited[now];
-                        visitDeck.addFirst(next);
+                        visitDeque.addFirst(next);
                     }
                     else {
                         visited[next] = visited[now] + 1;
-                        visitDeck.addLast(next);
+                        visitDeque.addLast(next);
                     }
                 }
             }
         }
 
         System.out.println(visited[k]- 1);
+    }
+
+    public void pr1261(int width, int height, int[][] graph) {
+        int[][] visited = new int[height][width];
+        ArrayDeque<Integer[]> visitDeque = new ArrayDeque<>();
+
+        visitDeque.add(new Integer[]{0, 0});
+        visited[0][0] = 1;
+        while (!visitDeque.isEmpty()) {
+            Integer[] buffer = visitDeque.poll();
+            int y = buffer[0];
+            int x = buffer[1];
+
+            for (int i = 0; i < 4; i++) {
+                int my = y + dy[i];
+                int mx = x + dx[i];
+
+                if (my < 0 || mx < 0 || height <= my || width <= mx) continue;
+                if (0 < visited[my][mx]) continue;
+                if (graph[my][mx] == 0) {
+                    visitDeque.addFirst(new Integer[]{my, mx});
+                    visited[my][mx] = visited[y][x];
+                }
+                else {
+                    visitDeque.addLast(new Integer[]{my, mx});
+                    visited[my][mx] = visited[y][x] + 1;
+                }
+            }
+        }
+        System.out.println(visited[height - 1][width - 1] - 1);
     }
 }
