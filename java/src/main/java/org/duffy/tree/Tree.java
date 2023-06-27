@@ -1,5 +1,9 @@
 package org.duffy.tree;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Tree {
 
     class Node {
@@ -64,5 +68,28 @@ public class Tree {
         nodes[node].order = ++order;
         nodes[node].depth = depth;
         inorder(nodes[node].right, depth+1);
+    }
+
+    public void pr11725(int n, ArrayList<Integer>[] tree) {
+        int[] visited = new int[n];
+        int[] parent = new int[n];
+        Queue<Integer> visitQueue = new LinkedList<>();
+
+        visited[0] = 1;
+        visitQueue.add(0);
+        while (!visitQueue.isEmpty()) {
+            int now = visitQueue.remove();
+            for (int next: tree[now]) {
+                if (0 < visited[next]) continue;
+
+                visited[next] = visited[now] + 1;
+                parent[next] = now;
+                visitQueue.add(next);
+            }
+        }
+
+        for (int i = 1; i < n; i++) {
+            System.out.println(parent[i] + 1);
+        }
     }
 }
