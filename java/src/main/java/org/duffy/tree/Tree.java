@@ -92,4 +92,48 @@ public class Tree {
             System.out.println(parent[i] + 1);
         }
     }
+
+    int[] distances;
+    boolean[] visited;
+    ArrayList<Integer[]>[] tree;
+    public void pr1167(int n, ArrayList<Integer[]>[] tree) {
+        this.distances = new int[n + 1];
+        this.visited = new boolean[n + 1];
+        this.tree = tree;
+
+        visited[1] = true;
+        dfs(1);
+
+        int start = distances[1];
+        for (int i = 2; i <= n; i++) {
+            if (distances[start] < distances[i])
+                start = i;
+        }
+
+        this.distances = new int[n + 1];
+        this.visited = new boolean[n + 1];
+
+        visited[start] = true;
+        dfs(start);
+
+        int ret = distances[1];
+        for (int i = 2; i <= n; i++) {
+            ret = Math.max(ret, distances[i]);
+        }
+
+        System.out.println(ret);
+    }
+
+    public void dfs(int now) {
+        for (Integer[] buffer: tree[now]) {
+            int next = buffer[0];
+            int cost = buffer[1];
+
+            if (visited[next]) continue;
+
+            visited[next] = true;
+            distances[next] = distances[now] + cost;
+            dfs(next);
+        }
+    }
 }
