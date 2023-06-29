@@ -171,4 +171,41 @@ public class DFS {
             dfs(mx, my);
         }
     }
+
+    // start: graph[height - 1][0]
+    // end: graph[0][width - 1]
+    public void pr1189(int height, int width, int k, char[][] graph) {
+        this.k = k;
+        this.height = height;
+        this.width = width;
+        this.graph1189 = graph;
+        this.visited = new int[height][width];
+
+        visited[height - 1][0] = 1;
+        System.out.println(dfs1189(height - 1, 0));
+    }
+
+    int k;
+    char[][] graph1189;
+    public int dfs1189(int y, int x) {
+        if (y == 0 && x == width - 1) {
+            if (k == visited[y][x]) return 1;
+            else return 0;
+        }
+
+        int ret = 0;
+        for (int i = 0; i < 4; i++) {
+            int my = y + dy[i];
+            int mx = x + dx[i];
+            if (my < 0 || mx < 0 || height <= my || width <= mx) continue;
+            if (0 < visited[my][mx]) continue;
+            if (graph1189[my][mx] == 'T') continue;
+            visited[my][mx] = visited[y][x] + 1;
+            ret += dfs1189(my, mx);
+            visited[my][mx] = 0;
+        }
+
+        return ret;
+    }
+
 }
