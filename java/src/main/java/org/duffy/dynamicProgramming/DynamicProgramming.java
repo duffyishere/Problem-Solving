@@ -201,7 +201,7 @@ public class DynamicProgramming {
         System.out.println(ans);
     }
 
-    public void pr11053Re() throws IOException {
+    public void pr11053_2() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         int[] a = new int[n+1];
@@ -223,6 +223,23 @@ public class DynamicProgramming {
         for (int i=1; i<=n; i++) {
             ret = (ret < d[i]) ? d[i] : ret;
         }
+        System.out.println(ret);
+    }
+    public void pr11053_3(int n, int[] nums) {
+        int[] counts = new int[n];
+        for (int i = 0; i < n; i++) {
+            counts[i] = 1;
+            for (int j = 0; j < i; j++) {
+                if (nums[j] < nums[i] && counts[i] < counts[j] + 1) {
+                    counts[i] = counts[j] + 1;
+                }
+            }
+        }
+
+        int ret = Integer.MIN_VALUE;
+        for (int num: counts)
+            ret = Math.max(ret, num);
+
         System.out.println(ret);
     }
 
