@@ -313,4 +313,31 @@ public class BruteForce {
             System.out.println(--ret);
         }
     }
+
+
+    public void pr1182(int n, int s, int[] nums) {
+        this.n = n;
+        this.s = s;
+        this.nums = nums;
+        go1182(0, 0);
+        if (s == 0)
+            ret = ret - 1;
+
+        System.out.println(ret);
+    }
+
+    int n;
+    int s;
+    int[] nums;
+    int ret = 0;
+    public void go1182(int num, int index) {
+        if (index == n) {
+            if (num == s)
+                ret++;
+            return;
+        }
+
+        go1182(num + nums[index], index + 1);
+        go1182(num, index + 1);
+    }
 }
