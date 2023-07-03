@@ -31,4 +31,46 @@ public class Sort {
 
         System.out.println(sb);
     }
+
+    public void pr2751(int n, int[] nums) {
+        this.nums = nums;
+        this.temp = new int[n];
+        mergeSort(0, n);
+
+        StringBuffer sb = new StringBuffer();
+        for (int num: nums)
+            sb.append(num + "\n");
+
+        System.out.println(sb);
+    }
+
+    public void mergeSort(int start, int end) {
+        if (start + 1 == end) return;
+        int mid = (start + end) / 2;
+
+        mergeSort(start, mid);
+        mergeSort(mid, end);
+        merge(start, end);
+    }
+
+    int[] nums;
+    int[] temp;
+    public void merge(int start, int end) {
+        int mid = (start + end) / 2;
+        int leftIndex = start;
+        int rightIndex = mid;
+        for (int i = start; i < end; i++) {
+            if (rightIndex == end)
+                temp[i] = nums[leftIndex++];
+            else if (leftIndex == mid)
+                temp[i] = nums[rightIndex++];
+            else if (nums[leftIndex] <= nums[rightIndex])
+                temp[i] = nums[leftIndex++];
+            else
+                temp[i] = nums[rightIndex++];
+        }
+
+        for (int i = start; i < end; i++)
+            nums[i] = temp[i];
+    }
 }
