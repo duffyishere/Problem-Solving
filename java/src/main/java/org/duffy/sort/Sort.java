@@ -73,4 +73,49 @@ public class Sort {
         for (int i = start; i < end; i++)
             nums[i] = temp[i];
     }
+
+    public void mergerSort_2(int start, int end) {
+        if (start + 1 == end) return;
+        int mid = (start + end) / 2;
+        mergerSort_2(start, mid);
+        mergerSort_2(mid, end);
+        merge_2(start, end);
+    }
+
+    public void merge_2(int start, int end) {
+        int mid = (start + end) / 2;
+        int leftIndex = start;
+        int rightIndex = end;
+        for (int i = start; i < end; i++) {
+            if (rightIndex == end)
+                temp[i] = nums[leftIndex++];
+            else if (leftIndex == end)
+                temp[i] = nums[rightIndex++];
+            else if (nums[leftIndex] <= nums[rightIndex])
+                temp[i] = nums[leftIndex++];
+            else
+                temp[i] = nums[rightIndex++];
+        }
+
+        for (int i = start; i < end; i++) {
+            nums[i] = temp[i];
+        }
+    }
+
+
+    final int MAX = 1000000;
+    int[] frequency = new int[MAX * 2 + 100];
+    public void countingSort() {
+        for (int num: nums)
+            frequency[num + MAX] += 1;
+
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < frequency.length; i++) {
+            for (int j = 0; j < frequency[i]; j++) {
+                sb.append(i - MAX + "\n");
+            }
+        }
+
+        System.out.println(sb);
+    }
 }
