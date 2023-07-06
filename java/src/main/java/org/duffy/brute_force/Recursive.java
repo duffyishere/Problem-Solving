@@ -1,4 +1,4 @@
-package org.duffy.bruteForce;
+package org.duffy.brute_force;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.duffy.slidingWindow;
+package org.duffy.sliding_window;
 
 public class SlidingWindow {
     public int minSubArrayLen(int target, int[] nums) {

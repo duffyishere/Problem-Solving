@@ -1,4 +1,4 @@
-package org.duffy.dataStructure;
+package org.duffy.data_structure;
 
 import java.io.BufferedReader;
 import java.io.IOException;

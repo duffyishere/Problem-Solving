@@ -1,4 +1,4 @@
-package org.duffy.dynamicProgramming;
+package org.duffy.dynamic_programming;
 
 import java.io.BufferedReader;
 import java.io.IOException;
