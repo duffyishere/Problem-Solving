@@ -2,6 +2,8 @@ package org.duffy.data_structure;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 public class Practice {
@@ -126,5 +128,17 @@ public class Practice {
             sb.append(r + " ");
         }
         System.out.println(sb);
+    }
+
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> numToIndex = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (numToIndex.containsKey(target - nums[i])) {
+                return new int[] {numToIndex.get(target - nums[i]), i};
+            }
+            numToIndex.put(nums[i], i);
+        }
+
+        return null;
     }
 }
