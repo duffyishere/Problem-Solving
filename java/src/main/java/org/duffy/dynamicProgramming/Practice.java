@@ -244,4 +244,18 @@ public class Practice {
 
         System.out.println(ret);
     }
+
+    public void pr15486(int n, int[][] inputs) {
+        int[] prices = new int[n + 1];
+        int ret = 0;
+
+        for (int i = 0; i <= n; i++) {
+            ret = Math.max(ret, prices[i]);
+            int nextDay = i + inputs[i][0];
+            if (nextDay <= n)
+                prices[nextDay] = Math.max(prices[nextDay], ret + inputs[i][1]);
+        }
+
+        System.out.println(ret);
+    }
 }
