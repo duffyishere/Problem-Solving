@@ -118,4 +118,33 @@ public class Sort {
 
         System.out.println(sb);
     }
+
+    public float findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int n1 = nums1.length;
+        int n2 = nums2.length;
+        int sum = n1 + n2;
+        int[] joined = new int[sum];
+
+        int i = 0, j = 0, k = 0;
+
+        while (i <= n1 && j <= n2) {
+            if (i == n1) {
+                while (j < n2) joined[k++] = nums2[j++];
+                break;
+            }
+            else if (j == n2) {
+                while (i < n1) joined[k++] = nums1[i++];
+                break;
+            }
+
+            if (nums1[i] < nums2[j])
+                joined[k++] = nums1[i++];
+            else
+                joined[k++] = nums2[j++];
+        }
+
+        if (sum % 2 == 0)
+            return (float) (joined[sum / 2 - 1] + joined[sum / 2]) / 2;
+        return joined[sum / 2];
+    }
 }
