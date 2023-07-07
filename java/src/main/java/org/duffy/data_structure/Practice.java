@@ -1,10 +1,7 @@
 package org.duffy.data_structure;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 public class Practice {
 
@@ -172,5 +169,27 @@ public class Practice {
         ListNode() {}
         ListNode(int val) { this.val = val; }
         ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+    }
+
+    public int lengthOfLongestSubstring(String s) {
+        Set<Character> hashSet = new HashSet<>();
+        int maxLen = 0;
+        for (int right = 0, left = 0; right < s.length(); right++) {
+            if (!hashSet.contains(s.charAt(right))) {
+                hashSet.add(s.charAt(right));
+                maxLen = Math.max(maxLen, right - left + 1);
+            }
+            else {
+                while (s.charAt(left) != s.charAt(right)) {
+                    hashSet.remove(s.charAt(left));
+                    left++;
+                }
+                hashSet.remove(s.charAt(left));
+                left++;
+                hashSet.add(s.charAt(right));
+            }
+        }
+
+        return maxLen;
     }
 }
