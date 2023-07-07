@@ -1,5 +1,6 @@
 package org.duffy.leet_code;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,5 +45,23 @@ public class LeetCode {
         }
 
         return ret;
+    }
+
+    public String longestCommonPrefix(String[] strs) {
+        Arrays.sort(strs);
+        String first = strs[0];
+        String last = strs[strs.length - 1];
+        int i = 0;
+
+        String prefix = "";
+        while (i < first.length() && i < last.length()) {
+            if (first.charAt(i) == last.charAt(i)) {
+                prefix += first.charAt(i);
+                i++;
+            }
+            else break;
+        }
+
+        return prefix;
     }
 }
