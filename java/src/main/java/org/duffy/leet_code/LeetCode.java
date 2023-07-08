@@ -91,4 +91,29 @@ public class LeetCode {
         ret.addAll(set);
         return ret;
     }
+
+    private List<String> letterCombinations(String digits) {
+        String[] strings = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        List<String> answer = new ArrayList<>();
+        if (digits.length() == 0) return answer;
+
+        answer.add("");
+        for (int i = 0; i < digits.length(); i++) {
+            String word = strings[Character.getNumericValue(digits.charAt(i))];
+            answer = combinations(word, answer);
+        }
+
+        return answer;
+    }
+
+    private List<String> combinations(String word, List<String> answer) {
+        List<String> ret = new ArrayList<>();
+        for (char ch: word.toCharArray()) {
+            for (String str: answer) {
+                ret.add(str + ch);
+            }
+        }
+
+        return ret;
+    }
 }
