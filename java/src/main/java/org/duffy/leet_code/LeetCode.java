@@ -1,7 +1,5 @@
 package org.duffy.leet_code;
 
-import org.duffy.ListNode;
-
 import java.util.*;
 
 public class LeetCode {
@@ -159,5 +157,42 @@ public class LeetCode {
         }
 
         return stack.isEmpty();
+    }
+
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode answer = new ListNode(0);
+        ListNode temp = answer;
+
+        while(list1 != null || list2 != null) {
+            if (list1 == null) {
+                while (list2 != null) {
+                    temp.next = list2;
+                    list2 = list2.next;
+                    temp = temp.next;
+                }
+                return answer.next;
+            }
+            else if (list2 == null) {
+                while (list1 != null) {
+                    temp.next = list1;
+                    list1 = list1.next;
+                    temp = temp.next;
+                }
+                return answer.next;
+            }
+
+            if (list1.val < list2.val) {
+                temp.next = list1;
+                list1 = list1.next;
+                temp = temp.next;
+            }
+            else {
+                temp.next = list2;
+                list2 = list2.next;
+                temp = temp.next;
+            }
+        }
+
+        return answer.next;
     }
 }
