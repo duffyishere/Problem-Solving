@@ -141,4 +141,23 @@ public class LeetCode {
         ListNode(int val) { this.val = val; }
         ListNode(int val, ListNode next) { this.val = val; this.next = next; }
     }
+
+    public boolean isValid(String s) {
+        if (s.length() < 2)
+            return false;
+        Stack<Character> stack = new Stack<>();
+
+        for (char c : s.toCharArray()) {
+            if (c == ')') {
+                if (stack.isEmpty() || stack.pop() != '(') return false;
+            } else if (c == '}') {
+                if (stack.isEmpty() || stack.pop() != '{') return false;
+            } else if (c == ']') {
+                if (stack.isEmpty() || stack.pop() != '[') return false;
+            } else
+                stack.push(c);
+        }
+
+        return stack.isEmpty();
+    }
 }
