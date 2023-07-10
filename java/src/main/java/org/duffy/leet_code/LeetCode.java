@@ -195,4 +195,25 @@ public class LeetCode {
 
         return answer.next;
     }
+
+    public List<String> generateParenthesis(int n) {
+        this.max = n;
+        List<String> answer = new ArrayList<>();
+        go_generateParenthesis(answer, "", 0, 0);
+
+        return answer;
+    }
+
+    int max;
+    private void go_generateParenthesis(List<String> list, String str, int open, int close) {
+        if (str.length() == max * 2) {
+            list.add(str);
+            return;
+        }
+
+        if (open < max)
+            go_generateParenthesis(list, str + "(", open + 1, close);
+        if (close < open)
+            go_generateParenthesis(list, str + ")", open, close + 1);
+    }
 }
