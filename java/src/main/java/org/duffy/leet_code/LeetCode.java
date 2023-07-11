@@ -216,4 +216,54 @@ public class LeetCode {
         if (close < open)
             go_generateParenthesis(list, str + ")", open, close + 1);
     }
+
+    public ListNode mergeKLists(ListNode[] lists) {
+        int len = lists.length;
+        if (len == 0) return null;
+        if (len == 1) return lists[0];
+
+        ListNode answer = mergeKLists_merge(lists[0], lists[1]);
+        for (int i = 2; i < len; i++) {
+            answer = mergeKLists_merge(answer, lists[i]);
+        }
+
+        return answer;
+    }
+
+    private ListNode mergeKLists_merge(ListNode node1, ListNode node2) {
+        ListNode merged = new ListNode(0);
+        ListNode tmp = merged;
+
+        while (node1 != null || node2 != null) {
+            if (node1 == null) {
+                while (node2 != null) {
+                    tmp.next = node2;
+                    tmp = tmp.next;
+                    node2 = node2.next;
+                }
+                break;
+            }
+            else if (node2 == null) {
+                while (node1 != null) {
+                    tmp.next = node1;
+                    tmp = tmp.next;
+                    node1 = node1.next;
+                }
+                break;
+            }
+
+            if (node1.val < node2.val) {
+                tmp.next = node1;
+                tmp = tmp.next;
+                node1 = node1.next;
+            }
+            else {
+                tmp.next = node2;
+                tmp = tmp.next;
+                node2 = node2.next;
+            }
+        }
+
+        return merged.next;
+    }
 }
