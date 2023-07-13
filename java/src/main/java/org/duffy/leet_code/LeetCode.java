@@ -132,13 +132,6 @@ public class LeetCode {
         slow.next = slow.next.next;
         return start.next;
     }
-    class ListNode {
-        int val;
-        ListNode next;
-        ListNode() {}
-        ListNode(int val) { this.val = val; }
-        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-    }
 
     public boolean isValid(String s) {
         if (s.length() < 2)
@@ -215,5 +208,19 @@ public class LeetCode {
             go_generateParenthesis(list, str + "(", open + 1, close);
         if (close < open)
             go_generateParenthesis(list, str + ")", open, close + 1);
+    }
+
+    public ListNode swapPairs(ListNode head) {
+        ListNode dummy = head;
+        int tmp;
+        while (dummy != null && dummy.next != null) {
+            tmp = dummy.val;
+            dummy.val = dummy.next.val;
+            dummy.next.val = tmp;
+
+            dummy = dummy.next.next;
+        }
+
+        return head;
     }
 }
