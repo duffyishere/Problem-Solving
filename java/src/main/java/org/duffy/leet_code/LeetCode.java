@@ -273,4 +273,24 @@ public class LeetCode {
 
         return head;
     }
+
+    public ListNode reverseKGroup(ListNode head, int k) {
+        ListNode lastNode = head;
+        int count = 0;
+        while (lastNode != null && count != k) {
+            lastNode = lastNode.next;
+            count++;
+        }
+        if (count == k) {
+            lastNode = reverseKGroup(lastNode, k);
+            while (count-- > 0) {
+                ListNode tmp = head.next;
+                head.next = lastNode;
+                lastNode = head;
+                head = tmp;
+            }
+            head = lastNode;
+        }
+        return head;
+    }
 }

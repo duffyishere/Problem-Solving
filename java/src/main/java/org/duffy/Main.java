@@ -1,5 +1,7 @@
 package org.duffy;
 
+import org.duffy.leet_code.ListNode;
+
 import java.io.*;
 import java.util.*;
 
