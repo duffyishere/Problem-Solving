@@ -293,4 +293,38 @@ public class LeetCode {
         }
         return head;
     }
+
+    public void nextPermutation(int[] nums) {
+        int i = nums.length - 1;
+        while (0 < i && nums[i] <= nums[i - 1])
+            i--;
+        if (i <= 0) {
+            reverse(nums, 0, nums.length - 1);
+            return;
+        }
+
+        int j = nums.length - 1;
+        while (nums[j] <= nums[i - 1])
+            j--;
+
+        swap(nums, i - 1, j);
+
+        reverse(nums, i, nums.length - 1);
+    }
+
+    private int[] swap(int[] nums, int from, int to) {
+        int tmp = nums[from];
+        nums[from] = nums[to];
+        nums[to] = tmp;
+
+        return nums;
+    }
+    private int[] reverse(int[] nums, int from, int to) {
+        while (from < to) {
+            swap(nums, from, to);
+            from++; to--;
+        }
+
+        return nums;
+    }
 }
