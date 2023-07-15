@@ -327,4 +327,46 @@ public class LeetCode {
 
         return nums;
     }
+
+    public int search(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (nums[nums.length - 1] < nums[mid]) {
+                left = mid + 1;
+            }
+            else {
+                right = mid - 1;
+            }
+        }
+
+        // left is pivot index
+        int answer = binarySearch(nums, left, nums.length - 1, target);
+        if (answer != -1)
+            return answer;
+
+        answer = binarySearch(nums, 0, left - 1, target);
+        return answer;
+    }
+
+    private int binarySearch(int[] nums, int leftBoundary, int rightBoundary, int target) {
+        int left = leftBoundary;
+        int right = rightBoundary;
+
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (nums[mid] == target)
+                return mid;
+            else if (nums[mid] < target) {
+                left = mid + 1;
+            }
+            else {
+                right = mid - 1;
+            }
+        }
+
+        return -1;
+    }
 }
