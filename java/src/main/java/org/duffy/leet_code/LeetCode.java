@@ -328,6 +328,7 @@ public class LeetCode {
         return nums;
     }
 
+<<<<<<< HEAD
     public int search(int[] nums, int target) {
         int left = 0;
         int right = nums.length - 1;
@@ -368,5 +369,27 @@ public class LeetCode {
         }
 
         return -1;
+    }
+
+    public int longestValidParentheses(String s) {
+        Stack<Integer> stack = new Stack<>();
+        int answer = 0;
+        stack.push(-1);
+
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(')
+                stack.push(i);
+            else {
+                stack.pop();
+                if (stack.isEmpty()) {
+                    stack.push(i);
+                }
+                else {
+                    answer = Math.max(answer, i - stack.peek());
+                }
+            }
+        }
+
+        return answer;
     }
 }
