@@ -328,7 +328,6 @@ public class LeetCode {
         return nums;
     }
 
-<<<<<<< HEAD
     public int search(int[] nums, int target) {
         int left = 0;
         int right = nums.length - 1;
@@ -391,5 +390,55 @@ public class LeetCode {
         }
 
         return answer;
+    }
+
+    public int[] searchRange(int[] nums, int target) {
+        int start = findStart(nums, target);
+        int end = findEnd(nums, target);
+
+        return new int[] {start, end};
+    }
+
+    private int findStart(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+        int index = -1;
+
+        // 5,7,7,8,8,8,10
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (nums[mid] < target) {
+                left = mid + 1;
+            }
+            else {
+                right = mid - 1;
+            }
+
+            if (nums[mid] == target) {
+                index = mid;
+            }
+        }
+        return index;
+    }
+
+    private int findEnd(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+        int index = -1;
+
+        // 5,7,7,8,8,8,10
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (nums[mid] <= target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+
+            if (nums[mid] == target) {
+                index = mid;
+            }
+        }
+        return index;
     }
 }
