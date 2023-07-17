@@ -454,4 +454,23 @@ public class LeetCode {
 
         return left;
     }
+
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> answer = new ArrayList<>();
+        Arrays.sort(candidates);
+        backtrack(answer, new ArrayList<>(), candidates, target, 0);
+        return answer;
+    }
+
+    private void backtrack(List<List<Integer>> answer, List<Integer> tmpList, int[] nums, int remain, int start) {
+        if (remain < 0) return;
+        else if(remain == 0) answer.add(new ArrayList<>(tmpList));
+        else {
+            for (int i = start; i < nums.length; i++) {
+                tmpList.add(nums[i]);
+                backtrack(answer, tmpList, nums, remain - nums[i], i);
+                tmpList.remove(tmpList.size() - 1);
+            }
+        }
+    }
 }
