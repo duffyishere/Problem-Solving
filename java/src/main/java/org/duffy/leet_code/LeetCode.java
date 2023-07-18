@@ -497,4 +497,25 @@ public class LeetCode {
 
         return nums.length + 1;
     }
+
+    public int trap(int[] height) {
+        int leftIndex = 0, rightIndex = height.length - 1;
+        int leftMaxHeight = height[0], rightMaxHeight = height[height.length - 1];
+        int answer = 0;
+
+        while (leftIndex < rightIndex) {
+            if (leftMaxHeight < rightMaxHeight) {
+                leftIndex++;
+                if (height[leftIndex] < leftMaxHeight) answer += leftMaxHeight - height[leftIndex];
+                else leftMaxHeight = height[leftIndex];
+            }
+            else {
+                rightIndex--;
+                if (height[rightIndex] < rightMaxHeight) answer += rightMaxHeight - height[rightIndex];
+                else rightMaxHeight = height[rightIndex];
+            }
+        }
+
+        return answer;
+    }
 }
