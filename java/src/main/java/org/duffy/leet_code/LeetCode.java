@@ -540,4 +540,40 @@ public class LeetCode {
 
         return ans;
     }
+
+    public void rotate(int[][] matrix) {
+        int len = matrix.length;
+
+        for (int i = 0; i < len; i++) {
+            for (int j = 0; j <= i; j++) {
+                swapMatrix(matrix, new int[]{i, j}, new int[]{j, i});
+            }
+        }
+
+        for (int i = 0; i < len; i++) {
+            matrix[i] = reverse(matrix[i]);
+        }
+    }
+
+    private int[][] swapMatrix(int[][] matrix, int[] from, int[] to) {
+        int tmp = matrix[from[0]][from[1]];
+        matrix[from[0]][from[1]] = matrix[to[0]] [to[1]];
+        matrix[to[0]] [to[1]] = tmp;
+
+        return matrix;
+    }
+
+    private int[] reverse(int[] arrays) {
+        int left = 0;
+        int right = arrays.length - 1;
+        while (left <= right) {
+            int tmp = arrays[left];
+            arrays[left] = arrays[right];
+            arrays[right] = tmp;
+            left++;
+            right--;
+        }
+
+        return arrays;
+    }
 }
