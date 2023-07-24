@@ -633,4 +633,27 @@ public class LeetCode {
         }
         return ans;
     }
+
+    public int[][] merge(int[][] intervals) {
+        if (intervals.length <= 1)
+            return intervals;
+
+        Arrays.sort(intervals, Comparator.comparingInt(o -> o[0]));
+
+        List<int[]> ans = new ArrayList<>();
+        int[] newIntervals = intervals[0];
+        ans.add(newIntervals);
+
+        for(int[] interval: intervals) {
+            if (interval[0] <= newIntervals[1]) {
+                newIntervals[1] = Math.max(newIntervals[1], interval[1]);
+            }
+            else {
+                newIntervals = interval;
+                ans.add(newIntervals);
+            }
+        }
+
+        return ans.toArray(new int[ans.size()][]);
+    }
 }
