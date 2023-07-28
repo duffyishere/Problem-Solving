@@ -796,4 +796,40 @@ public class LeetCode {
         for (int i = left; i < right; i++)
             nums[i] = tmp[i];
     }
+
+    public String minWindow(String s, String t) {
+        if(s.length() == 0 || t.length() == 0 || s.length() < t.length())
+            return new String();
+
+        char[] sArray = s.toCharArray();
+        char[] tArray = t.toCharArray();
+        int[] map = new int[128];
+        for (char ch: tArray)
+            map[ch]++;
+
+        int count = tArray.length;
+        int left = 0, right = 0;
+        int minLen = Integer.MAX_VALUE, minStart = 0;
+
+        while (right < s.length()) {
+            if (0 < map[sArray[right]])
+                count--;
+            map[sArray[right]]--;
+
+            while (count == 0) {
+                if (right - left + 1 < minLen) {
+                    minLen = right - left + 1;
+                    minStart = left;
+                }
+                map[sArray[left]]++;
+                if (0 < map[sArray[left]]) {
+                    count++;
+                }
+                left++;
+            }
+            right++;
+        }
+        if (minLen == Integer.MAX_VALUE) return new String();
+        else return s.substring(minStart, minStart + minLen);
+    }
 }
