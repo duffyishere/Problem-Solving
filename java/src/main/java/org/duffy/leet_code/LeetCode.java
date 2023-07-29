@@ -848,4 +848,44 @@ public class LeetCode {
         ret.remove(ret.size() - 1);
         subsets(nums, ret, index + 1);
     }
+
+    public boolean exist(char[][] board, String word) {
+        this.board = board;
+        this.word = word;
+        int m = board.length;
+        int n = board[0].length;
+        this.visited = new boolean[m][n];
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (word.charAt(0) == board[i][j] && search(i, j, 0))
+                    return true;
+            }
+        }
+        return false;
+    }
+    char[][] board;
+    String word;
+    boolean[][] visited;
+    int[] dy = {1, 0, -1, 0};
+    int[] dx = {0, 1, 0, -1};
+    private boolean search(int y, int x, int count) {
+        if (count == word.length())
+            return true;
+
+        if (y < 0 || x < 0 || board.length <= y || board[0].length <= x) return false;
+        if (visited[y][x]) return false;
+        if (word.charAt(count) != board[y][x]) return false;
+
+        visited[y][x] = true;
+        for (int i = 0; i < 4; i++) {
+            int my = y + dy[i];
+            int mx = x + dx[i];
+            if (search(my, mx, count + 1))
+                return true;
+        }
+        visited[y][x] = false;
+
+        return false;
+    }
 }
