@@ -798,13 +798,13 @@ public class LeetCode {
     }
 
     public String minWindow(String s, String t) {
-        if(s.length() == 0 || t.length() == 0 || s.length() < t.length())
+        if (s.length() == 0 || t.length() == 0 || s.length() < t.length())
             return new String();
 
         char[] sArray = s.toCharArray();
         char[] tArray = t.toCharArray();
         int[] map = new int[128];
-        for (char ch: tArray)
+        for (char ch : tArray)
             map[ch]++;
 
         int count = tArray.length;
@@ -831,5 +831,21 @@ public class LeetCode {
         }
         if (minLen == Integer.MAX_VALUE) return new String();
         else return s.substring(minStart, minStart + minLen);
+    }
+
+    public List<List<Integer>> subsets(int[] nums) {
+        subsets(nums, new ArrayList<>(), 0);
+        return ans;
+    }
+    List<List<Integer>> ans = new ArrayList<>();
+    private void subsets(int[] nums, List<Integer> ret, int index) {
+        if (index == nums.length) {
+            ans.add(new ArrayList<>(ret));
+            return;
+        }
+        ret.add(nums[index]);
+        subsets(nums, ret, index + 1);
+        ret.remove(ret.size() - 1);
+        subsets(nums, ret, index + 1);
     }
 }
