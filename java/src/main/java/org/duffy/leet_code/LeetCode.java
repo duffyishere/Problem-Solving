@@ -888,4 +888,26 @@ public class LeetCode {
 
         return false;
     }
+
+    public int largestRectangleArea(int[] heights) {
+        Stack<Integer[]> stack = new Stack<>();
+        int len = heights.length;
+        int ans = Integer.MIN_VALUE;
+
+        for (int i = 0; i < len; i++) {
+            int idx = i;
+            while (0 < stack.size() && heights[i] <= stack.peek()[0]) {
+                Integer[] pair = stack.pop();
+                idx = pair[1];
+                int area = pair[0] * (i - idx);
+                ans = Math.max(ans, area);
+            }
+            stack.push(new Integer[]{heights[i], idx});
+        }
+        while (0 < stack.size()) {
+            Integer[] pair = stack.pop();
+            ans = Math.max(ans, pair[0] * (len - pair[1]));
+        }
+        return ans;
+    }
 }
