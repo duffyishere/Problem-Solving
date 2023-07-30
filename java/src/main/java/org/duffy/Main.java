@@ -1,10 +1,9 @@
 package org.duffy;
 
-import java.io.*;
-import java.util.Stack;
+import java.util.*;
 
 public class Main {
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) {
         Main main = new Main();
     }
 }

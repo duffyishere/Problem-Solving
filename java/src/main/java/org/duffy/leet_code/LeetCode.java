@@ -910,4 +910,37 @@ public class LeetCode {
         }
         return ans;
     }
+
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+    public List<Integer> inorderTraversal(TreeNode root) {
+        if (root == null)
+            return new ArrayList<>();
+
+        List<Integer> ret = new ArrayList<>();
+        if (root.left != null)
+            ret.addAll(inorderTraversal(root.left));
+        ret.add(root.val);
+        if (root.right != null)
+            ret.addAll(inorderTraversal(root.right));
+
+        return ret;
+    }
 }
