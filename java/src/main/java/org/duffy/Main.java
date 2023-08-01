@@ -1,6 +1,6 @@
 package org.duffy;
 
-import java.util.*;
+import org.duffy.leet_code.TreeNode;
 
 public class Main {
     public static void main(String args[]) {
