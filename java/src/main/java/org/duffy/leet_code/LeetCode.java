@@ -936,4 +936,21 @@ public class LeetCode {
         if (isSymmetric(n1.left, n2.right) && isSymmetric(n1.right, n2.left)) return true;
         else return false;
     }
+
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        levelOrder(root, 0);
+        return ans;
+    }
+    List<List<Integer>> ans = new ArrayList<>();
+    private void levelOrder(TreeNode node, int depth) {
+        if (node == null)
+            return;
+
+        if (ans.size() - 1 < depth)
+            ans.add(new ArrayList<>());
+
+        ans.get(depth).add(node.val);
+        levelOrder(node.left, depth + 1);
+        levelOrder(node.right, depth + 1);
+    }
 }
