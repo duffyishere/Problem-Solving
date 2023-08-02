@@ -835,12 +835,12 @@ public class LeetCode {
 
     public List<List<Integer>> subsets(int[] nums) {
         subsets(nums, new ArrayList<>(), 0);
-        return ans;
+        return ansMaxDepth;
     }
     List<List<Integer>> ans = new ArrayList<>();
     private void subsets(int[] nums, List<Integer> ret, int index) {
         if (index == nums.length) {
-            ans.add(new ArrayList<>(ret));
+            ansMaxDepth.add(new ArrayList<>(ret));
             return;
         }
         ret.add(nums[index]);
@@ -938,7 +938,8 @@ public class LeetCode {
     }
 
     public List<List<Integer>> levelOrder(TreeNode root) {
-        levelOrder(new ArrayList<>(), root, 0);
+        List<List<Integer>> ans = new ArrayList<>();
+        levelOrder(ans, root, 0);
         return ans;
     }
     private void levelOrder(List<List<Integer>> ans, TreeNode node, int depth) {
@@ -951,5 +952,21 @@ public class LeetCode {
         ans.get(depth).add(node.val);
         levelOrder(ans, node.left, depth + 1);
         levelOrder(ans, node.right, depth + 1);
+    }
+
+    public int maxDepth(TreeNode root) {
+        if (root == null)
+            return 0;
+        go(root, 1);
+        return ansMaxDepth;
+    }
+    int ansMaxDepth = 1;
+    private void go(TreeNode node, int depth) {
+        if (node == null)
+            return;
+
+        ansMaxDepth = Math.max(ansMaxDepth, depth);
+        go(node.left, depth + 1);
+        go(node.right, depth + 1);
     }
 }
