@@ -938,11 +938,10 @@ public class LeetCode {
     }
 
     public List<List<Integer>> levelOrder(TreeNode root) {
-        levelOrder(root, 0);
+        levelOrder(new ArrayList<>(), root, 0);
         return ans;
     }
-    List<List<Integer>> ans = new ArrayList<>();
-    private void levelOrder(TreeNode node, int depth) {
+    private void levelOrder(List<List<Integer>> ans, TreeNode node, int depth) {
         if (node == null)
             return;
 
@@ -950,7 +949,7 @@ public class LeetCode {
             ans.add(new ArrayList<>());
 
         ans.get(depth).add(node.val);
-        levelOrder(node.left, depth + 1);
-        levelOrder(node.right, depth + 1);
+        levelOrder(ans, node.left, depth + 1);
+        levelOrder(ans, node.right, depth + 1);
     }
 }
