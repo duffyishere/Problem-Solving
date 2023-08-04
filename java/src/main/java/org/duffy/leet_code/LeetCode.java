@@ -969,4 +969,28 @@ public class LeetCode {
         go(node.left, depth + 1);
         go(node.right, depth + 1);
     }
+
+    int maxIndex = 0;
+    int lowIndex = 0;
+    public String longestPalindrome(String s) {
+        char[] chars = s.toCharArray();
+        if (chars.length < 2)
+            return s;
+
+        for (int i = 0; i < chars.length; i++) {
+            longestPalindrome(chars, i, i);
+            longestPalindrome(chars, i, i + 1);
+        }
+        return s.substring(lowIndex, lowIndex + maxIndex - 1);
+    }
+    private void longestPalindrome(char[] chars, int left, int right) {
+        while (0 <= left && right < chars.length && chars[left] == chars[right]) {
+            left--;
+            right++;
+        }
+        if (maxIndex < right - left) {
+            maxIndex = right - left;
+            lowIndex = left + 1;
+        }
+    }
 }
