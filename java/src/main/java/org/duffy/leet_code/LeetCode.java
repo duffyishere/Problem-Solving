@@ -835,12 +835,12 @@ public class LeetCode {
 
     public List<List<Integer>> subsets(int[] nums) {
         subsets(nums, new ArrayList<>(), 0);
-        return ansMaxDepth;
+        return subsets;
     }
-    List<List<Integer>> ans = new ArrayList<>();
+    List<List<Integer>> subsets = new ArrayList<>();
     private void subsets(int[] nums, List<Integer> ret, int index) {
         if (index == nums.length) {
-            ansMaxDepth.add(new ArrayList<>(ret));
+            subsets.add(new ArrayList<>(ret));
             return;
         }
         ret.add(nums[index]);
@@ -992,5 +992,25 @@ public class LeetCode {
             maxIndex = right - left;
             lowIndex = left + 1;
         }
+    }
+
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        return buildTree(preorder, inorder, Integer.MAX_VALUE);
+    }
+    int pIndex = 0;
+    int iIndex = 0;
+    private TreeNode buildTree(int[] preorder, int[] inorder, int stop) {
+        if (preorder.length <= pIndex)
+            return null;
+        if (inorder[iIndex] == stop) {
+            iIndex++;
+            return null;
+        }
+
+        TreeNode node = new TreeNode(preorder[pIndex++]);
+        node.left = buildTree(preorder, inorder, node.val);
+        node.right = buildTree(preorder, inorder, stop);
+
+        return node;
     }
 }
