@@ -1027,4 +1027,28 @@ public class LeetCode {
             curr = curr.right;
         }
     }
+
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> tmp = new ArrayList<>();
+        tmp.add(1);
+        ans.add(tmp);
+        for (int i = 1; i < numRows; i++) {
+            for (int j = 0; j <= i; j++) {
+                if (j == 0) {
+                    tmp = new ArrayList<>();
+                    tmp.add(1);
+                    ans.add(tmp);
+                }
+                else if (j == i) {
+                    ans.get(j).add(1);
+                }
+                else {
+                    ans.get(i).add(ans.get(i - 1).get(j - 1) + ans.get(i - 1).get(j));
+                }
+            }
+        }
+
+        return ans;
+    }
 }
