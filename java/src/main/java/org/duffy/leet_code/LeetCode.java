@@ -1051,4 +1051,15 @@ public class LeetCode {
 
         return ans;
     }
+
+    public int maxProfit(int[] prices) {
+        int ans = 0;
+        int buy = prices[0];
+
+        for (int price: prices) {
+            ans = Math.max(ans, price - buy);
+            buy = Math.min(buy, price);
+        }
+        return ans;
+    }
 }
