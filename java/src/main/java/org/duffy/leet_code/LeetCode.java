@@ -1062,4 +1062,18 @@ public class LeetCode {
         }
         return ans;
     }
+    int maxPathSumAns = Integer.MIN_VALUE;
+    public int maxPathSum(TreeNode root) {
+        helper(root);
+        return maxPathSumAns;
+    }
+    private int helper(TreeNode node) {
+        if (node == null) return 0;
+        int left = Math.max(helper(node.left), 0);
+        int right = Math.max(helper(node.right), 0);
+
+        maxPathSumAns = Math.max(maxPathSumAns, node.val + left + right);
+
+        return node.val + Math.max(left, right);
+    }
 }
