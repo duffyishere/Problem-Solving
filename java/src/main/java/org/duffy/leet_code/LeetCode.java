@@ -1076,4 +1076,20 @@ public class LeetCode {
 
         return node.val + Math.max(left, right);
     }
+
+    public int longestConsecutive(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++)
+            map.put(nums[i], i);
+
+        int ans = 0;
+        for (int now: nums) {
+            if (!map.containsKey(now - 1)) {
+                int next = now + 1;
+                while (map.containsKey(next)) {next++;}
+                ans = Math.max(ans, next - now);
+            }
+        }
+        return ans;
+    }
 }
