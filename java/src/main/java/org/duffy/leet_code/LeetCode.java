@@ -1092,4 +1092,36 @@ public class LeetCode {
         }
         return ans;
     }
+
+    public List<List<String>> partition(String s) {
+        if(s == null || s.isEmpty()) return new ArrayList<>();
+
+        List<List<String>> result = new ArrayList<>();
+        partitionHelper(s, new ArrayList<>(), result);
+        return result;
+    }
+    private void partitionHelper(String str, List<String> step, List<List<String>> result) {
+        if (str.isEmpty()) {
+            result.add(new ArrayList<>(step));
+            return;
+        }
+        for (int i = 1; i <= str.length(); i++) {
+            String tmp = str.substring(0, i);
+            if (!isPalindrome(tmp)) continue;
+            step.add(tmp);
+            partitionHelper(str.substring(i), step, result);
+            step.remove(step.size() - 1);
+        }
+    }
+    private boolean isPalindrome(String str) {
+        int start = 0;
+        int end = str.length() - 1;
+        while (str.charAt(start) == str.charAt(end)) {
+            if (end <= start)
+                return true;
+            start++;
+            end--;
+        }
+        return false;
+    }
 }
