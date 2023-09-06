@@ -1147,4 +1147,16 @@ public class LeetCode {
 
         return isSameTreeHelper(n1.left, n2.left) && isSameTreeHelper(n1.right, n2.right);
     }
+
+    public void sortColors2(int[] nums) {
+        int[] index = new int[3];
+        for (int i = 1; i < nums.length; i++) {
+            int now = nums[i];
+            if (nums[i] < nums[i - 1]) {
+                index[now]++;
+                nums[i] = nums[i - 1];
+                nums[index[now]] = now;
+            }
+        }
+    }
 }
