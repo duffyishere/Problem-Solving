@@ -1,5 +1,6 @@
 package org.duffy;
 
+import org.duffy.leet_code.Node;
 import org.duffy.leet_code.TreeNode;
 
 import java.util.*;
