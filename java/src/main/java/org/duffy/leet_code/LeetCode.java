@@ -1220,4 +1220,23 @@ public class LeetCode {
         }
         return false;
     }
+
+    public ListNode detectCycle(ListNode head) {
+        if (head == null) return null;
+        ListNode runner = head;
+        ListNode walker = head;
+
+        while (runner.next != null && runner.next.next != null) {
+            walker = walker.next;
+            runner = runner.next.next;
+            if (walker == runner) break;
+        }
+        if (runner.next == null || runner.next.next == null) return null;
+
+        while (walker != head) {
+            walker = walker.next;
+            head = head.next;
+        }
+        return head;
+    }
 }
