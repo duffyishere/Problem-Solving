@@ -1178,4 +1178,32 @@ public class LeetCode {
         }
         return oldToNew.get(head);
     }
+
+    public boolean wordBreak(String s, List<String> wordDict) {
+        this.dp = new int[s.length()];
+        this.s = s;
+        this.wd = wordDict;
+        Arrays.fill(dp, -1);
+
+        return wordBreakHelper(s.length() - 1);
+    }
+    int[] dp;
+    String s;
+    List<String> wd;
+    private boolean wordBreakHelper(int idx) {
+        if (idx < 0) return true;
+        if (dp[idx] != -1) return dp[idx] == 1;
+
+        for (String word: wd) {
+            if (idx - word.length() + 1 < 0)
+                continue;
+
+            if (s.startsWith(word, idx - word.length() + 1) && wordBreakHelper(idx - word.length())) {
+                dp[idx] = 1;
+                return true;
+            }
+        }
+        dp[idx] = 0;
+        return false;
+    }
 }
