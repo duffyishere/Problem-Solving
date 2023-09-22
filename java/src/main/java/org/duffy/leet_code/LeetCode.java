@@ -1278,4 +1278,23 @@ public class LeetCode {
 
         return merged.next;
     }
+
+    public int maxProduct(int[] nums) {
+        int ret = nums[0];
+        int curMax = 1 , curMin= 1;
+
+        for (int num: nums) {
+            if (num == 0) {
+                curMax = 1;
+                curMin = 1;
+                ret = Math.max(num, ret);
+                continue;
+            }
+            int tmp = curMax * num;
+            curMax = Math.max(num, Math.max(num * curMax, num * curMin));
+            curMin = Math.min(num, Math.min(tmp, num * curMin));
+            ret = Math.max(num, Math.max(ret, curMax));
+        }
+        return ret;
+    }
 }
