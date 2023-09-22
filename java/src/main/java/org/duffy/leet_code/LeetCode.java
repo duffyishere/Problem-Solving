@@ -1239,4 +1239,43 @@ public class LeetCode {
         }
         return head;
     }
+
+    public ListNode sortList(ListNode head) {
+        if (head == null || head.next == null) return head;
+
+        ListNode prev = null, slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            prev = slow;
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        prev.next = null;
+
+        ListNode l1 = sortList(head);
+        ListNode l2 = sortList(slow);
+
+        return mergeList(l1, l2);
+    }
+
+    private ListNode mergeList(ListNode l1, ListNode l2) {
+        ListNode merged = new ListNode(), dummy = merged;
+
+        while (l1 != null && l2 != null) {
+            if (l1.val < l2.val) {
+                dummy.next = l1;
+                l1 = l1.next;
+            }
+            else {
+                dummy.next = l2;
+                l2 = l2.next;
+            }
+            dummy = dummy.next;
+        }
+        if (l1 != null)
+            dummy.next = l1;
+        else if (l2 != null)
+            dummy.next = l2;
+
+        return merged.next;
+    }
 }
