@@ -1337,4 +1337,22 @@ public class LeetCode {
         }
         return ans;
     }
+
+    public void rotate(int[] nums, int k) {
+        int l = nums.length - 1;
+        k %= nums.length;
+
+        reverse(nums, 0, l);
+        reverse(nums, 0, k - 1);
+        reverse(nums, k, l);
+    }
+    private void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            int tmp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = tmp;
+            start++;
+            end--;
+        }
+    }
 }
