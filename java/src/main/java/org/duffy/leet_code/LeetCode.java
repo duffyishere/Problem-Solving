@@ -1342,11 +1342,11 @@ public class LeetCode {
         int l = nums.length - 1;
         k %= nums.length;
 
-        reverse(nums, 0, l);
-        reverse(nums, 0, k - 1);
-        reverse(nums, k, l);
+        reverseRotate(nums, 0, l);
+        reverseRotate(nums, 0, k - 1);
+        reverseRotate(nums, k, l);
     }
-    private void reverse(int[] nums, int start, int end) {
+    private void reverseRotate(int[] nums, int start, int end) {
         while (start < end) {
             int tmp = nums[start];
             nums[start] = nums[end];
