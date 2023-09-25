@@ -1365,4 +1365,21 @@ public class LeetCode {
         }
         return dp[nums.length];
     }
+
+    public List<Integer> rightSideView(TreeNode root) {
+        dfs(root, 1);
+        return ret;
+    }
+    List<Integer> ret = new ArrayList<>();
+    int maxDepth = 0;
+    private void dfs(TreeNode node, int depth) {
+        if (node == null)
+            return;
+        if (maxDepth < depth) {
+            maxDepth = depth;
+            ret.add(node.val);
+        }
+        dfs(node.right, depth+1);
+        dfs(node.left, depth+1);
+    }
 }
