@@ -1382,4 +1382,36 @@ public class LeetCode {
         dfs(node.right, depth+1);
         dfs(node.left, depth+1);
     }
+
+    public int numIslands(char[][] grid) {
+        yLen = grid.length;
+        xLen = grid[0].length;
+        this.grid = grid;
+
+        int ret = 0;
+        for (int i = 0; i < yLen; i++) {
+            for (int j = 0; j < xLen; j++) {
+                if (!visited[i][j] && grid[i][j] == '1') {
+                    numIslandsDFS(i, j);
+                    ret++;
+                }
+            }
+        }
+
+        return ret;
+    }
+
+    int yLen, xLen;
+    char[][] grid;
+    private void numIslandsDFS(int y, int x) {
+        if (grid[y][x] == '0' || visited[y][x]) return;
+        visited[y][x] = true;
+
+        for (int i = 0; i < 4; i++) {
+            int my = y + dy[i];
+            int mx = x + dx[i];
+            if (my < 0 || mx < 0 || yLen <= my || xLen <= mx) continue;
+            numIslandsDFS(my, mx);
+        }
+    }
 }
