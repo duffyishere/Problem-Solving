@@ -1436,4 +1436,19 @@ public class LeetCode {
         root.right = invertTree(right);
         return root;
     }
+
+    public int kthSmallest(TreeNode root, int k) {
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
+        addAllTree(queue, root);
+        for (int i = 0; i < k - 1; i++)
+            queue.poll();
+        return queue.peek();
+    }
+    private void addAllTree(PriorityQueue<Integer> q, TreeNode node) {
+        if (node == null)
+            return;
+        q.offer(node.val);
+        addAllTree(q, node.left);
+        addAllTree(q, node.right);
+    }
 }
