@@ -1451,4 +1451,29 @@ public class LeetCode {
         addAllTree(q, node.left);
         addAllTree(q, node.right);
     }
+
+    public boolean isPalindrome(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        if (fast != null) slow = slow.next;
+        slow = reverseNode(slow);
+
+        while (slow != null) {
+            if (slow.val != head.val) return false;
+            slow = slow.next;
+            head = head.next;
+        }
+        return true;
+    }
+    private ListNode reverseNode(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode ret = reverseNode(head.next);
+        head.next.next = head;
+        head.next = null;
+        return ret;
+    }
 }
