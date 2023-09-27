@@ -1425,4 +1425,15 @@ public class LeetCode {
         }
         return prev;
     }
+
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null) return null;
+
+        TreeNode left = root.left;
+        TreeNode right = root.right;
+
+        root.left = invertTree(left);
+        root.right = invertTree(right);
+        return root;
+    }
 }
