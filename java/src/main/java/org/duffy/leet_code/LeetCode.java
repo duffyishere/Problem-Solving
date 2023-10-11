@@ -1440,7 +1440,7 @@ public class LeetCode {
     public int kthSmallest(TreeNode root, int k) {
         PriorityQueue<Integer> queue = new PriorityQueue<>();
         addAllTree(queue, root);
-        for (int i = 0; i < k - 1; i++)
+        fGGor (int i = 0; i < k - 1; i++)
             queue.poll();
         return queue.peek();
     }
@@ -1482,5 +1482,31 @@ public class LeetCode {
         TreeNode left = lowestCommonAncestor(root.left, p, q);
         TreeNode right = lowestCommonAncestor(root.right, p, q);
         return left == null? right: right == null? left: root;
+    }
+
+    public int[] productExceptSelf(int[] nums) {
+        int len = nums.length;
+        int[] ans = new int[len];
+        int left = 1;
+        for (int i = 0; i < len; i++) {
+            if (0 < i) {
+                left *= nums[i - 1];
+                ans[i] = left;
+            }
+            else
+                ans[i] = left;
+        }
+
+        int right = 1;
+        for (int i = len - 1; 0 <= i; i--) {
+            if (i == len - 1)
+                ans[i] *= right;
+            else {
+                right *= nums[i + 1];
+                ans[i] *= right;
+            }
+        }
+
+        return ans;
     }
 }
