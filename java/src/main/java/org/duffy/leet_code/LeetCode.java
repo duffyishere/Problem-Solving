@@ -1509,4 +1509,21 @@ public class LeetCode {
 
         return ans;
     }
+
+    public boolean searchMatrix(int[][] matrix, int target) {
+        this.matrix = matrix;
+        this.target = target;
+        this.visited = new boolean[matrix.length][matrix[0].length];
+        return searchMatrixGo(0, 0);
+    }
+    int[][] matrix;
+    int target;
+    private boolean searchMatrixGo(int y, int x) {
+        if (matrix.length <= y || matrix[0].length <= x) return false;
+        if (visited[y][x]) return false;
+        if (matrix[y][x] == target) return true;
+        if (target < matrix[y][x]) return false;
+        visited[y][x] = true;
+        return searchMatrixGo(y + 1, x) || searchMatrixGo(y, x + 1);
+    }
 }
