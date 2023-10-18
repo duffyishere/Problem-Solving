@@ -9,14 +9,4 @@ public class Main {
     public static void main(String args[]) {
         Main main = new Main();
     }
-
-    public void moveZeroes(int[] nums) {
-        int pos = 0;
-        for (int num: nums) {
-            if (num != 0) nums[pos++] = num;
-        }
-        while (pos < nums.length) {
-            nums[pos++] = 0;
-        }
-    }
 }
