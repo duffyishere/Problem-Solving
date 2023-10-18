@@ -1440,7 +1440,7 @@ public class LeetCode {
     public int kthSmallest(TreeNode root, int k) {
         PriorityQueue<Integer> queue = new PriorityQueue<>();
         addAllTree(queue, root);
-        fGGor (int i = 0; i < k - 1; i++)
+        for (int i = 0; i < k - 1; i++)
             queue.poll();
         return queue.peek();
     }
@@ -1525,5 +1525,23 @@ public class LeetCode {
         if (target < matrix[y][x]) return false;
         visited[y][x] = true;
         return searchMatrixGo(y + 1, x) || searchMatrixGo(y, x + 1);
+    }
+
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        Deque<Integer> queue = new ArrayDeque<>();
+        int[] ans = new int[nums.length - k + 1];
+        for (int i = 0; i < nums.length; i++) {
+            while (!queue.isEmpty() && queue.peekFirst() < i - k + 1) {
+                queue.pollFirst();
+            }
+            while (!queue.isEmpty() && nums[queue.peekLast()] < nums[i]) {
+                queue.pollLast();
+            }
+            queue.offerLast(i);
+            if (k - 1 <= i) {
+                ans[i - k + 1] = nums[queue.peekFirst()];
+            }
+        }
+        return ans;
     }
 }
