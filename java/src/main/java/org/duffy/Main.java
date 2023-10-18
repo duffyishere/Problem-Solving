@@ -8,6 +8,15 @@ import java.util.*;
 public class Main {
     public static void main(String args[]) {
         Main main = new Main();
-        main.maxSlidingWindow(new int[] {1,3,-1,-3,5,3,6,7}, 3);
+    }
+
+    public void moveZeroes(int[] nums) {
+        int pos = 0;
+        for (int num: nums) {
+            if (num != 0) nums[pos++] = num;
+        }
+        while (pos < nums.length) {
+            nums[pos++] = 0;
+        }
     }
 }
