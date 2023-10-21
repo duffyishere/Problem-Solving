@@ -1554,4 +1554,58 @@ public class LeetCode {
             nums[pos++] = 0;
         }
     }
+
+    public int findDuplicate(int[] nums) {
+        int len = nums.length;
+        int low = 1;
+        int high = len - 1;
+
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            int cnt = 0;
+            for (int num : nums) {
+                if (num <= mid)
+                    cnt++;
+            }
+            if (cnt <= mid)
+                low = mid + 1;
+            else
+                high = mid;
+        }
+        return low;
+    }
+
+    public int lengthOfLIS(int[] nums) {
+        List<Integer> lis = new ArrayList<>();
+        for (int num: nums) {
+            if (lis.isEmpty() || lis.get(lis.size() - 1) < num) lis.add(num);
+            else {
+                int left = 0;
+                int right = lis.size() - 1;
+                while (left < right) {
+                    int mid = left + (right - left) / 2;
+                    if (lis.get(mid) < num)
+                        left = mid + 1;
+                    else
+                        right = mid;
+                }
+                lis.set(right, num);
+            }
+        }
+        return lis.size();
+    }
+    public int lengthOfLIS_DP(int[] nums) {
+        int len = nums.length;
+        int[] dp = new int[len];
+        int max = 0;
+        for (int i = 0; i < len; i++) {
+            dp[i] = 1;
+            for (int j = 0; j < i; j++) {
+                if (nums[j] < nums[i] && dp[i] < dp[j] + 1)
+                    dp[i] = dp[j] + 1;
+            }
+            max = Math.max(max, dp[i]);
+        }
+        return max;
+    }
 }
