@@ -1621,4 +1621,26 @@ public class LeetCode {
         }
         return dp[amount] < amount + 1? dp[amount]: -1;
     }
+
+    public int[] topKFrequency(int[] nums, int k) {
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        for (int num: nums) frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+
+        int n = nums.length;
+        List<Integer>[] bucket = new List[n + 1];
+
+        for (int key: frequencyMap.keySet()) {
+            int frequency = frequencyMap.get(key);
+            if (bucket[frequency] == null)
+                bucket[frequency] = new ArrayList<>();
+            bucket[frequency].add(key);
+        }
+        List<Integer> ret = new ArrayList<>();
+        for (int i = n; 0 <= i && ret.size() < k; i--) {
+            if (bucket[i] != null)
+                ret.addAll(bucket[i]);
+        }
+
+        return ret.stream().mapToInt(Integer::intValue).toArray();
+    }
 }
