@@ -1643,4 +1643,33 @@ public class LeetCode {
 
         return ret.stream().mapToInt(Integer::intValue).toArray();
     }
+
+    public String decodeString(String s) {
+        Stack<Character> stack = new Stack<>();
+        for (char c: s.toCharArray()) {
+            if (c != ']') stack.push(c);
+            else {
+                StringBuilder sb = new StringBuilder();
+                while (!stack.isEmpty() && Character.isLetter(stack.peek()))
+                    sb.insert(0, stack.pop());
+                String sub = sb.toString();
+                stack.pop();
+
+                sb = new StringBuilder();
+                while (!stack.isEmpty() && Character.isDigit(stack.peek()))
+                    sb.insert(0, stack.pop());
+                int repeat = Integer.parseInt(sb.toString());
+
+                for (int i = repeat; 0 < i; i--) {
+                    for (char ch: sub.toCharArray())
+                        stack.push(ch);
+                }
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        while (!stack.isEmpty()) {
+            sb.insert(0, stack.pop());
+        }
+        return sb.toString();
+    }
 }
