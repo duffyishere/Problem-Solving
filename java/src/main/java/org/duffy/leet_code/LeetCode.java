@@ -1672,4 +1672,21 @@ public class LeetCode {
         }
         return sb.toString();
     }
+
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> ret = new ArrayList<>();
+        combine(ret, new ArrayList<>(), 1, n, k);
+        return ret;
+    }
+    private void combine(List<List<Integer>> ret, List<Integer> comb, int index, int n, int k) {
+        if (k == 0) {
+            ret.add(new ArrayList<>(comb));
+        } else {
+            for (int i = index; i <= n; i++) {
+                comb.add(i);
+                combine(ret, comb, i + 1, n, k - 1);
+                comb.remove(comb.size() - 1);
+            }
+        }
+    }
 }
