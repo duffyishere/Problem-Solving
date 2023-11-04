@@ -1643,4 +1643,24 @@ public class LeetCode {
 
         return ret.stream().mapToInt(Integer::intValue).toArray();
     }
+
+    public boolean canPartition(int[] nums) {
+        int sum = 0;
+        int n = nums.length;
+
+        for (int num: nums) sum += num;
+        if (sum % 2 == 1) return false;
+
+        sum = sum / 2;
+        dp = new Boolean[n + 1][sum + 1];
+        return subsetSum(nums, 0, sum);
+    }
+    private boolean subsetSum(int[] nums, int idx, int sum) {
+        if (sum == 0) return true;
+        else if (idx >= nums.length || sum < 0) return false;
+
+        if (dp[idx][sum] != null) return dp[idx][sum];
+
+        return dp[idx][sum] = subsetSum(nums, idx + 1, sum - nums[idx]) || subsetSum(nums, idx + 1, sum);
+    }
 }
