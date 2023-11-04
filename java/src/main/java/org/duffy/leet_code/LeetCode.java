@@ -11,7 +11,7 @@ public class LeetCode {
         while (left < right) {
             int h = Math.min(height[left], height[right]);
             int w = right - left;
-            ret  = Math.max(ret, h * w);
+            ret = Math.max(ret, h * w);
 
             if (height[left] < height[right])
                 left++;
@@ -36,8 +36,7 @@ public class LeetCode {
         for (int i = 0; i < s.length(); i++) {
             if (i + 1 < s.length() && map.get(s.charAt(i)) < map.get(s.charAt(i + 1))) {
                 ret -= map.get(s.charAt(i));
-            }
-            else {
+            } else {
                 ret += map.get(s.charAt(i));
             }
         }
@@ -56,8 +55,7 @@ public class LeetCode {
             if (first.charAt(i) == last.charAt(i)) {
                 prefix += first.charAt(i);
                 i++;
-            }
-            else break;
+            } else break;
         }
 
         return prefix;
@@ -78,11 +76,9 @@ public class LeetCode {
                     set.add(Arrays.asList(nums[i], nums[left], nums[right]));
                     left++;
                     right--;
-                }
-                else if (sum < target) {
+                } else if (sum < target) {
                     left++;
-                }
-                else {
+                } else {
                     right--;
                 }
             }
@@ -108,8 +104,8 @@ public class LeetCode {
 
     private List<String> combinations(String word, List<String> answer) {
         List<String> ret = new ArrayList<>();
-        for (char ch: word.toCharArray()) {
-            for (String str: answer) {
+        for (char ch : word.toCharArray()) {
+            for (String str : answer) {
                 ret.add(str + ch);
             }
         }
@@ -156,7 +152,7 @@ public class LeetCode {
         ListNode answer = new ListNode(0);
         ListNode temp = answer;
 
-        while(list1 != null || list2 != null) {
+        while (list1 != null || list2 != null) {
             if (list1 == null) {
                 while (list2 != null) {
                     temp.next = list2;
@@ -164,8 +160,7 @@ public class LeetCode {
                     temp = temp.next;
                 }
                 return answer.next;
-            }
-            else if (list2 == null) {
+            } else if (list2 == null) {
                 while (list1 != null) {
                     temp.next = list1;
                     list1 = list1.next;
@@ -178,8 +173,7 @@ public class LeetCode {
                 temp.next = list1;
                 list1 = list1.next;
                 temp = temp.next;
-            }
-            else {
+            } else {
                 temp.next = list2;
                 list2 = list2.next;
                 temp = temp.next;
@@ -198,6 +192,7 @@ public class LeetCode {
     }
 
     int max;
+
     private void go_generateParenthesis(List<String> list, String str, int open, int close) {
         if (str.length() == max * 2) {
             list.add(str);
@@ -235,8 +230,7 @@ public class LeetCode {
                     node2 = node2.next;
                 }
                 break;
-            }
-            else if (node2 == null) {
+            } else if (node2 == null) {
                 while (node1 != null) {
                     tmp.next = node1;
                     tmp = tmp.next;
@@ -249,8 +243,7 @@ public class LeetCode {
                 tmp.next = node1;
                 tmp = tmp.next;
                 node1 = node1.next;
-            }
-            else {
+            } else {
                 tmp.next = node2;
                 tmp = tmp.next;
                 node2 = node2.next;
@@ -319,10 +312,12 @@ public class LeetCode {
 
         return nums;
     }
+
     private int[] reverse(int[] nums, int from, int to) {
         while (from < to) {
             swap(nums, from, to);
-            from++; to--;
+            from++;
+            to--;
         }
 
         return nums;
@@ -336,8 +331,7 @@ public class LeetCode {
             int mid = (left + right) / 2;
             if (nums[nums.length - 1] < nums[mid]) {
                 left = mid + 1;
-            }
-            else {
+            } else {
                 right = mid - 1;
             }
         }
@@ -361,8 +355,7 @@ public class LeetCode {
                 return mid;
             else if (nums[mid] < target) {
                 left = mid + 1;
-            }
-            else {
+            } else {
                 right = mid - 1;
             }
         }
@@ -382,8 +375,7 @@ public class LeetCode {
                 stack.pop();
                 if (stack.isEmpty()) {
                     stack.push(i);
-                }
-                else {
+                } else {
                     answer = Math.max(answer, i - stack.peek());
                 }
             }
@@ -396,7 +388,7 @@ public class LeetCode {
         int start = findStart(nums, target);
         int end = findEnd(nums, target);
 
-        return new int[] {start, end};
+        return new int[]{start, end};
     }
 
     private int findStart(int[] nums, int target) {
@@ -409,8 +401,7 @@ public class LeetCode {
             int mid = (left + right) / 2;
             if (nums[mid] < target) {
                 left = mid + 1;
-            }
-            else {
+            } else {
                 right = mid - 1;
             }
 
@@ -464,7 +455,7 @@ public class LeetCode {
 
     private void backtrack(List<List<Integer>> answer, List<Integer> tmpList, int[] nums, int remain, int start) {
         if (remain < 0) return;
-        else if(remain == 0) answer.add(new ArrayList<>(tmpList));
+        else if (remain == 0) answer.add(new ArrayList<>(tmpList));
         else {
             for (int i = start; i < nums.length; i++) {
                 tmpList.add(nums[i]);
@@ -483,8 +474,7 @@ public class LeetCode {
                 int temp = nums[i];
                 nums[i] = nums[correct];
                 nums[correct] = temp;
-            }
-            else {
+            } else {
                 i++;
             }
         }
@@ -508,8 +498,7 @@ public class LeetCode {
                 leftIndex++;
                 if (height[leftIndex] < leftMaxHeight) answer += leftMaxHeight - height[leftIndex];
                 else leftMaxHeight = height[leftIndex];
-            }
-            else {
+            } else {
                 rightIndex--;
                 if (height[rightIndex] < rightMaxHeight) answer += rightMaxHeight - height[rightIndex];
                 else rightMaxHeight = height[rightIndex];
@@ -557,8 +546,8 @@ public class LeetCode {
 
     private int[][] swapMatrix(int[][] matrix, int[] from, int[] to) {
         int tmp = matrix[from[0]][from[1]];
-        matrix[from[0]][from[1]] = matrix[to[0]] [to[1]];
-        matrix[to[0]] [to[1]] = tmp;
+        matrix[from[0]][from[1]] = matrix[to[0]][to[1]];
+        matrix[to[0]][to[1]] = tmp;
 
         return matrix;
     }
@@ -579,7 +568,7 @@ public class LeetCode {
 
     public List<List<String>> groupAnagrams(String[] strs) {
         Map<String, List<String>> map = new HashMap<>();
-        for (String word: strs) {
+        for (String word : strs) {
             char[] chars = word.toCharArray();
             Arrays.sort(chars);
             String sortedWord = new String(chars);
@@ -644,11 +633,10 @@ public class LeetCode {
         int[] newIntervals = intervals[0];
         ans.add(newIntervals);
 
-        for(int[] interval: intervals) {
+        for (int[] interval : intervals) {
             if (interval[0] <= newIntervals[1]) {
                 newIntervals[1] = Math.max(newIntervals[1], interval[1]);
-            }
-            else {
+            } else {
                 newIntervals = interval;
                 ans.add(newIntervals);
             }
@@ -764,6 +752,7 @@ public class LeetCode {
     public void sortColors(int[] nums) {
         mergeSort(nums, 0, nums.length);
     }
+
     private void mergeSort(int[] nums, int left, int right) {
         int mid = (left + right) / 2;
         if (left + 1 == right)
@@ -773,6 +762,7 @@ public class LeetCode {
         mergeSort(nums, mid, right);
         merge(nums, left, mid, right);
     }
+
     private void merge(int[] nums, int left, int mid, int right) {
         int[] tmp = new int[right - left + 1];
         int leftIndex = left;
@@ -781,14 +771,11 @@ public class LeetCode {
         for (int i = left; i < right; i++) {
             if (rightIndex == right) {
                 tmp[i] = nums[leftIndex++];
-            }
-            else if (leftIndex == mid) {
+            } else if (leftIndex == mid) {
                 tmp[i] = nums[rightIndex++];
-            }
-            else if (nums[leftIndex] < nums[rightIndex]) {
+            } else if (nums[leftIndex] < nums[rightIndex]) {
                 tmp[i] = nums[leftIndex++];
-            }
-            else {
+            } else {
                 tmp[i] = nums[rightIndex++];
             }
         }
@@ -837,7 +824,9 @@ public class LeetCode {
         subsets(nums, new ArrayList<>(), 0);
         return subsets;
     }
+
     List<List<Integer>> subsets = new ArrayList<>();
+
     private void subsets(int[] nums, List<Integer> ret, int index) {
         if (index == nums.length) {
             subsets.add(new ArrayList<>(ret));
@@ -864,11 +853,13 @@ public class LeetCode {
         }
         return false;
     }
+
     char[][] board;
     String word;
     boolean[][] visited;
     int[] dy = {1, 0, -1, 0};
     int[] dx = {0, 1, 0, -1};
+
     private boolean search(int y, int x, int count) {
         if (count == word.length())
             return true;
@@ -928,6 +919,7 @@ public class LeetCode {
     public boolean isSymmetric(TreeNode root) {
         return isSymmetric(root.left, root.right);
     }
+
     private boolean isSymmetric(TreeNode n1, TreeNode n2) {
         if (n1 == null && n2 == null) return true;
         if (n1 == null && n2 != null || n1 != null && n2 == null) return false;
@@ -942,6 +934,7 @@ public class LeetCode {
         levelOrder(ans, root, 0);
         return ans;
     }
+
     private void levelOrder(List<List<Integer>> ans, TreeNode node, int depth) {
         if (node == null)
             return;
@@ -960,7 +953,9 @@ public class LeetCode {
         go(root, 1);
         return ansMaxDepth;
     }
+
     int ansMaxDepth = 1;
+
     private void go(TreeNode node, int depth) {
         if (node == null)
             return;
@@ -972,6 +967,7 @@ public class LeetCode {
 
     int maxIndex = 0;
     int lowIndex = 0;
+
     public String longestPalindrome(String s) {
         char[] chars = s.toCharArray();
         if (chars.length < 2)
@@ -983,6 +979,7 @@ public class LeetCode {
         }
         return s.substring(lowIndex, lowIndex + maxIndex - 1);
     }
+
     private void longestPalindrome(char[] chars, int left, int right) {
         while (0 <= left && right < chars.length && chars[left] == chars[right]) {
             left--;
@@ -997,8 +994,10 @@ public class LeetCode {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         return buildTree(preorder, inorder, Integer.MAX_VALUE);
     }
+
     int pIndex = 0;
     int iIndex = 0;
+
     private TreeNode buildTree(int[] preorder, int[] inorder, int stop) {
         if (preorder.length <= pIndex)
             return null;
@@ -1018,7 +1017,7 @@ public class LeetCode {
         TreeNode curr = root;
         while (curr != null) {
             if (curr.left != null) {
-                TreeNode runner  = curr.left;
+                TreeNode runner = curr.left;
                 while (runner.right != null) runner = runner.right;
                 runner.right = curr.right;
                 curr.right = curr.left;
@@ -1039,11 +1038,9 @@ public class LeetCode {
                     tmp = new ArrayList<>();
                     tmp.add(1);
                     ans.add(tmp);
-                }
-                else if (j == i) {
+                } else if (j == i) {
                     ans.get(j).add(1);
-                }
-                else {
+                } else {
                     ans.get(i).add(ans.get(i - 1).get(j - 1) + ans.get(i - 1).get(j));
                 }
             }
@@ -1056,17 +1053,20 @@ public class LeetCode {
         int ans = 0;
         int buy = prices[0];
 
-        for (int price: prices) {
+        for (int price : prices) {
             ans = Math.max(ans, price - buy);
             buy = Math.min(buy, price);
         }
         return ans;
     }
+
     int maxPathSumAns = Integer.MIN_VALUE;
+
     public int maxPathSum(TreeNode root) {
         helper(root);
         return maxPathSumAns;
     }
+
     private int helper(TreeNode node) {
         if (node == null) return 0;
         int left = Math.max(helper(node.left), 0);
@@ -1083,10 +1083,12 @@ public class LeetCode {
             map.put(nums[i], i);
 
         int ans = 0;
-        for (int now: nums) {
+        for (int now : nums) {
             if (!map.containsKey(now - 1)) {
                 int next = now + 1;
-                while (map.containsKey(next)) {next++;}
+                while (map.containsKey(next)) {
+                    next++;
+                }
                 ans = Math.max(ans, next - now);
             }
         }
@@ -1094,12 +1096,13 @@ public class LeetCode {
     }
 
     public List<List<String>> partition(String s) {
-        if(s == null || s.isEmpty()) return new ArrayList<>();
+        if (s == null || s.isEmpty()) return new ArrayList<>();
 
         List<List<String>> result = new ArrayList<>();
         partitionHelper(s, new ArrayList<>(), result);
         return result;
     }
+
     private void partitionHelper(String str, List<String> step, List<List<String>> result) {
         if (str.isEmpty()) {
             result.add(new ArrayList<>(step));
@@ -1113,6 +1116,7 @@ public class LeetCode {
             step.remove(step.size() - 1);
         }
     }
+
     private boolean isPalindrome(String str) {
         int start = 0;
         int end = str.length() - 1;
@@ -1137,8 +1141,9 @@ public class LeetCode {
     public boolean isSameTree(TreeNode p, TreeNode q) {
         return isSameTreeHelper(p, q);
     }
+
     private boolean isSameTreeHelper(TreeNode n1, TreeNode n2) {
-        if (n1 == null && n2 != null || n1 != null && n2== null)
+        if (n1 == null && n2 != null || n1 != null && n2 == null)
             return false;
         if (n1 == null && n2 == null)
             return true;
@@ -1187,14 +1192,16 @@ public class LeetCode {
 
         return wordBreakHelper(s.length() - 1);
     }
+
     int[] dp;
     String s;
     List<String> wd;
+
     private boolean wordBreakHelper(int idx) {
         if (idx < 0) return true;
         if (dp[idx] != -1) return dp[idx] == 1;
 
-        for (String word: wd) {
+        for (String word : wd) {
             if (idx - word.length() + 1 < 0)
                 continue;
 
@@ -1264,8 +1271,7 @@ public class LeetCode {
             if (l1.val < l2.val) {
                 dummy.next = l1;
                 l1 = l1.next;
-            }
-            else {
+            } else {
                 dummy.next = l2;
                 l2 = l2.next;
             }
@@ -1281,9 +1287,9 @@ public class LeetCode {
 
     public int maxProduct(int[] nums) {
         int ret = nums[0];
-        int curMax = 1 , curMin= 1;
+        int curMax = 1, curMin = 1;
 
-        for (int num: nums) {
+        for (int num : nums) {
             if (num == 0) {
                 curMax = 1;
                 curMin = 1;
@@ -1305,8 +1311,7 @@ public class LeetCode {
             int mid = (left + right) / 2;
             if (nums[right] < nums[mid]) {
                 left = mid + 1;
-            }
-            else {
+            } else {
                 right = mid;
             }
         }
@@ -1317,8 +1322,8 @@ public class LeetCode {
         ListNode a = headA;
         ListNode b = headB;
         while (a != b) {
-            a = a == null? headB: a.next;
-            b = b == null? headA: b.next;
+            a = a == null ? headB : a.next;
+            b = b == null ? headA : b.next;
         }
         return a;
     }
@@ -1331,8 +1336,7 @@ public class LeetCode {
             if (cnt == 0) {
                 cnt++;
                 ans = nums[i];
-            }
-            else if (ans == nums[i]) cnt++;
+            } else if (ans == nums[i]) cnt++;
             else cnt--;
         }
         return ans;
@@ -1346,6 +1350,7 @@ public class LeetCode {
         reverseRotate(nums, 0, k - 1);
         reverseRotate(nums, k, l);
     }
+
     private void reverseRotate(int[] nums, int start, int end) {
         while (start < end) {
             int tmp = nums[start];
@@ -1355,6 +1360,7 @@ public class LeetCode {
             end--;
         }
     }
+
     public int rob(int[] nums) {
         int[] dp = new int[nums.length + 1];
         dp[0] = 0;
@@ -1370,8 +1376,10 @@ public class LeetCode {
         dfs(root, 1);
         return ret;
     }
+
     List<Integer> ret = new ArrayList<>();
     int maxDepth = 0;
+
     private void dfs(TreeNode node, int depth) {
         if (node == null)
             return;
@@ -1379,8 +1387,8 @@ public class LeetCode {
             maxDepth = depth;
             ret.add(node.val);
         }
-        dfs(node.right, depth+1);
-        dfs(node.left, depth+1);
+        dfs(node.right, depth + 1);
+        dfs(node.left, depth + 1);
     }
 
     public int numIslands(char[][] grid) {
@@ -1403,6 +1411,7 @@ public class LeetCode {
 
     int yLen, xLen;
     char[][] grid;
+
     private void numIslandsDFS(int y, int x) {
         if (grid[y][x] == '0' || visited[y][x]) return;
         visited[y][x] = true;
@@ -1444,6 +1453,7 @@ public class LeetCode {
             queue.poll();
         return queue.peek();
     }
+
     private void addAllTree(PriorityQueue<Integer> q, TreeNode node) {
         if (node == null)
             return;
@@ -1469,6 +1479,7 @@ public class LeetCode {
         }
         return true;
     }
+
     private ListNode reverseNode(ListNode head) {
         if (head == null || head.next == null) return head;
         ListNode ret = reverseNode(head.next);
@@ -1481,7 +1492,7 @@ public class LeetCode {
         if (root == null || root == p || root == q) return root;
         TreeNode left = lowestCommonAncestor(root.left, p, q);
         TreeNode right = lowestCommonAncestor(root.right, p, q);
-        return left == null? right: right == null? left: root;
+        return left == null ? right : right == null ? left : root;
     }
 
     public int[] productExceptSelf(int[] nums) {
@@ -1492,8 +1503,7 @@ public class LeetCode {
             if (0 < i) {
                 left *= nums[i - 1];
                 ans[i] = left;
-            }
-            else
+            } else
                 ans[i] = left;
         }
 
@@ -1516,8 +1526,10 @@ public class LeetCode {
         this.visited = new boolean[matrix.length][matrix[0].length];
         return searchMatrixGo(0, 0);
     }
+
     int[][] matrix;
     int target;
+
     private boolean searchMatrixGo(int y, int x) {
         if (matrix.length <= y || matrix[0].length <= x) return false;
         if (visited[y][x]) return false;
@@ -1547,7 +1559,7 @@ public class LeetCode {
 
     public void moveZeroes(int[] nums) {
         int pos = 0;
-        for (int num: nums) {
+        for (int num : nums) {
             if (num != 0) nums[pos++] = num;
         }
         while (pos < nums.length) {
@@ -1577,7 +1589,7 @@ public class LeetCode {
 
     public int lengthOfLIS(int[] nums) {
         List<Integer> lis = new ArrayList<>();
-        for (int num: nums) {
+        for (int num : nums) {
             if (lis.isEmpty() || lis.get(lis.size() - 1) < num) lis.add(num);
             else {
                 int left = 0;
@@ -1594,6 +1606,7 @@ public class LeetCode {
         }
         return lis.size();
     }
+
     public int lengthOfLIS_DP(int[] nums) {
         int len = nums.length;
         int[] dp = new int[len];
@@ -1614,22 +1627,22 @@ public class LeetCode {
         Arrays.fill(dp, amount + 1);
         dp[0] = 0;
 
-        for (int coin: coins) {
+        for (int coin : coins) {
             for (int i = coin; i <= amount; i++) {
                 dp[i] = Math.min(dp[i], dp[i - coin] + 1);
             }
         }
-        return dp[amount] < amount + 1? dp[amount]: -1;
+        return dp[amount] < amount + 1 ? dp[amount] : -1;
     }
 
     public int[] topKFrequency(int[] nums, int k) {
         Map<Integer, Integer> frequencyMap = new HashMap<>();
-        for (int num: nums) frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+        for (int num : nums) frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
 
         int n = nums.length;
         List<Integer>[] bucket = new List[n + 1];
 
-        for (int key: frequencyMap.keySet()) {
+        for (int key : frequencyMap.keySet()) {
             int frequency = frequencyMap.get(key);
             if (bucket[frequency] == null)
                 bucket[frequency] = new ArrayList<>();
@@ -1648,13 +1661,14 @@ public class LeetCode {
         int sum = 0;
         int n = nums.length;
 
-        for (int num: nums) sum += num;
+        for (int num : nums) sum += num;
         if (sum % 2 == 1) return false;
 
         sum = sum / 2;
         dp = new Boolean[n + 1][sum + 1];
         return subsetSum(nums, 0, sum);
     }
+
     private boolean subsetSum(int[] nums, int idx, int sum) {
         if (sum == 0) return true;
         else if (idx >= nums.length || sum < 0) return false;
@@ -1666,7 +1680,7 @@ public class LeetCode {
 
     public String decodeString(String s) {
         Stack<Character> stack = new Stack<>();
-        for (char c: s.toCharArray()) {
+        for (char c : s.toCharArray()) {
             if (c != ']') stack.push(c);
             else {
                 StringBuilder sb = new StringBuilder();
@@ -1681,7 +1695,7 @@ public class LeetCode {
                 int repeat = Integer.parseInt(sb.toString());
 
                 for (int i = repeat; 0 < i; i--) {
-                    for (char ch: sub.toCharArray())
+                    for (char ch : sub.toCharArray())
                         stack.push(ch);
                 }
             }
@@ -1698,6 +1712,7 @@ public class LeetCode {
         combine(ret, new ArrayList<>(), 1, n, k);
         return ret;
     }
+
     private void combine(List<List<Integer>> ret, List<Integer> comb, int index, int n, int k) {
         if (k == 0) {
             ret.add(new ArrayList<>(comb));
@@ -1708,4 +1723,5 @@ public class LeetCode {
                 comb.remove(comb.size() - 1);
             }
         }
-
+    }
+}
