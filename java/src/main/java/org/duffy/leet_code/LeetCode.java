@@ -1663,4 +1663,49 @@ public class LeetCode {
 
         return dp[idx][sum] = subsetSum(nums, idx + 1, sum - nums[idx]) || subsetSum(nums, idx + 1, sum);
     }
-}
+
+    public String decodeString(String s) {
+        Stack<Character> stack = new Stack<>();
+        for (char c: s.toCharArray()) {
+            if (c != ']') stack.push(c);
+            else {
+                StringBuilder sb = new StringBuilder();
+                while (!stack.isEmpty() && Character.isLetter(stack.peek()))
+                    sb.insert(0, stack.pop());
+                String sub = sb.toString();
+                stack.pop();
+
+                sb = new StringBuilder();
+                while (!stack.isEmpty() && Character.isDigit(stack.peek()))
+                    sb.insert(0, stack.pop());
+                int repeat = Integer.parseInt(sb.toString());
+
+                for (int i = repeat; 0 < i; i--) {
+                    for (char ch: sub.toCharArray())
+                        stack.push(ch);
+                }
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        while (!stack.isEmpty()) {
+            sb.insert(0, stack.pop());
+        }
+        return sb.toString();
+    }
+
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> ret = new ArrayList<>();
+        combine(ret, new ArrayList<>(), 1, n, k);
+        return ret;
+    }
+    private void combine(List<List<Integer>> ret, List<Integer> comb, int index, int n, int k) {
+        if (k == 0) {
+            ret.add(new ArrayList<>(comb));
+        } else {
+            for (int i = index; i <= n; i++) {
+                comb.add(i);
+                combine(ret, comb, i + 1, n, k - 1);
+                comb.remove(comb.size() - 1);
+            }
+        }
+
