@@ -1665,7 +1665,7 @@ public class LeetCode {
         if (sum % 2 == 1) return false;
 
         sum = sum / 2;
-        dp = new Boolean[n + 1][sum + 1];
+//        dp = new Boolean[n + 1][sum + 1];
         return subsetSum(nums, 0, sum);
     }
 
@@ -1673,9 +1673,10 @@ public class LeetCode {
         if (sum == 0) return true;
         else if (idx >= nums.length || sum < 0) return false;
 
-        if (dp[idx][sum] != null) return dp[idx][sum];
+//        if (dp[idx][sum] != null) return dp[idx][sum];
 
-        return dp[idx][sum] = subsetSum(nums, idx + 1, sum - nums[idx]) || subsetSum(nums, idx + 1, sum);
+//        return dp[idx][sum] = subsetSum(nums, idx + 1, sum - nums[idx]) || subsetSum(nums, idx + 1, sum);
+        return false;
     }
 
     public String decodeString(String s) {
@@ -1723,5 +1724,45 @@ public class LeetCode {
                 comb.remove(comb.size() - 1);
             }
         }
+    }
+
+    public List<Integer> findAnagrams(String s, String p) {
+        int n = s.length();
+        int m = p.length();
+        List<Integer> ret = new ArrayList<>();
+        if (n < m) return ret;
+
+        int[] sFrequency = new int[26];
+        int[] pFrequency = new int[26];
+
+        int left = 0;
+        int right = m - 1;
+
+        for (char ch: p.toCharArray()) {
+            pFrequency[ch - 'a']++;
+        }
+        for (int i = left; i <= right; i++) {
+            sFrequency[s.charAt(i) - 'a']++;
+        }
+        if (isAnagram(sFrequency, pFrequency))
+            ret.add(left);
+
+        while (right < n - 1) {
+            sFrequency[s.charAt(left++) - 'a']--;
+            sFrequency[s.charAt(++right) - 'a']++;
+
+            if (isAnagram(sFrequency, pFrequency))
+                ret.add(left);
+        }
+
+        return ret;
+    }
+
+    private boolean isAnagram(int[] s, int[] p) {
+        for (int i = 0; i < 26; i++) {
+            if (s[i] != p[i])
+                return false;
+        }
+        return true;
     }
 }
