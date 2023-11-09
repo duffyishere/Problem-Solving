@@ -1765,4 +1765,19 @@ public class LeetCode {
         }
         return true;
     }
+
+    public int diameterOfBinaryTree(TreeNode root) {
+        maxDepth_TreeNode(root);
+        return max;
+    }
+
+    int max_diameterOfBinaryTree = 0;
+    private int maxDepth_TreeNode(TreeNode node) {
+        if (node == null) return 0;
+        int left = maxDepth_TreeNode(node.left);
+        int right = maxDepth_TreeNode(node.right);
+        max_diameterOfBinaryTree = Math.max(max_diameterOfBinaryTree, left + right);
+
+        return Math.max(left, right) + 1;
+    }
 }
