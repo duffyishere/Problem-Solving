@@ -57,4 +57,40 @@ public class Solution {
         }
         return result - 1;
     }
+
+    public int[] 베스트앨범(String[] genres, int[] plays) {
+        int n = genres.length;
+        Map<String, Integer> totalPlay = new HashMap<>();
+        Map<String, Map<Integer, Integer>> musics = new HashMap<>();
+
+        for (int i = 0; i < n; i++) {
+            String genre = genres[i];
+            int play = plays[i];
+
+            totalPlay.put(genre, totalPlay.getOrDefault(genre, 0) + play);
+
+            if (musics.containsKey(genre)) {
+                musics.get(genre).put(i, play);
+            } else {
+                Map<Integer, Integer> music = new HashMap<>();
+                music.put(i, play);
+                musics.put(genre, music);
+            }
+        }
+
+        List<String> sortedKey = new ArrayList<>(totalPlay.keySet());
+        sortedKey.sort(((o1, o2) -> totalPlay.get(o2).compareTo(totalPlay.get(o1))));
+        List<Integer> ret = new ArrayList<>();
+
+        for (String genre: sortedKey) {
+            Map<Integer, Integer> music = musics.get(genre);
+            List<Integer> genreKey = new ArrayList<>(music.keySet());
+
+            genreKey.sort(((o1, o2) -> music.get(o2).compareTo(music.get(o1))));
+
+            ret.add(genreKey.get(0));
+            if (1 < genreKey.size()) ret.add(genreKey.get(1));
+        }
+        return ret.stream().mapToInt(Integer::intValue).toArray();
+    }
 }
