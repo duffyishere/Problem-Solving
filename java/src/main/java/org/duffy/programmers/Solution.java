@@ -1,8 +1,6 @@
 package org.duffy.programmers;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Solution {
 
@@ -32,7 +30,7 @@ public class Solution {
         return answer.isEmpty() ? participant[n - 1] : answer;
     }
 
-    public boolean solution(String[] phone_book) {
+    public boolean 전화번호_목록(String[] phone_book) {
         Arrays.sort(phone_book);
         for (int i = 0; i < phone_book.length - 1; i++) {
             String now = phone_book[i];
@@ -42,5 +40,21 @@ public class Solution {
                 return false;
         }
         return true;
+    }
+
+    public int 의상(String[][] clothes) {
+        Map<String, Integer> frequencyMap = new HashMap<>();
+        for (String[] cloth: clothes) {
+            String category = cloth[1];
+            frequencyMap.put(category, frequencyMap.getOrDefault(category, 0) + 1);
+        }
+
+        int result = 0;
+        for (String key: frequencyMap.keySet()) {
+            Integer frequency = frequencyMap.get(key);
+            if (result == 0) result += frequency + 1;
+            else result *= frequency + 1;
+        }
+        return result - 1;
     }
 }
