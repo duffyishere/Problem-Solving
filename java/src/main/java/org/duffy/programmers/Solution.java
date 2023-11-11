@@ -138,4 +138,19 @@ public class Solution {
         Arrays.sort(tmp);
         return tmp[k - 1];
     }
+
+    public int H_Index(int[] citations) {
+        int n = citations.length;
+        int ret = 0;
+        Arrays.sort(citations);
+
+        for (int i = 0; i < n; i++) {
+            int h = n - i;
+            if (h <= citations[i]) {
+                ret = h;
+                break;
+            }
+        }
+        return ret;
+    }
 }
