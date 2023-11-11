@@ -170,4 +170,28 @@ public class Solution {
         }
         return ret;
     }
+
+    public int 디스크_컨트롤러(int[][] jobs) {
+        List<int[]> work = new ArrayList<>(Arrays.asList(jobs));
+        work.sort(Comparator.comparingInt(a -> a[0]));
+
+        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[1]));
+
+        int ret = 0;
+        int now = 0;
+        while (!work.isEmpty() || !pq.isEmpty()) {
+            while (!work.isEmpty() && work.get(0)[0] <= now) {
+                pq.add(work.remove(0));
+            }
+
+            if (!pq.isEmpty()) {
+                int[] job = pq.poll();
+                now += job[1];
+                ret += now - job[0];
+            } else {
+                now = work.get(0)[0];
+            }
+        }
+        return ret / jobs.length;
+    }
 }
