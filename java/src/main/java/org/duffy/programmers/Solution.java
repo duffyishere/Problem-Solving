@@ -153,4 +153,21 @@ public class Solution {
         }
         return ret;
     }
+
+    public int 더_맵게(int[] scoville, int K) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for (int num: scoville) pq.offer(num);
+        int ret = 0;
+
+        while (pq.peek() < K) {
+            if (pq.size() < 2) {
+                return -1;
+            }
+            int n1 = pq.poll();
+            int n2 = pq.poll();
+            pq.offer(n1 + (n2 * 2));
+            ret++;
+        }
+        return ret;
+    }
 }
