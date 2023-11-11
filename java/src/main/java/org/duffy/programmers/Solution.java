@@ -194,4 +194,36 @@ public class Solution {
         }
         return ret / jobs.length;
     }
+
+    public int[] 이중우선순위큐(String[] operations) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        List<Integer> reverse = new ArrayList<>();
+
+        for (String str: operations) {
+            StringTokenizer st = new StringTokenizer(str);
+            String command = st.nextToken();
+            int value = Integer.parseInt(st.nextToken());
+
+            switch (command) {
+                case "I":
+                    pq.add(value);
+                    reverse.add(value);
+                    reverse.sort((i1, i2) -> i2 - i1);
+                    break;
+                case "D":
+                    if (pq.isEmpty()) break;
+                    if (value == 1) {
+                        pq.remove(reverse.get(0));
+                        reverse.remove(0);
+                        reverse.sort((i1, i2) -> i2 - i1);
+                    }
+                    else
+                        pq.poll();
+                    break;
+            }
+        }
+
+        if (pq.isEmpty()) return new int[] {0, 0};
+        else return new int[] {reverse.get(0), pq.poll()};
+    }
 }
