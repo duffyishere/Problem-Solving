@@ -93,4 +93,30 @@ public class Solution {
         }
         return ret.stream().mapToInt(Integer::intValue).toArray();
     }
+
+    public int[] K번째수(int[] array, int[][] commands) {
+        int n = commands.length;
+        int[] ret = new int[n];
+        for (int i = 0; i < n; i++)
+            ret[i] = K번째수_helper(array, commands[i]);
+
+        return ret;
+    }
+
+    private int K번째수_helper(int[] array, int[] command) {
+        int n = command[0];
+        int m = command[1];
+        int k = command[2];
+
+        int[] tmp = new int[m - n + 1];
+        int i = 0;
+        n = n - 1;
+        m = m - 1;
+        while (n <= m) {
+            tmp[i++] = array[n++];
+        }
+
+        Arrays.sort(tmp);
+        return tmp[k - 1];
+    }
 }
