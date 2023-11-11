@@ -1676,7 +1676,7 @@ public class LeetCode {
 //        if (dp[idx][sum] != null) return dp[idx][sum];
 
 //        return dp[idx][sum] = subsetSum(nums, idx + 1, sum - nums[idx]) || subsetSum(nums, idx + 1, sum);
-        return false;
+        return true;
     }
 
     public String decodeString(String s) {
