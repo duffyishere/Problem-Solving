@@ -398,4 +398,27 @@ public class Solution {
         }
         return cnt;
     }
+
+    public int 모음사전(String word) {
+        모음사전_go(new char[]{'A', 'E', 'I', 'O', 'U'}, new HashSet<>(), new StringBuffer());
+        return words.indexOf(word);
+    }
+
+    List<String> words = new ArrayList<>();
+    private void 모음사전_go(char[] vowels, HashSet<String> visited, StringBuffer word) {
+        if (4 < word.length()) return;
+        if (visited.contains(word.toString())) return;
+
+        for (char vowel: vowels) {
+            visited.add(word.toString());
+
+            word.append(vowel);
+            words.add(word.toString());
+
+            모음사전_go(vowels, visited, word);
+
+            word.deleteCharAt(word.length() - 1);
+            visited.remove(word.toString());
+        }
+    }
 }
