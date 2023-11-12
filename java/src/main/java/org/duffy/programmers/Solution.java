@@ -353,4 +353,49 @@ public class Solution {
             피로도_visited[i] = false;
         }
     }
+
+    public int 전력망을_둘로_나누기(int n, int[][] wires) {
+        ArrayList<Integer>[] graph = new ArrayList[n + 1];
+        for (int i = 1; i <= n; i++) {
+            graph[i] = new ArrayList<>();
+        }
+
+        for (int[] wire: wires) {
+            int a = wire[0];
+            int b = wire[1];
+            graph[a].add(b);
+            graph[b].add(a);
+        }
+
+        int min = Integer.MAX_VALUE;
+        for (int[] wire: wires) {
+            int a = wire[0];
+            int b = wire[1];
+
+            graph[a].remove(b);
+            graph[b].remove(a);
+
+            // a에 연결된 갯수 - 나머지
+            int cnt1 =  전력망을_둘로_나누기_go(graph, new boolean[n + 1], a);
+            int cnt2 = n - cnt1;
+
+            min = Math.min(min, Math.abs(cnt1 - cnt2));
+
+            graph[a].add(b);
+            graph[b].add(a);
+        }
+
+        return min;
+    }
+
+    private int 전력망을_둘로_나누기_go(List<Integer>[] graph, boolean[] visited, int node) {
+        visited[node] = true;
+        int cnt = 1;
+
+        for (int next: graph[node]) {
+            if (visited[next]) continue;
+            cnt +=  전력망을_둘로_나누기_go(graph, visited, next);
+        }
+        return cnt;
+    }
 }
