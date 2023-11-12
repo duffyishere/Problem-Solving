@@ -274,4 +274,49 @@ public class Solution {
 
         return ret.stream().mapToInt(Integer::intValue).toArray();
     }
+
+    public int 소수_찾기(String numbers) {
+        int n = numbers.length();
+        소수_찾기_prime(Math.pow(10, n));
+        소수_찾기_go(numbers, new StringBuilder(), n);
+
+        int cnt = 0;
+        for (int num: 소수_찾기_set) {
+            if (소수_찾기_isPrime[num])
+                cnt++;
+        }
+        return cnt;
+    }
+
+    boolean[] 소수_찾기_visited = new boolean[10];
+    Set<Integer> 소수_찾기_set = new HashSet<>();
+    private void 소수_찾기_go(String str, StringBuilder current, int max) {
+        if (max <= current.length())
+            return;
+
+        for (int i = 0; i < str.length(); i++) {
+            if (소수_찾기_visited[i]) continue;
+            소수_찾기_visited[i] = true;
+            current.append(str.charAt(i));
+            소수_찾기_set.add(Integer.valueOf(current.toString()));
+            소수_찾기_go(str, current, max);
+            current.deleteCharAt(current.length() - 1);
+            소수_찾기_visited[i] = false;
+        }
+    }
+
+    boolean[] 소수_찾기_isPrime;
+    private void 소수_찾기_prime(double range) {
+        소수_찾기_isPrime = new boolean[(int) (range + 1)];
+        Arrays.fill(소수_찾기_isPrime, true);
+        소수_찾기_isPrime[0] = 소수_찾기_isPrime[1] = false;
+
+        for (int i = 2; i < Math.sqrt(range); i++) {
+            if (소수_찾기_isPrime[i]) {
+                for (int j = i * 2; j <= range; j += i) {
+                    소수_찾기_isPrime[j] = false;
+                }
+            }
+        }
+    }
 }

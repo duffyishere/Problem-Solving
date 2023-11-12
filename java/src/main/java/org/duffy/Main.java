@@ -1,7 +1,5 @@
 package org.duffy;
 
-import org.duffy.sort.Sort;
-
 import java.util.*;
 
 public class Main {
