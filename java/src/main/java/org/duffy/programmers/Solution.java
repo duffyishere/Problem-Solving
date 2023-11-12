@@ -319,4 +319,16 @@ public class Solution {
             }
         }
     }
+
+    public int[] 카펫(int brown, int yellow) {
+        for (int h = 1; h <= yellow; h++) {
+            if (yellow % h != 0)  continue;
+            else {
+                int w = yellow / h;
+                int area = (w + 2) * (h + 2);
+                if (area - yellow == brown) return new int[] {w + 2, h + 2};
+            }
+        }
+        return new int[]{0};
+    }
 }
