@@ -331,4 +331,26 @@ public class Solution {
         }
         return new int[]{0};
     }
+
+    public int 피로도(int k, int[][] dungeons) {
+        int n = dungeons.length;
+        this.피로도_visited = new boolean[n];
+
+        피로도_go(dungeons, k, 0);
+        return 피로도_max;
+    }
+
+    int 피로도_max = 0;
+    boolean[] 피로도_visited;
+    public void 피로도_go(int[][] dungeons, int k, int cnt) {
+        피로도_max = Math.max(피로도_max, cnt);
+
+        for (int i = 0; i < dungeons.length; i++) {
+            if (피로도_visited[i]) continue;
+            if (k < dungeons[i][0]) continue;
+            피로도_visited[i] = true;
+            피로도_go(dungeons, k - dungeons[i][1], cnt + 1);
+            피로도_visited[i] = false;
+        }
+    }
 }
