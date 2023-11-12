@@ -252,4 +252,26 @@ public class Solution {
 
         return wMax * hMax;
     }
+
+    public int[] 모의고사(int[] answers) {
+        int[] s1 = new int[] {1, 2, 3, 4, 5};
+        int[] s2 = new int[] {2, 1, 2, 3, 2, 4, 2, 5};
+        int[] s3 = new int[] {3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
+        int cnt1 = 0, cnt2 = 0, cnt3 = 0;
+        int max = 0;
+
+        for (int i = 0; i < answers.length; i++) {
+            int ans = answers[i];
+            if (ans == s1[i % s1.length]) cnt1++;
+            if (ans == s2[i % s2.length]) cnt2++;
+            if (ans == s3[i % s3.length]) cnt3++;
+        }
+        max = Math.max(cnt1, Math.max(cnt2, cnt3));
+        List<Integer> ret = new ArrayList<>();
+        if (cnt1 == max) ret.add(1);
+        if (cnt2 == max) ret.add(2);
+        if (cnt3 == max) ret.add(3);
+
+        return ret.stream().mapToInt(Integer::intValue).toArray();
+    }
 }
