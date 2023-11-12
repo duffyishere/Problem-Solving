@@ -226,4 +226,30 @@ public class Solution {
         if (pq.isEmpty()) return new int[] {0, 0};
         else return new int[] {reverse.get(0), pq.poll()};
     }
+
+    public int 최소직사각형(int[][] sizes) {
+        int wMax = Integer.MIN_VALUE;
+        int hMax = Integer.MIN_VALUE;
+        for (int[] size: sizes) {
+            wMax = Math.max(wMax, size[0]);
+            hMax = Math.max(hMax, size[1]);
+        }
+
+
+        if (hMax < wMax) { // 가로로 뒤집고, 최대 세로 길이 다시 구하기
+            hMax = Integer.MIN_VALUE;
+            for (int[] size: sizes) {
+                if (size[0] < size[1]) hMax = Math.max(hMax, size[0]);
+                else hMax = Math.max(hMax, size[1]);
+            }
+        } else {
+            wMax = Integer.MIN_VALUE;
+            for (int[] size: sizes) {
+                if (size[1] < size[0]) wMax = Math.max(wMax, size[1]);
+                else wMax = Math.max(wMax, size[0]);
+            }
+        }
+
+        return wMax * hMax;
+    }
 }
