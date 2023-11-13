@@ -500,4 +500,54 @@ public class Solution {
         }
         return true;
     }
+
+    public int 아이템_줍기(int[][] rectangle, int characterX, int characterY, int itemX, int itemY) {
+        int[][] graph = new int[102][102];
+        for (int[] g: graph) Arrays.fill(g, -1);
+
+        characterX *= 2;
+        characterY *= 2;
+        itemX *= 2;
+        itemY *= 2;
+
+        for (int i = rectangle.length - 1; 0 <= i; i--) {
+            int[] r = rectangle[i];
+            int x1 = r[0] * 2, y1 = r[1] * 2;
+            int x2 = r[2] * 2, y2 = r[3] * 2;
+
+            for (int y = y1; y <= y2; y++) {
+                for (int x = x1; x <= x2; x++) {
+                    if (x1 < x && x < x2 && y1 < y && y < y2)
+                        graph[y][x] = 0;
+                    else if (graph[y][x] != 0)
+                        graph[y][x] = 1;
+                }
+            }
+        }
+
+        Queue<int[]> queue = new LinkedList<>();
+        queue.add(new int[]{characterY, characterX});
+        int[][] visited = new int[102][102];
+        visited[characterY][characterX] = 1;
+        int[] dy = new int[] {1, 0, -1, 0};
+        int[] dx = new int[] {0, 1, 0, -1};
+
+        while (!queue.isEmpty()) {
+            int[] tmp = queue.poll();
+            if (tmp[0] == itemY && tmp[1] == itemX) break;
+            for (int i = 0; i < 4; i++) {
+                int my = tmp[0] + dy[i];
+                int mx = tmp[1] + dx[i];
+
+                if (my < 2 || mx < 2 || 102 <= my || 102 <= mx) continue;
+                if (0 < visited[my][mx]) continue;
+                if (graph[my][mx] != 1) continue;
+
+                visited[my][mx] += visited[tmp[0]][tmp[1]] + 1;
+                queue.offer(new int[]{my, mx});
+            }
+        }
+
+        return visited[itemY][itemX] / 2;
+    }
 }
