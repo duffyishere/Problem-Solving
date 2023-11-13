@@ -435,4 +435,36 @@ public class Solution {
 
         return plus + minus;
     }
+
+    public int 네트워크(int n, int[][] computers) {
+        ArrayList<Integer>[] graph = new ArrayList[n + 1];
+        for (int i = 1; i <= n; i++)
+            graph[i] = new ArrayList<>();
+
+        for (int i = 0; i < computers.length; i++) {
+            for (int j = 0; j < computers[i].length; j++) {
+                if (computers[i][j] == 1) graph[i + 1].add(j + 1);
+            }
+        }
+
+        boolean[] visited = new boolean[n + 1];
+
+        int cnt = 0;
+        for (int i = 1; i <= n; i++) {
+            if (!visited[i]) {
+                cnt++;
+                네트워크_dfs(graph, visited, i);
+            }
+        }
+
+        return cnt;
+    }
+
+    private void 네트워크_dfs(ArrayList<Integer>[] graph, boolean[] visited, int node) {
+        visited[node] = true;
+        for (int next: graph[node]) {
+            if (visited[next]) continue;
+            네트워크_dfs(graph, visited, next);
+        }
+    }
 }
