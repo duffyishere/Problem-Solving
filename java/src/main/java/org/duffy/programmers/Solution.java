@@ -550,4 +550,33 @@ public class Solution {
 
         return visited[itemY][itemX] / 2;
     }
+
+    public String[] 여행경로(String[][] tickets) {
+        여행경로_ret = new ArrayList<>();
+        여행경로_dfs("ICN", new ArrayList<>(), tickets, new boolean[tickets.length + 1]);
+        Collections.sort(여행경로_ret);
+        return 여행경로_ret.get(0).split(" ");
+    }
+
+    List<String> 여행경로_ret;
+    private void 여행경로_dfs(String current, List<String> comb, String[][] tickets, boolean[] visited) {
+        comb.add(current);
+        if (comb.size() == tickets.length + 1) {
+            StringBuilder sb = new StringBuilder();
+            for (String s: comb) {
+                sb.append(s).append(" ");
+            }
+            여행경로_ret.add(sb.toString().trim());
+            return;
+        }
+
+        for (int i = 0; i < tickets.length; i++) {
+            if (!visited[i] && tickets[i][0].equals(current)) {
+                visited[i] = true;
+                여행경로_dfs(tickets[i][1], comb, tickets, visited);
+                visited[i] = false;
+                comb.remove(comb.size() - 1);
+            }
+        }
+    }
 }
