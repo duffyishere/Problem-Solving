@@ -421,4 +421,18 @@ public class Solution {
             visited.remove(word.toString());
         }
     }
+
+    public int 타겟_넘버(int[] numbers, int target) {
+        return 타겟_넘버_go(numbers, target, 0, 0);
+    }
+
+    private int 타겟_넘버_go(int[] numbers, int target, int idx, int num) {
+        if (idx == numbers.length)
+            return num == target ? 1 : 0;
+
+        int plus = 타겟_넘버_go(numbers, target, idx + 1, num + numbers[idx]);
+        int minus = 타겟_넘버_go(numbers, target, idx + 1, num - numbers[idx]);
+
+        return plus + minus;
+    }
 }
