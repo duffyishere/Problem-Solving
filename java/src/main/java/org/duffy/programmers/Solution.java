@@ -467,4 +467,37 @@ public class Solution {
             네트워크_dfs(graph, visited, next);
         }
     }
+
+    public int 단어_변환(String begin, String target, String[] words) {
+        go(new HashSet<>(), words, target, begin, 0);
+        return 단어_변환_min == Integer.MAX_VALUE ? 0: 단어_변환_min;
+    }
+
+    int 단어_변환_min = Integer.MAX_VALUE;
+    private void go(Set<String> visited, String[] words, String target, String current, int count) {
+        visited.add(current);
+
+        if (target.equals(current)) {
+            단어_변환_min = Math.min(단어_변환_min, count);
+            return;
+        }
+
+        for (String word: words) {
+            if (visited.contains(word)) continue;
+            if (단어_변환_canChange(current, word)) {
+                go(visited, words, target, word, count + 1);
+                visited.remove(word);
+            }
+        }
+    }
+
+    private boolean 단어_변환_canChange(String s1, String s2) {
+        int cnt = 0;
+        for (int i = 0; i < s1.length(); i++) {
+            if (s1.charAt(i) != s2.charAt(i)) {
+                if (1 < ++cnt) return false;
+            }
+        }
+        return true;
+    }
 }
