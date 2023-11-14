@@ -665,4 +665,37 @@ public class Solution {
 
         return cnt;
     }
+
+    public int 다리를_지나는_트럭(int bridge_length, int weight, int[] truck_weights) {
+        Queue<Integer> bridge = new LinkedList<>();
+        for (int i = 0; i < bridge_length; i++) bridge.offer(0);
+
+        int time = 0;
+        int idx = 0;
+        int totalWeight = 0;
+        int truckCount = 0;
+        while (idx < truck_weights.length) {
+            // 빼기
+            if (bridge.peek() != 0) { // 트럭을 뺄 때
+                totalWeight -= bridge.poll();
+                truckCount--;
+                time++;
+            } else {
+                bridge.poll();
+                time++;
+            }
+
+            // 추가
+            if (totalWeight + truck_weights[idx] <= weight && truckCount + 1 <= bridge_length) { // 트럭을 추가할 때
+                totalWeight += truck_weights[idx];
+                truckCount++;
+                bridge.offer(truck_weights[idx]);
+                idx++;
+            } else { // 공기 추가
+                bridge.offer(0);
+            }
+        }
+
+        return time + bridge_length;
+    }
 }
