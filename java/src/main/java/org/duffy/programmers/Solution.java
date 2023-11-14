@@ -617,4 +617,18 @@ public class Solution {
 
         return ret.stream().mapToInt(Integer::intValue).toArray();
     }
+
+    public boolean 올바른_괄호(String s) {
+        Stack<Character> stack = new Stack<>();
+        for (char ch: s.toCharArray()) {
+            if (ch == '(')
+                stack.push('(');
+            else {
+                if (stack.isEmpty()) return false;
+                stack.pop();
+            }
+        }
+
+        return stack.isEmpty();
+    }
 }
