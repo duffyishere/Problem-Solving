@@ -579,4 +579,21 @@ public class Solution {
             }
         }
     }
+
+    public int[] 같은_숫자는_싫어(int []arr) {
+        Stack<Integer> stack = new Stack<>();
+        for (int num: arr) {
+            if (stack.isEmpty()) stack.add(num);
+            else {
+                if (stack.peek() != num) stack.add(num);
+            }
+        }
+
+        int n = stack.size();
+        int[] ret = new int[n];
+        for (int i = n - 1; 0 <= i; i--) {
+            ret[i] = stack.pop();
+        }
+        return ret;
+    }
 }
