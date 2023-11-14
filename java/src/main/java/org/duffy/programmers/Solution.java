@@ -631,4 +631,38 @@ public class Solution {
 
         return stack.isEmpty();
     }
+
+    public int 프로세스(int[] priorities, int location) {
+        Queue<Integer> queue = new LinkedList<>();
+        PriorityQueue<Integer> order = new PriorityQueue<>(((o1, o2) -> o2 - o1));
+        for (int num: priorities) {
+            queue.offer(num);
+            order.offer(num);
+        }
+
+        int cnt = 0;
+        while (!queue.isEmpty() && !order.isEmpty()) {
+            if (queue.peek().compareTo(order.peek()) == 0) { // 뺴기
+                if (location == 0) {
+                    cnt++;
+                    break;
+                } else {
+                    cnt++;
+                    location--;
+                }
+                queue.poll();
+                order.poll();
+            } else { // 뒤로 보내기
+                if (location == 0) {
+                    location = queue.size() - 1;
+                }
+                else {
+                    location--;
+                }
+                queue.offer(queue.poll());
+            }
+        }
+
+        return cnt;
+    }
 }
