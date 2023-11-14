@@ -596,4 +596,25 @@ public class Solution {
         }
         return ret;
     }
+
+    public int[] 기능개발(int[] progresses, int[] speeds) {
+        List<Integer> ret = new ArrayList<>();
+        double prev = Integer.MIN_VALUE;
+
+        for (int i = 0; i < progresses.length; i++) {
+            double day = Math.ceil((double) (100 - progresses[i]) / speeds[i]);
+
+            // 걸린 시간이 이전에 진행한 프로젝트보다 작을 경우
+            if (day <= prev) {
+                int cnt = ret.remove(ret.size() - 1);
+                ret.add(++cnt);
+            }
+            else {
+                prev = day;
+                ret.add(1);
+            }
+        }
+
+        return ret.stream().mapToInt(Integer::intValue).toArray();
+    }
 }
