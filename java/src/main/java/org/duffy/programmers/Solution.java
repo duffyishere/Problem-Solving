@@ -698,4 +698,25 @@ public class Solution {
 
         return time + bridge_length;
     }
+
+    public int[] 주식가격(int[] prices) {
+        Stack<Integer> stack = new Stack<>();
+        stack.push(0);
+        int n = prices.length;
+        int[] ret = new int[n];
+
+        for (int i = 1; i < n; i++) {
+            while (!stack.isEmpty() && prices[i] < prices[stack.peek()]) {
+                int j = stack.pop();
+                ret[j] = i - j;
+            }
+            stack.push(i);
+        }
+
+        while (!stack.isEmpty()) {
+            int idx = stack.pop();
+            ret[idx] = n - idx - 1;
+        }
+        return ret;
+    }
 }
