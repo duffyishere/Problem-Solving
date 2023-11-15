@@ -729,4 +729,26 @@ public class Solution {
 
         return -1;
     }
+
+    public int 정수_삼각형(int[][] triangle) {
+        int n = triangle.length;
+        int[][] dp = new int[n][n];
+        dp[0][0] = triangle[0][0];
+
+        for (int row = 1; row < triangle.length; row++) {
+            for (int col = 0; col < triangle[row].length; col++) {
+                int val = triangle[row][col];
+                if (col < row)
+                    dp[row][col] = Math.max(dp[row][col], dp[row - 1][col] + val);
+                if (0 < col)
+                    dp[row][col] = Math.max(dp[row][col], dp[row - 1][col - 1] + val);
+            }
+        }
+
+        int max = Integer.MIN_VALUE;
+        for (int num: dp[n - 1])
+            max = Math.max(max, num);
+
+        return max;
+    }
 }
