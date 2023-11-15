@@ -698,4 +698,35 @@ public class Solution {
 
         return time + bridge_length;
     }
+
+    public int N으로_표현(int N, int number) {
+        Set<Integer>[] dp = new Set[9];
+        StringBuffer sb = new StringBuffer();
+
+        for (int i = 1; i < 9; i++) {
+            dp[i] = new HashSet<>();
+            sb.append(N);
+            dp[i].add(Integer.valueOf(sb.toString()));
+        }
+
+        for (int i = 2; i < 9; i++) {
+            for (int j = 1; j < i; j++) {
+                Set<Integer> list = dp[i];
+                for (int cur: dp[i - j]) { // 괄호 연산
+                    for (int num: dp[j]) {
+                        list.add(cur + num);
+                        list.add(cur - num);
+                        list.add(cur * num);
+                        if (num != 0)
+                            list.add(cur / num);
+                    }
+                }
+            }
+        }
+
+        for (int i = 1; i < 9; i++)
+            if (dp[i].contains(number)) return i;
+
+        return -1;
+    }
 }
