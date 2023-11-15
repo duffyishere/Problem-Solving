@@ -719,4 +719,57 @@ public class Solution {
         }
         return ret;
     }
+
+    public int N으로_표현(int N, int number) {
+        Set<Integer>[] dp = new Set[9];
+        StringBuffer sb = new StringBuffer();
+
+        for (int i = 1; i < 9; i++) {
+            dp[i] = new HashSet<>();
+            sb.append(N);
+            dp[i].add(Integer.valueOf(sb.toString()));
+        }
+
+        for (int i = 2; i < 9; i++) {
+            for (int j = 1; j < i; j++) {
+                Set<Integer> list = dp[i];
+                for (int cur: dp[i - j]) { // 괄호 연산
+                    for (int num: dp[j]) {
+                        list.add(cur + num);
+                        list.add(cur - num);
+                        list.add(cur * num);
+                        if (num != 0)
+                            list.add(cur / num);
+                    }
+                }
+            }
+        }
+
+        for (int i = 1; i < 9; i++)
+            if (dp[i].contains(number)) return i;
+
+        return -1;
+    }
+
+    public int 정수_삼각형(int[][] triangle) {
+        int n = triangle.length;
+        int[][] dp = new int[n][n];
+        dp[0][0] = triangle[0][0];
+
+        for (int row = 1; row < triangle.length; row++) {
+            for (int col = 0; col < triangle[row].length; col++) {
+                int val = triangle[row][col];
+                if (col < row)
+                    dp[row][col] = Math.max(dp[row][col], dp[row - 1][col] + val);
+                if (0 < col)
+                    dp[row][col] = Math.max(dp[row][col], dp[row - 1][col - 1] + val);
+            }
+        }
+
+        int max = Integer.MIN_VALUE;
+        for (int num: dp[n - 1])
+            max = Math.max(max, num);
+
+        return max;
+    }
 }
