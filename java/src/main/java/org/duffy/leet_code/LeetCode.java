@@ -1780,4 +1780,28 @@ public class LeetCode {
 
         return Math.max(left, right) + 1;
     }
+
+    public boolean confusingNumber(int n) {
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, 0);
+        map.put(1, 1);
+        map.put(6, 9);
+        map.put(8, 8);
+        map.put(9, 6);
+
+        Stack<Integer> stack = new Stack<>();
+        for (char c: String.valueOf(n).toCharArray()) {
+            int num = Character.digit(c, 10);
+            if (map.containsKey(num))
+                stack.push(map.get(num));
+            else
+                return false;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        while (!stack.isEmpty())
+            sb.append(stack.pop());
+
+        return n != Integer.parseInt(sb.toString());
+    }
 }

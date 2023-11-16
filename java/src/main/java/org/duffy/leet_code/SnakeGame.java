@@ -1,4 +1,4 @@
-package org.duffy;
+package org.duffy.leet_code;
 
 public class SnakeGame {
 
@@ -22,7 +22,6 @@ public class SnakeGame {
     }
 
     public int move(String direction) {
-        // 움직이기
         try {
             if (direction.equals("D"))
                 moveDown();
@@ -33,7 +32,6 @@ public class SnakeGame {
             else if (direction.equals("R"))
                 moveRight();
         } catch (IllegalArgumentException e) {
-            System.out.println(-1);
             return -1;
         }
 
@@ -45,7 +43,6 @@ public class SnakeGame {
                 setNextFood();
         }
 
-        System.out.println(score);
         return score;
     }
 
