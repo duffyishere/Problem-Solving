@@ -772,4 +772,26 @@ public class Solution {
 
         return max;
     }
+
+    public int 등굣길(int m, int n, int[][] puddles) {
+        int mod = 1000000007;
+        int[][] dp = new int[n + 1][m + 1];
+        for (int[] p: puddles)
+            dp[p[1]][p[0]] = -1;
+        dp[1][1] = 1;
+
+        for (int y = 1; y <= n; y++) {
+            for (int x = 1; x <= m; x++) {
+                if (y == 1 && x == 1) continue;
+                if (dp[y][x] == -1) continue;
+
+                int val = 0;
+                if (dp[y][x - 1] != -1) val += dp[y][x - 1];
+                if (dp[y - 1][x] != -1) val += dp[y - 1][x];
+
+                dp[y][x] += val % mod;
+            }
+        }
+        return dp[n][m] % mod;
+    }
 }
