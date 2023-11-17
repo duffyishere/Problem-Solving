@@ -794,4 +794,15 @@ public class Solution {
         }
         return dp[n][m] % mod;
     }
+
+    public int minPairSum(int[] nums) {
+        Arrays.sort(nums);
+        int start = 0;
+        int end = nums.length - 1;
+        int ret = 0;
+        while (start < end) {
+            ret = Math.max(ret, nums[start++] + nums[end--]);
+        }
+        return ret;
+    }
 }
