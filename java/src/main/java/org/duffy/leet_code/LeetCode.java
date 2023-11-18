@@ -1804,4 +1804,35 @@ public class LeetCode {
 
         return n != Integer.parseInt(sb.toString());
     }
+
+    public int minPairSum(int[] nums) {
+        Arrays.sort(nums);
+        int start = 0;
+        int end = nums.length - 1;
+        int ret = 0;
+        while (start < end) {
+            ret = Math.max(ret, nums[start++] + nums[end--]);
+        }
+        return ret;
+    }
+
+
+    public int maxFrequency(int[] nums, int k) {
+        Arrays.sort(nums);
+        int left = 0;
+        long total = 0;
+        int res = 0;
+
+        for (int right = 0; right < nums.length; right++) {
+            total += nums[right];
+
+            while (total + k < (long) (right - left + 1) * nums[right]) {
+                total -= nums[left];
+                left++;
+            }
+            res = Math.max(res, right - left + 1);
+        }
+
+        return res;
+    }
 }
