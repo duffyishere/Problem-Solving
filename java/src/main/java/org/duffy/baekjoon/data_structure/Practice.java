@@ -1,4 +1,4 @@
-package org.duffy.data_structure;
+package org.duffy.baekjoon.data_structure;
 
 import java.io.*;
 import java.util.*;

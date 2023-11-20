@@ -1,4 +1,4 @@
-package org.duffy.dynamic_programming;
+package org.duffy.baekjoon.dynamic_programming;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -46,6 +46,17 @@ public class DynamicProgramming {
         }
 
         return d[n];
+    }
+
+    public int pr1463_2(int num) {
+        int[] dp = new int[num + 1];
+
+        for (int i = 2; i <= num; i++) {
+            dp[i] = dp[i - 1] + 1;
+            if (i % 2 == 0) dp[i] = Math.min(dp[i], dp[i / 2] + 1);
+            if (i % 3 == 0) dp[i] = Math.min(dp[i], dp[i / 3] + 1);
+        }
+        return dp[num];
     }
 
     public int pr11726(int n) {

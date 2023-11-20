@@ -1,4 +1,4 @@
-package org.duffy.sort;
+package org.duffy.baekjoon.sort;
 
 import java.util.Queue;
 

@@ -1,4 +1,4 @@
-package org.duffy.math;
+package org.duffy.baekjoon.math;
 
 import java.io.*;
 import java.util.ArrayList;

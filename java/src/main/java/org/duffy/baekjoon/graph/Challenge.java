@@ -1,4 +1,4 @@
-package org.duffy.graph;
+package org.duffy.baekjoon.graph;
 
 import java.util.*;
 
