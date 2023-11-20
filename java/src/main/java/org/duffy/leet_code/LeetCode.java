@@ -1835,4 +1835,43 @@ public class LeetCode {
 
         return res;
     }
+
+    public int reductionOperations(int[] nums) {
+        Arrays.sort(nums);
+        int res = 0;
+        int cnt = 0;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] != nums[i - 1])
+                cnt++;
+            res += cnt;
+        }
+        return res;
+    }
+
+    public int garbageCollection(String[] garbage, int[] travel) {
+        int totalResidentTime = 0;
+        String[] truckTypes = new String[] {"G", "P", "M"};
+
+        for (String type: truckTypes) {
+            int totalTravelTime = 0;
+            int singleMoveTime = 0;
+            for (int i = 0; i < garbage.length; i++) {
+                int unitCount = 0;
+                if (garbage[i].contains(type)) {
+                    StringBuilder garbageStringBuilder = new StringBuilder(garbage[i]);
+                    while (garbageStringBuilder.indexOf(type) != -1) {
+                        unitCount++;
+                        garbageStringBuilder.deleteCharAt(garbageStringBuilder.indexOf(type));
+                    }
+
+                    totalTravelTime += singleMoveTime + unitCount;
+                    singleMoveTime = 0;
+                }
+                if (i == garbage.length - 1) continue;
+                singleMoveTime += travel[i];
+            }
+            totalResidentTime += totalTravelTime;
+        }
+        return totalResidentTime;
+    }
 }
