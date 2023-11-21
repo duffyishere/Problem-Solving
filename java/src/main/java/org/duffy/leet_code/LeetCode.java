@@ -1874,4 +1874,27 @@ public class LeetCode {
         }
         return totalResidentTime;
     }
+
+    public int countNicePairs(int[] nums) {
+        int MOD = 1000000000 + 7;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int res = 0;
+        for (int num: nums) {
+            int div = num - reverse(num);
+            res = (res + map.getOrDefault(div, 0)) % MOD;
+            map.put(div, map.getOrDefault(div, 0) + 1);
+        }
+
+        return res;
+    }
+
+    private int reverse(int num) {
+        int reversed = 0;
+        while (num != 0) {
+            int digit = num % 10;
+            reversed = reversed * 10 + digit;
+            num /= 10;
+        }
+        return reversed;
+    }
 }
