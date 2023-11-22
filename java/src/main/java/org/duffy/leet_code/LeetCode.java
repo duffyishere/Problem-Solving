@@ -1897,4 +1897,21 @@ public class LeetCode {
         }
         return reversed;
     }
+
+    public int maximumElementAfterDecrementingAndRearranging(int[] arr) {
+        Arrays.sort(arr);
+        int res = 1;
+        arr[0] = 1;
+
+        for (int i = 1; i < arr.length; i++) {
+            int prev = arr[i - 1];
+            int curr = arr[i];
+            if (prev + 1 <= curr) {
+                arr[i] = prev + 1;
+                res = prev + 1;
+            }
+        }
+
+        return res;
+    }
 }
