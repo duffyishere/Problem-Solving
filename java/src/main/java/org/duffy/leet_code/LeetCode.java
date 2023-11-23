@@ -1914,4 +1914,29 @@ public class LeetCode {
 
         return res;
     }
+
+    public List<Boolean> checkArithmeticSubarrays(int[] nums, int[] l, int[] r) {
+        int m = l.length;
+        List<Boolean> res = new ArrayList<>();
+
+        for (int i = 0; i < m; i++) {
+            int leftIdx = l[i];
+            int rightIdx = r[i];
+            int[] sub = Arrays.copyOfRange(nums, leftIdx, rightIdx + 1);
+            Arrays.sort(sub);
+
+            int val = sub[1] - sub[0];
+            boolean flag = true;
+
+            for (int j = 2; j <= r[i] - l[i]; j++) {
+                if (val != sub[j] - sub[j - 1]) {
+                    flag = false;
+                    break;
+                }
+            }
+            res.add(flag);
+        }
+
+        return res;
+    }
 }
