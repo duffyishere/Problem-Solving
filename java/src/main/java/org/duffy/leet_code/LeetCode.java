@@ -1939,4 +1939,18 @@ public class LeetCode {
 
         return res;
     }
+
+    public int maxCoins(int[] piles) {
+        Arrays.sort(piles);
+        int count = piles.length / 3;
+        int idx = piles.length - 2;
+        int res = 0;
+
+        for (int i = 0; i < count; i++) {
+            res += piles[idx];
+            idx -= 2;
+        }
+
+        return res;
+    }
 }
