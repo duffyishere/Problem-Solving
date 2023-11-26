@@ -1953,4 +1953,26 @@ public class LeetCode {
 
         return res;
     }
+
+    public int[] getSumAbsoluteDifferences(int[] nums) {
+        int n = nums.length;
+        int[] res = new int[n];
+        int[] prefix = new int[n];
+        prefix[0] = nums[0];
+        for (int i = 1; i < n; i++)
+            prefix[i] = prefix[i - 1] + nums[i];
+
+        for (int i = 0; i < n; i++) {
+            int leftSum = prefix[i] - nums[i];
+            int rightSum = prefix[n - 1] - prefix[i];
+
+            int leftCount = i;
+            int rightCount = n - 1 - i;
+
+            int leftTotal = nums[i] * leftCount - leftSum;
+            int rightTotal = rightSum - nums[i] * rightCount;
+            res[i] = leftTotal + rightTotal;
+        }
+        return res;
+    }
 }
