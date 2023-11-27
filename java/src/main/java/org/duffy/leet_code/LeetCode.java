@@ -2009,4 +2009,24 @@ public class LeetCode {
         knightDialer_dp[remain][now] = res;
         return res;
     }
+
+    public int largestSubmatrix(int[][] matrix) {
+        int n = matrix.length;
+        int m = matrix[0].length;
+        int res = 0;
+
+        for (int row = 0; row < n; row++) {
+            for (int col = 0; col < m; col++) {
+                if (matrix[row][col] != 0 && row > 0)
+                    matrix[row][col] += matrix[row - 1][col];
+            }
+
+            int[] currRow = matrix[row].clone();
+            Arrays.sort(currRow);
+            for (int i = 0; i < m; i++) {
+                res = Math.max(res, currRow[i] * (m - i));
+            }
+        }
+        return res;
+    }
 }
