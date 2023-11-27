@@ -1975,4 +1975,38 @@ public class LeetCode {
         }
         return res;
     }
+
+    int[][] knightDialer_dp;
+    int knightDialer_MOD = (int) 1e9 + 7;
+    int[][] knightDialer_moves = {
+            {4, 6},
+            {6, 8},
+            {7, 9},
+            {4, 8},
+            {3, 9, 0},
+            {},
+            {1, 7, 0},
+            {2, 6},
+            {1, 3},
+            {2, 4}
+    };
+    public int knightDialer(int n) {
+        knightDialer_dp = new int[n + 1][10];
+        int res = 0;
+        for (int i = 0; i < 10; i++) {
+            res = (res + knightDialer_dp(n - 1, i)) % knightDialer_MOD;
+        }
+        return res;
+    }
+
+    private int knightDialer_dp(int remain, int now) {
+        if (remain == 0) return 1;
+        if (knightDialer_dp[remain][now] != 0) return knightDialer_dp[remain][now];
+        int res = 0;
+        for (int next: knightDialer_moves[now]) {
+            res = (knightDialer_dp(remain - 1, next) + res) % knightDialer_MOD;
+        }
+        knightDialer_dp[remain][now] = res;
+        return res;
+    }
 }
