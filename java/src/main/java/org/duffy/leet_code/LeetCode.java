@@ -2029,4 +2029,31 @@ public class LeetCode {
         }
         return res;
     }
+
+    public int numberOfWays(String corridor) {
+        int mod = (int) 1e9 + 7;
+        char[] array = corridor.toCharArray();
+        long res = 1;
+        int chairs = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == 'S') {
+                chairs++;
+                while (++i < array.length && array[i] != 'S');
+                if (i < array.length) {
+                    chairs++;
+                }
+
+                int divisions = 1;
+                while (++i < array.length && array[i] != 'S') {
+                    divisions++;
+                }
+
+                if (1 < divisions && i < array.length) {
+                    res = (res * divisions) % mod;
+                }
+                i--;
+            }
+        }
+        return chairs != 0 && chairs % 2 == 0 ? (int) res : 0;
+    }
 }
