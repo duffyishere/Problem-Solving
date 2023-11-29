@@ -1738,7 +1738,7 @@ public class LeetCode {
         int left = 0;
         int right = m - 1;
 
-        for (char ch: p.toCharArray()) {
+        for (char ch : p.toCharArray()) {
             pFrequency[ch - 'a']++;
         }
         for (int i = left; i <= right; i++) {
@@ -1772,6 +1772,7 @@ public class LeetCode {
     }
 
     int max_diameterOfBinaryTree = 0;
+
     private int maxDepth_TreeNode(TreeNode node) {
         if (node == null) return 0;
         int left = maxDepth_TreeNode(node.left);
@@ -1790,7 +1791,7 @@ public class LeetCode {
         map.put(9, 6);
 
         Stack<Integer> stack = new Stack<>();
-        for (char c: String.valueOf(n).toCharArray()) {
+        for (char c : String.valueOf(n).toCharArray()) {
             int num = Character.digit(c, 10);
             if (map.containsKey(num))
                 stack.push(map.get(num));
@@ -1850,9 +1851,9 @@ public class LeetCode {
 
     public int garbageCollection(String[] garbage, int[] travel) {
         int totalResidentTime = 0;
-        String[] truckTypes = new String[] {"G", "P", "M"};
+        String[] truckTypes = new String[]{"G", "P", "M"};
 
-        for (String type: truckTypes) {
+        for (String type : truckTypes) {
             int totalTravelTime = 0;
             int singleMoveTime = 0;
             for (int i = 0; i < garbage.length; i++) {
@@ -1879,7 +1880,7 @@ public class LeetCode {
         int MOD = 1000000000 + 7;
         HashMap<Integer, Integer> map = new HashMap<>();
         int res = 0;
-        for (int num: nums) {
+        for (int num : nums) {
             int div = num - reverse(num);
             res = (res + map.getOrDefault(div, 0)) % MOD;
             map.put(div, map.getOrDefault(div, 0) + 1);
@@ -1990,6 +1991,7 @@ public class LeetCode {
             {1, 3},
             {2, 4}
     };
+
     public int knightDialer(int n) {
         knightDialer_dp = new int[n + 1][10];
         int res = 0;
@@ -2003,7 +2005,7 @@ public class LeetCode {
         if (remain == 0) return 1;
         if (knightDialer_dp[remain][now] != 0) return knightDialer_dp[remain][now];
         int res = 0;
-        for (int next: knightDialer_moves[now]) {
+        for (int next : knightDialer_moves[now]) {
             res = (knightDialer_dp(remain - 1, next) + res) % knightDialer_MOD;
         }
         knightDialer_dp[remain][now] = res;
@@ -2038,7 +2040,7 @@ public class LeetCode {
         for (int i = 0; i < array.length; i++) {
             if (array[i] == 'S') {
                 chairs++;
-                while (++i < array.length && array[i] != 'S');
+                while (++i < array.length && array[i] != 'S') ;
                 if (i < array.length) {
                     chairs++;
                 }
@@ -2055,5 +2057,14 @@ public class LeetCode {
             }
         }
         return chairs != 0 && chairs % 2 == 0 ? (int) res : 0;
+    }
+
+    public int hammingWeight(int n) {
+        int res = 0;
+        while (n != 0) {
+            res += n & 1;
+            n = n >>> 1;
+        }
+        return res;
     }
 }
