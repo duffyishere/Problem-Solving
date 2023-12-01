@@ -2067,4 +2067,22 @@ public class LeetCode {
         }
         return res;
     }
+
+    public boolean arrayStringsAreEqual(String[] word1, String[] word2) {
+        StringBuilder sb1 = new StringBuilder();
+        for (String word: word1) {
+            for (char ch: word.toCharArray()) {
+                sb1.append(ch);
+            }
+        }
+
+        StringBuilder sb2 = new StringBuilder();
+        for (String word: word2) {
+            for (char ch: word.toCharArray()) {
+                sb2.append(ch);
+            }
+        }
+
+        return sb1.compareTo(sb2) == 0;
+    }
 }
