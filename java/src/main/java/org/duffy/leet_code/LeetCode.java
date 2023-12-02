@@ -2085,4 +2085,31 @@ public class LeetCode {
 
         return sb1.compareTo(sb2) == 0;
     }
+
+    public int countCharacters(String[] words, String chars) {
+        int[] charFrequency = new int[26];
+        for (char ch: chars.toCharArray()) {
+            charFrequency[ch - 'a']++;
+        }
+
+        int res = 0;
+        for (String word: words) {
+            int[] wordFrequency = new int[26];
+            for (char ch: word.toCharArray()) {
+                wordFrequency[ch - 'a']++;
+            }
+
+            boolean hasContains = true;
+            for (int i = 0; i < 26; i++) {
+                if (charFrequency[i] < wordFrequency[i]) {
+                    hasContains = false;
+                    break;
+                }
+            }
+            if (hasContains) {
+                res += word.length();
+            }
+        }
+        return res;
+    }
 }
