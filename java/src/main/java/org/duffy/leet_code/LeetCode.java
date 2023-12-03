@@ -2112,4 +2112,18 @@ public class LeetCode {
         }
         return res;
     }
+
+    public int minTimeToVisitAllPoints(int[][] points) {
+        int res = 0;
+
+        for (int i = 0; i < points.length - 1; i++) {
+            int[] curr = points[i];
+            int[] next = points[i + 1];
+
+            int x = Math.abs(curr[0] - next[0]);
+            int y = Math.abs(curr[1] - next[1]);
+            res += Math.max(x, y);
+        }
+        return res;
+    }
 }
