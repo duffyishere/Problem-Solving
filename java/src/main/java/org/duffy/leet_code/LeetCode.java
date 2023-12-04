@@ -2126,4 +2126,25 @@ public class LeetCode {
         }
         return res;
     }
+
+    public String largestGoodInteger(String num) {
+        char[] ch = num.toCharArray();
+        int n = num.length();
+        int max = Integer.MIN_VALUE;
+
+        for (int start = 0; start < n; start++) {
+            int repeat = 1;
+            while (start + 1 < n && ch[start] == ch[start + 1]) {
+                start++;
+                repeat++;
+            }
+
+            int current = Character.digit(ch[start], 10);
+            if (2 < repeat && max < current) {
+                max = current;
+            }
+        }
+
+        return max == Integer.MIN_VALUE? "": String.valueOf(max).repeat(3);
+    }
 }
