@@ -2147,4 +2147,17 @@ public class LeetCode {
 
         return max == Integer.MIN_VALUE? "": String.valueOf(max).repeat(3);
     }
+
+    public int numberOfMatches(int n) {
+        int res = 0;
+        while (0 < n) {
+            if (n == 1) {
+                break;
+            }
+            int matchesCount = n / 2;
+            n = n - matchesCount;
+            res += matchesCount;
+        }
+        return res;
+    }
 }
