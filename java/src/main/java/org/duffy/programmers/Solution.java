@@ -794,4 +794,40 @@ public class Solution {
         }
         return dp[n][m] % mod;
     }
+
+    public long 연속_펄스_부분_수열의_합(int[] sequence) {
+        int n = sequence.length;
+        long[] oddDp = new long[n];   // 홀수가 -1인 값
+        long[] primeDp = new long[n];
+        oddDp[0] = sequence[0];	// idx가 홀수일 때 -1을 곱한 수
+        primeDp[0] = sequence[0] * -1;	// idx가 짝수일 때 -1을 곱한 수
+
+        for (int i = 1; i < n; i++) {
+            int num = sequence[i];
+            long primeSum;
+            long oddSum;
+
+            if (i % 2 == 1) {
+                oddSum = num * -1 + oddDp[i - 1];
+                oddDp[i] = Math.max(num * -1, oddSum);
+
+                primeSum = num + primeDp[i - 1];
+                primeDp[i] = Math.max(num, primeSum);
+            } else {
+                oddSum = num + oddDp[i - 1];
+                oddDp[i] = Math.max(num, oddSum);
+
+                primeSum = num * -1 + primeDp[i - 1];
+                primeDp[i] = Math.max(num * -1, primeSum);
+            }
+        }
+
+        long max = Integer.MIN_VALUE;
+        for (int i = 0; i < n; i++) {
+            max = Math.max(max, oddDp[i]);
+            max = Math.max(max, primeDp[i]);
+        }
+
+        return max;
+    }
 }
