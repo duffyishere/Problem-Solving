@@ -2160,4 +2160,20 @@ public class LeetCode {
         }
         return res;
     }
+
+    public int totalMoney(int n) {
+        int total = 0;
+        int week;
+        for (week = 0; week < n / 7; week++) {
+            for (int i = 1; i <= 7; i++) {
+                total += i + week;
+            }
+        }
+        week++;
+        for (int day = 0; day < n % 7; day++) {
+            total += day + week;
+        }
+
+        return total;
+    }
 }
