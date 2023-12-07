@@ -2176,4 +2176,16 @@ public class LeetCode {
 
         return total;
     }
+
+    public String largestOddNumber(String num) {
+        int n = num.length();
+        while (0 < n) {
+            int sub = Integer.parseInt(num.substring(n - 1, n));
+            if (sub % 2 == 1) {
+                return num.substring(0, n);
+            }
+            n--;
+        }
+        return "";
+    }
 }
