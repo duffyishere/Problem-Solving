@@ -2188,4 +2188,34 @@ public class LeetCode {
         }
         return "";
     }
+
+    public String tree2str(TreeNode root) {
+        StringBuilder sb = new StringBuilder();
+        tree2str_go(root, sb);
+        return sb.toString();
+    }
+
+    private void tree2str_go(TreeNode node, StringBuilder sb) {
+        sb.append(node.val);
+
+        if (node.left == null && node.right == null) {
+            return;
+        }
+
+        if (node.left != null) {
+            sb.append("(");
+            tree2str_go(node.left, sb);
+            sb.append(")");
+        }
+
+        if (node.right != null) {
+            if (node.left == null) {
+                sb.append("()");
+            }
+
+            sb.append("(");
+            tree2str_go(node.right, sb);
+            sb.append(")");
+        }
+    }
 }
