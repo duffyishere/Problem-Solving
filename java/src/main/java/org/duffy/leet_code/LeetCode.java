@@ -2218,4 +2218,20 @@ public class LeetCode {
             sb.append(")");
         }
     }
+
+    public List<Integer> inorderTraversal2(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        inorderTraversal_go(root, res);
+        return res;
+    }
+
+    private void inorderTraversal_go(TreeNode node, List<Integer> res) {
+        if (node == null) {
+            return;
+        }
+
+        inorderTraversal_go(node.left, res);
+        res.add(node.val);
+        inorderTraversal_go(node.right, res);
+    }
 }
