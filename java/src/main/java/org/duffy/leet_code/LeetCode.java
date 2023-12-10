@@ -2234,4 +2234,18 @@ public class LeetCode {
         res.add(node.val);
         inorderTraversal_go(node.right, res);
     }
+
+    public int[][] transpose(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int[][] transpose = new int[n][m];
+
+        for (int row = 0; row < m; row++) {
+            for (int col = 0; col < n; col++) {
+                transpose[col][row] = matrix[row][col];
+            }
+        }
+
+        return transpose;
+    }
 }
