@@ -2248,4 +2248,50 @@ public class LeetCode {
 
         return transpose;
     }
+
+    public int findSpecialInteger(int[] arr) {
+        int n = arr.length;
+        int[] candidates = new int[] {arr[n / 4], arr[n / 2], arr[3 * n / 4]};
+        int target = n / 4;
+        for (int candidate: candidates) {
+            int leftIdx = findLeftmostIndex(arr, candidate);
+            int rightIdx = findRightmostIndex(arr, candidate) - 1;
+            if (target < rightIdx - leftIdx + 1) {
+                return candidate;
+            }
+        }
+        return -1;
+    }
+
+    private int findRightmostIndex(int[] arr, int target) {
+        int left = 0;
+        int right = arr.length;
+
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (target < arr[mid]) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+
+        return left;
+    }
+
+    private int findLeftmostIndex(int[] arr, int target) {
+        int left = 0;
+        int right = arr.length;
+
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (target <= arr[mid]) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+
+        return left;
+    }
 }
