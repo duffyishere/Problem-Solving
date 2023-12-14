@@ -2344,4 +2344,42 @@ public class LeetCode {
             return oneCount + c1.oneCount - zeroCount - c1.zeroCount;
         }
     }
+
+    public int maxProduct2(int[] nums) {
+        int n = nums.length;
+        Arrays.sort(nums);
+        return (nums[n - 1] - 1) * (nums[n - 2] - 1);
+    }
+
+    public int numSpecial(int[][] mat) {
+        int res = 0;
+        for (int row = 0; row < mat.length; row++) {
+            for (int col = 0; col < mat[0].length; col++) {
+                if (mat[row][col] == 1 && checkRow(row, col, mat) && checkCol(row, col, mat)) {
+                    res++;
+                }
+            }
+        }
+        return res;
+    }
+
+    private boolean checkRow(int currRow, int currCol, int[][] mat) {
+        boolean isSpecial = true;
+        for (int row = 0; row < mat.length; row++) {
+            if (row != currRow && mat[row][currCol] == 1) {
+                isSpecial = false;
+            }
+        }
+        return isSpecial;
+    }
+
+    private boolean checkCol( int currRow, int currCol, int[][] mat) {
+        boolean isSpecial = true;
+        for (int col = 0; col < mat[0].length; col++) {
+            if (col != currCol && mat[currRow][col] == 1) {
+                isSpecial = false;
+            }
+        }
+        return isSpecial;
+    }
 }
