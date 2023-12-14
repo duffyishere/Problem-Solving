@@ -2294,4 +2294,54 @@ public class LeetCode {
 
         return left;
     }
+
+    public int[][] onesMinusZeros(int[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+
+        Map<Integer, Count> rowFreqMap = new HashMap<>();
+        Map<Integer, Count> colFreqMap = new HashMap<>();
+
+        for (int row = 0; row < n; row++) {
+            for (int col = 0; col < m; col++) {
+                Count rowFreq = rowFreqMap.getOrDefault(row, new Count());
+                Count colFreq = colFreqMap.getOrDefault(col, new Count());
+
+                if (grid[row][col] == 0) {
+                    rowFreq.zeroCount++;
+                    colFreq.zeroCount++;
+
+                    rowFreqMap.put(row, rowFreq);
+                    colFreqMap.put(col, colFreq);
+                } else {
+                    rowFreq.oneCount++;
+                    colFreq.oneCount++;
+
+                    rowFreqMap.put(row, rowFreq);
+                    colFreqMap.put(col, colFreq);
+                }
+            }
+        }
+
+        int[][] res = new int[n][m];
+        for (int row = 0; row < n; row++) {
+            for (int col = 0; col < m; col++) {
+                res[row][col] = rowFreqMap.get(row).sum(colFreqMap.get(col));
+            }
+        }
+        return res;
+    }
+
+    private class Count {
+        int zeroCount, oneCount;
+
+        public Count() {
+            zeroCount = 0;
+            oneCount = 0;
+        }
+
+        public int sum(Count c1) {
+            return oneCount + c1.oneCount - zeroCount - c1.zeroCount;
+        }
+    }
 }
