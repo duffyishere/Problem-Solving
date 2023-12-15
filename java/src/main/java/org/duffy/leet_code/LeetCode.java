@@ -2070,15 +2070,15 @@ public class LeetCode {
 
     public boolean arrayStringsAreEqual(String[] word1, String[] word2) {
         StringBuilder sb1 = new StringBuilder();
-        for (String word: word1) {
-            for (char ch: word.toCharArray()) {
+        for (String word : word1) {
+            for (char ch : word.toCharArray()) {
                 sb1.append(ch);
             }
         }
 
         StringBuilder sb2 = new StringBuilder();
-        for (String word: word2) {
-            for (char ch: word.toCharArray()) {
+        for (String word : word2) {
+            for (char ch : word.toCharArray()) {
                 sb2.append(ch);
             }
         }
@@ -2088,14 +2088,14 @@ public class LeetCode {
 
     public int countCharacters(String[] words, String chars) {
         int[] charFrequency = new int[26];
-        for (char ch: chars.toCharArray()) {
+        for (char ch : chars.toCharArray()) {
             charFrequency[ch - 'a']++;
         }
 
         int res = 0;
-        for (String word: words) {
+        for (String word : words) {
             int[] wordFrequency = new int[26];
-            for (char ch: word.toCharArray()) {
+            for (char ch : word.toCharArray()) {
                 wordFrequency[ch - 'a']++;
             }
 
@@ -2145,7 +2145,7 @@ public class LeetCode {
             }
         }
 
-        return max == Integer.MIN_VALUE? "": String.valueOf(max).repeat(3);
+        return max == Integer.MIN_VALUE ? "" : String.valueOf(max).repeat(3);
     }
 
     public int numberOfMatches(int n) {
@@ -2251,9 +2251,9 @@ public class LeetCode {
 
     public int findSpecialInteger(int[] arr) {
         int n = arr.length;
-        int[] candidates = new int[] {arr[n / 4], arr[n / 2], arr[3 * n / 4]};
+        int[] candidates = new int[]{arr[n / 4], arr[n / 2], arr[3 * n / 4]};
         int target = n / 4;
-        for (int candidate: candidates) {
+        for (int candidate : candidates) {
             int leftIdx = findLeftmostIndex(arr, candidate);
             int rightIdx = findRightmostIndex(arr, candidate) - 1;
             if (target < rightIdx - leftIdx + 1) {
@@ -2373,7 +2373,7 @@ public class LeetCode {
         return isSpecial;
     }
 
-    private boolean checkCol( int currRow, int currCol, int[][] mat) {
+    private boolean checkCol(int currRow, int currCol, int[][] mat) {
         boolean isSpecial = true;
         for (int col = 0; col < mat[0].length; col++) {
             if (col != currCol && mat[currRow][col] == 1) {
@@ -2381,5 +2381,21 @@ public class LeetCode {
             }
         }
         return isSpecial;
+    }
+
+    public String destCity(List<List<String>> paths) {
+        Set<String> destination = new HashSet<>();
+        for (List<String> path : paths) {
+            String start = path.get(0);
+            destination.add(start);
+        }
+
+        for (List<String> path : paths) {
+            String dest = path.get(1);
+            if (!destination.contains(dest)) {
+                return dest;
+            }
+        }
+        return "";
     }
 }
