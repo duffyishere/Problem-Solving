@@ -852,4 +852,18 @@ public class Solution {
         }
         return palindromeLength;
     }
+
+    public int solution(int n, int[] money) {
+        int[] dp = new int[n + 1];
+        dp[0] = 1;
+        for (int currency: money) {
+            int sum = currency;
+            while (sum <= n) {
+                dp[sum] += dp[sum - currency];
+                sum++;
+            }
+        }
+
+        return dp[n];
+    }
 }
