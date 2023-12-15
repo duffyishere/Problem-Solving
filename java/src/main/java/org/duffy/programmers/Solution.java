@@ -830,4 +830,26 @@ public class Solution {
 
         return max;
     }
+
+
+    public int 가장_긴_팰린드롬(String s) {
+        int res = 0;
+        for (int i = 0; i < s.length(); i++) {
+            // odd
+            res = Math.max(가장_긴_팰린드롬_palindromeCount(s, i - 1, i + 1, 1), res);
+
+            // even length palindrome
+            res = Math.max(가장_긴_팰린드롬_palindromeCount(s, i, i + 1, 0), res);
+        }
+        return res;
+    }
+    private int 가장_긴_팰린드롬_palindromeCount(String str, int leftIndex, int rightIndex, int startLen) {
+        int palindromeLength = startLen;
+        while (leftIndex >= 0 && rightIndex < str.length() && str.charAt(leftIndex) == str.charAt(rightIndex)) {
+            palindromeLength += 2;
+            leftIndex--;
+            rightIndex++;
+        }
+        return palindromeLength;
+    }
 }
