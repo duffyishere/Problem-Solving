@@ -866,4 +866,41 @@ public class Solution {
 
         return dp[n];
     }
+
+    public int 선입_선출_스케줄링(int n, int[] cores) {
+        int left = 0;
+        int right = cores[0] * n;
+        int preWork = 0, time = 0;
+
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            int workCount = 선입_선출_스케줄링_countWork(mid, cores);
+
+            if (n <= workCount) {
+                right = mid;
+            } else {
+                preWork = workCount;
+                left = mid + 1;
+            }
+        }
+
+        int remain = n - preWork;
+        for (int i = 0; i < cores.length; i++) {
+            if (left % cores[i] == 0) {
+                if (--remain == 0) {
+                    return i + 1;
+                }
+            }
+        }
+
+        return -1;
+    }
+
+    private int 선입_선출_스케줄링_countWork(int time, int[] cores) {
+        int workCount = cores.length;
+        for (int core: cores) {
+            workCount += time / core;
+        }
+        return workCount;
+    }
 }
