@@ -924,4 +924,20 @@ public class Solution {
         }
         return res;
     }
+
+    public int[] 최고의_집합(int n, int s) {
+        if (s < n) {
+            return new int[]{-1};
+        }
+
+        int[] res = new int[n];
+        int idx = 0;
+        while (0 < n) {
+            int value = s / n;
+            res[idx++] = value;
+            s -= value;
+            n--;
+        }
+        return res;
+    }
 }
