@@ -903,4 +903,25 @@ public class Solution {
         }
         return workCount;
     }
+
+    public long 야근_지수(int n, int[] works) {
+        Queue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        for (int w: works) {
+            pq.offer(w);
+        }
+
+        for (int i = 0; i < n; i++) {
+            int max = pq.poll();
+            if (max <= 0) {
+                break;
+            }
+            pq.offer(max - 1);
+        }
+
+        long res = 0;
+        while (!pq.isEmpty()) {
+            res += (long) Math.pow(pq.poll(), 2);
+        }
+        return res;
+    }
 }
