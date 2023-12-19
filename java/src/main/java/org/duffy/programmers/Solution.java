@@ -940,4 +940,33 @@ public class Solution {
         }
         return res;
     }
+
+    public int[][] imageSmoother(int[][] img) {
+        int n = img.length;
+        int m = img[0].length;
+        int[][] res = new int[n][m];
+        for (int y = 0; y < n; y++) {
+            for (int x = 0; x < m; x++) {
+                res[y][x] = smoothen(img, y, x);
+            }
+        }
+        return res;
+    }
+
+    private int smoothen(int[][] img, int y, int x) {
+        int n = img.length;
+        int m = img[0].length;
+        int sum = 0;
+        int cnt = 0;
+        for (int dy = -1; dy < 2; dy++) {
+            for (int dx = -1; dx < 2; dx++) {
+                int my = y + dy;
+                int mx = x + dx;
+                if (my < 0 || mx < 0 || n <= my || m <= mx) continue;
+                sum += img[my][mx];
+                cnt++;
+            }
+        }
+        return sum / cnt;
+    }
 }
