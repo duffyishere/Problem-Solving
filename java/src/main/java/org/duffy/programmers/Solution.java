@@ -831,7 +831,6 @@ public class Solution {
         return max;
     }
 
-
     public int 가장_긴_팰린드롬(String s) {
         int res = 0;
         for (int i = 0; i < s.length(); i++) {
