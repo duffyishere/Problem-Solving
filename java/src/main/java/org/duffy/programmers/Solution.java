@@ -968,4 +968,47 @@ public class Solution {
         }
         return sum / cnt;
     }
+
+    public int[] 카운트_다운(int n) {
+        int[][] dp = new int[100001][2];
+        for (int i = 1; i <= n; i++) {
+            if (i == 50 || i <= 20) {
+                dp[i][0] = 1;
+                dp[i][1] = 1;
+            } else if (i <= 40 && i % 2 == 0) {
+                dp[i][0] = 1;
+                dp[i][1] = 0;
+            } else if (i <= 60 && i % 3 == 0) {
+                dp[i][0] = 1;
+                dp[i][1] = 0;
+            } else if (50 < i && i <= 70) {
+                dp[i][0] = 2;
+                dp[i][1] = 2;
+            } else if (i < 70) {
+                if (i < 40) {
+                    dp[i][0] = 2;
+                    dp[i][1] = 2;
+                } else {
+                    dp[i][0] = 2;
+                    dp[i][1] = 1;
+                }
+            } else {
+                카운트_다운_setBestCase(i, dp);
+            }
+        }
+        return dp[n];
+    }
+
+    private void 카운트_다운_setBestCase(int target, int[][] dp) {
+        if (dp[target - 60][0] < dp[target - 50][0]) {
+            dp[target][0] = dp[target - 60][0] + 1;
+            dp[target][1] = dp[target - 60][1];
+        } else if (dp[target - 50][0] < dp[target - 60][0]) {
+            dp[target][0] = dp[target - 50][0] + 1;
+            dp[target][1] = dp[target - 50][1] + 1;
+        } else {
+            dp[target][0] = dp[target - 50][0] + 1;
+            dp[target][1] = Math.max(dp[target - 60][1], dp[target - 50][1] + 1);
+        }
+    }
 }
