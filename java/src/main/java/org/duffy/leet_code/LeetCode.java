@@ -2425,4 +2425,24 @@ public class LeetCode {
         int max = nums[n - 1] * nums[n - 2];
         return max - min;
     }
+
+    public int buyChoco(int[] prices, int money) {
+        int cheapest = Integer.MAX_VALUE;
+        int secondCheapest = Integer.MAX_VALUE;
+
+        for (int price: prices) {
+            if (price < cheapest) {
+                secondCheapest = cheapest;
+                cheapest = price;
+            } else if (price < secondCheapest) {
+                secondCheapest = price;
+            }
+        }
+
+        int sum = cheapest + secondCheapest;
+        if (sum <= money) {
+            return money - sum;
+        }
+        return money;
+    }
 }
