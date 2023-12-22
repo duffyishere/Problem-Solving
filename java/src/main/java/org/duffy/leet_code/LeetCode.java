@@ -2470,4 +2470,26 @@ public class LeetCode {
         }
         return res;
     }
+
+    public int maxScore(String s) {
+        int ones = 0;
+        for (char num: s.toCharArray()) {
+            if (num == '1') {
+                ones++;
+            }
+        }
+
+        int res = 0;
+        int zeroes = 0;
+        for (int i = 0; i < s.length() - 1; i++) {
+            char num = s.charAt(i);
+            if (num == '0') {
+                zeroes++;
+            } else {
+                ones--;
+            }
+            res = Math.max(res, zeroes + ones);
+        }
+        return res;
+    }
 }
