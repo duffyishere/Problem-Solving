@@ -2507,4 +2507,28 @@ public class LeetCode {
         }
         return slow;
     }
+
+    public boolean isPathCrossing(String path) {
+        Map<Character, int[]> map = new HashMap<>();
+        map.put('N', new int[]{1, 0}); // {dy, dx}
+        map.put('S', new int[]{-1, 0});
+        map.put('E', new int[]{0, 1});
+        map.put('W', new int[]{0, -1});
+
+        int y = 0, x = 0;
+        Set<String> visited = new HashSet<>();
+        visited.add(x + "#" + y);
+
+        for (char c: path.toCharArray()) {
+            int[] tmp = map.get(c);
+            y += tmp[0];
+            x += tmp[1];
+            String moved = x + "#" + y;
+            if (visited.contains(moved)) {
+                return true;
+            }
+            visited.add(moved);
+        }
+        return false;
+    }
 }
