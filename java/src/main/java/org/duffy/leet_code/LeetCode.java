@@ -2531,4 +2531,25 @@ public class LeetCode {
         }
         return false;
     }
+
+    public int minOperations(String s) {
+        int zeroes = 0, ones = 0;
+
+        for (int i = 0; i < s.length(); i++) {
+            if (i % 2 == 0) {
+                if (s.charAt(i) == '0') {
+                    zeroes++;
+                } else {
+                    ones++;
+                }
+            } else {
+                if (s.charAt(i) == '1') {
+                    zeroes++;
+                } else {
+                    ones++;
+                }
+            }
+        }
+        return Math.min(zeroes, ones);
+    }
 }
