@@ -2616,4 +2616,24 @@ public class LeetCode {
         }
         return dp[i][j];
     }
+
+    public int numSquares(int n) {
+        int[] dp = new int[n + 1];
+        Arrays.fill(dp, -1);
+        return numSquares_go(n, dp) - 1;
+    }
+    private int numSquares_go(int target, int[] dp) {
+        if (dp[target] < 0) {
+            if (target == 0) {
+                return dp[target] = 1;
+            }
+
+            int min = target;
+            for (int i = 1; i * i <= target; i++) {
+                min = Math.min(min, numSquares_go(target - i * i, dp) + 1);
+            }
+            dp[target] = min;
+        }
+        return dp[target];
+    }
 }
