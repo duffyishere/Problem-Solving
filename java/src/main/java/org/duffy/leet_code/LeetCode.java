@@ -2551,4 +2551,46 @@ public class LeetCode {
         }
         return Math.min(zeroes, ones);
     }
+
+    public int numDecodings(String s) {
+        int n = s.length();
+        int[] dp = new int[n + 1];
+        dp[n] = 1;
+        for (int i = n - 1; 0 <= i; i--) {
+            if (s.charAt(i) == '0') {
+                continue;
+            }
+            dp[i] = dp[i + 1];
+            if (i < n - 1 && (s.charAt(i) == '1'|| s.charAt(i) == '2'&& s.charAt(i+1) < '7')) {
+                dp[i] += dp[i + 2];
+            }
+        }
+        return dp[0];
+    }
+
+    public int numRollsToTarget(int n, int k, int target) {
+        int[][] dp = new int[n + 1][target + 1];
+        for (int[] a: dp) {
+            Arrays.fill(a, -1);
+        }
+        return go(n, k, target, dp);
+    }
+    int MOD = (int) 1e9 + 7;
+    private int go(int n, int k, int target, int[][] dp) {
+        if (target == 0 && n == 0) {
+            return 1;
+        }
+        if (target < 0 || n == 0) {
+            return 0;
+        }
+        if (dp[n][target] != -1) {
+            return dp[n][target];
+        }
+
+        int count = 0;
+        for (int i = 1; i <= k; i++) {
+            count = (count + go(n - 1, k, target - i, dp)) % MOD;
+        }
+        return dp[n][target] = count;
+    }
 }
