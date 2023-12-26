@@ -950,19 +950,19 @@ public class LeetCode {
     public int maxDepth(TreeNode root) {
         if (root == null)
             return 0;
-        go(root, 1);
+        maxDepth_go(root, 1);
         return ansMaxDepth;
     }
 
     int ansMaxDepth = 1;
 
-    private void go(TreeNode node, int depth) {
+    private void maxDepth_go(TreeNode node, int depth) {
         if (node == null)
             return;
 
         ansMaxDepth = Math.max(ansMaxDepth, depth);
-        go(node.left, depth + 1);
-        go(node.right, depth + 1);
+        maxDepth_go(node.left, depth + 1);
+        maxDepth_go(node.right, depth + 1);
     }
 
     int maxIndex = 0;
@@ -2573,10 +2573,10 @@ public class LeetCode {
         for (int[] a: dp) {
             Arrays.fill(a, -1);
         }
-        return go(n, k, target, dp);
+        return numRollsToTarget_go(n, k, target, dp);
     }
     int MOD = (int) 1e9 + 7;
-    private int go(int n, int k, int target, int[][] dp) {
+    private int numRollsToTarget_go(int n, int k, int target, int[][] dp) {
         if (target == 0 && n == 0) {
             return 1;
         }
@@ -2589,8 +2589,31 @@ public class LeetCode {
 
         int count = 0;
         for (int i = 1; i <= k; i++) {
-            count = (count + go(n - 1, k, target - i, dp)) % MOD;
+            count = (count + numRollsToTarget_go(n - 1, k, target - i, dp)) % MOD;
         }
         return dp[n][target] = count;
+    }
+
+    public int longestCommonSubsequence(String text1, String text2) {
+        longestCommonSubsequence_a = text1.toCharArray();
+        longestCommonSubsequence_b = text2.toCharArray();
+        int[][] dp = new int[longestCommonSubsequence_a.length + 1][longestCommonSubsequence_b.length + 1];
+        for (int[] a: dp) {
+            Arrays.fill(a, -1);
+        }
+        return longestCommonSubsequence_go(0, 0, dp);
+    }
+    char[] longestCommonSubsequence_a, longestCommonSubsequence_b;
+    private int longestCommonSubsequence_go(int i, int j, int[][] dp) {
+        if (dp[i][j] < 0) {
+            if (longestCommonSubsequence_a.length <= i || longestCommonSubsequence_b.length <= j) {
+                dp[i][j] = 0;
+            } else if (longestCommonSubsequence_a[i] == longestCommonSubsequence_b[j]) {
+                dp[i][j] = longestCommonSubsequence_go(i + 1, j + 1, dp) + 1;
+            } else {
+                dp[i][j] = Math.max(longestCommonSubsequence_go(i + 1, j, dp), longestCommonSubsequence_go(i, j + 1, dp));
+            }
+        }
+        return dp[i][j];
     }
 }
