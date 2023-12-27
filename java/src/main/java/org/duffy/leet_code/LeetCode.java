@@ -2636,4 +2636,20 @@ public class LeetCode {
         }
         return dp[target];
     }
+
+    public int minCost(String colors, int[] needTime) {
+        int n = colors.length();
+        int result = 0;
+        int prevCost = needTime[0];
+
+        for (int i = 1; i < n; i++) {
+            if (colors.charAt(i) == colors.charAt(i - 1)) {
+                result += Math.min(needTime[i], prevCost);
+                prevCost = Math.max(needTime[i], prevCost);
+            } else
+                prevCost = needTime[i];
+        }
+
+        return result;
+    }
 }
