@@ -2652,4 +2652,46 @@ public class LeetCode {
 
         return result;
     }
+
+    public int getLengthOfOptimalCompression(String s, int k) {
+        int[][] dp = new int[101][101];
+        for (int[] row: dp) {
+            Arrays.fill(row, -1);
+        }
+        return getLengthOfOptimalCompression_go(s, 0, k, dp);
+    }
+
+    private int getLengthOfOptimalCompression_go(String s, int i, int k, int[][] dp) {
+        int K = k;
+        int n = s.length();
+        if (n - i <= k) {
+            return 0;
+        }
+        if (0 < dp[i][k]) {
+            return dp[i][k];
+        }
+
+        int min = Integer.MAX_VALUE;
+        if (0 < k) {
+            min = getLengthOfOptimalCompression_go(s, i + 1, k - 1, dp);
+        }
+
+        int count = 1;
+        for (int j = i + 1; j <= n; j++) {
+            min = Math.min(min, getLengthOfOptimalCompression_getLen(count) + getLengthOfOptimalCompression_go(s, j, k, dp));
+            if (j < n && s.charAt(i) == s.charAt(j)) {
+                count++;
+            } else if (--k < 0) {
+                break;
+            }
+        }
+        return dp[i][K] = min;
+    }
+
+    private int getLengthOfOptimalCompression_getLen(int count) {
+        if (count == 1) return 1;
+        else if (count < 10) return 2;
+        else if (count < 100) return 3;
+        else return 4;
+    }
 }
