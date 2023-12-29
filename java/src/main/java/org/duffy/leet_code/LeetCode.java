@@ -2694,4 +2694,47 @@ public class LeetCode {
         else if (count < 100) return 3;
         else return 4;
     }
+
+    public int minDifficulty(int[] jobDifficulty, int d) {
+        int n = jobDifficulty.length;
+        if (n < d) {
+            return -1;
+        }
+        int sum = 0;
+        for (int j : jobDifficulty) {
+            sum += j;
+        }
+        if (sum == 0) {
+            return 0;
+        }
+
+        int[][] dp = new int[d +1 ][n];
+        for (int[] a: dp) {
+            Arrays.fill(a, -1);
+        }
+        return minDifficulty_go(jobDifficulty, 0, d, dp);
+    }
+
+    private int minDifficulty_go(int[] jobDifficulty, int idx, int d, int[][] dp) {
+        int n = jobDifficulty.length;
+        if (d == 1) {
+            int max = 0;
+            for (int i = idx; i < n; i++) {
+                max = Math.max(max, jobDifficulty[i]);
+            }
+            return max;
+        }
+        if (0 < dp[d][idx]) {
+            return dp[d][idx];
+        }
+
+        int max = 0;
+        int res = Integer.MAX_VALUE;
+        int stop = n - d + 1;
+        for (int i = idx; i < stop; i++) {
+            max = Math.max(max, jobDifficulty[i]);
+            res = Math.min(res, max + minDifficulty_go(jobDifficulty, i + 1, d - 1, dp));
+        }
+        return dp[d][idx] = res;
+    }
 }
