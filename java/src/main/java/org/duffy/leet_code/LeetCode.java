@@ -2737,4 +2737,24 @@ public class LeetCode {
         }
         return dp[d][idx] = res;
     }
+
+    public boolean makeEqual(String[] words) {
+        if (words.length == 1) {
+            return true;
+        }
+
+        Map<Character, Integer> freq = new HashMap<>();
+        for (String w: words) {
+            for (char c: w.toCharArray()) {
+                freq.put(c, freq.getOrDefault(c, 0) + 1);
+            }
+        }
+
+        for (int val: freq.values()) {
+            if (val % words.length != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
