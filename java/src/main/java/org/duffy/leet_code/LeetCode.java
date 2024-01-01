@@ -2786,4 +2786,18 @@ public class LeetCode {
         }
         return res;
     }
+
+    public int findContentChildren(int[] g, int[] s) {
+        int res = 0;
+        int child = 0, cookie = 0;
+        Arrays.sort(g);
+        Arrays.sort(s);
+        while (child < g.length && cookie < s.length) {
+            if (g[child] <= s[cookie]) {
+                child++;
+            }
+            cookie++;
+        }
+        return child;
+    }
 }
