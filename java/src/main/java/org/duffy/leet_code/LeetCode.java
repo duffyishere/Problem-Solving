@@ -2836,4 +2836,20 @@ public class LeetCode {
         }
         return res;
     }
+
+    public int minOperations(int[] nums) {
+        Map<Integer, Integer> freq = new HashMap<>();
+        for (int n: nums) {
+            freq.put(n, freq.getOrDefault(n, 0) + 1);
+        }
+
+        int res = 0;
+        for (int val: freq.values()) {
+            if (val == 1) {
+                return -1;
+            }
+            res += (int) Math.ceil((double) val / 3);
+        }
+        return res;
+    }
 }
