@@ -2800,4 +2800,18 @@ public class LeetCode {
         }
         return child;
     }
+
+    public List<List<Integer>> findMatrix(int[] nums) {
+        int[] freq = new int[nums.length + 1];
+        List<List<Integer>> res = new ArrayList<>();
+        for (int n: nums) {
+            if (res.size() <= freq[n]) {
+                res.add(new ArrayList<>());
+            }
+
+            res.get(freq[n]).add(n);
+            freq[n]++;
+        }
+        return res;
+    }
 }
