@@ -2837,10 +2837,26 @@ public class LeetCode {
         return res;
     }
 
-    public int rangeSumBST(TreeNode root, int low, int high) {
-        return helper(root, low, high);
+    public int minOperations(int[] nums) {
+        Map<Integer, Integer> freq = new HashMap<>();
+        for (int n: nums) {
+            freq.put(n, freq.getOrDefault(n, 0) + 1);
+        }
+
+        int res = 0;
+        for (int val: freq.values()) {
+            if (val == 1) {
+                return -1;
+            }
+            res += (int) Math.ceil((double) val / 3);
+        }
+        return res;
     }
-    private int helper(TreeNode node, int low, int high) {
+
+    public int rangeSumBST(TreeNode root, int low, int high) {
+        return rangeSumBST_helper(root, low, high);
+    }
+    private int rangeSumBST_helper(TreeNode node, int low, int high) {
         if (node == null) {
             return 0;
         }
@@ -2849,9 +2865,8 @@ public class LeetCode {
         if (low <= node.val && node.val <= high) {
             res += node.val;
         }
-        res += helper(node.left, low, high);
-        res += helper(node.right, low, high);
-
+        res += rangeSumBST_helper(node.left, low, high);
+        res += rangeSumBST_helper(node.right, low, high);
         return res;
     }
 }
