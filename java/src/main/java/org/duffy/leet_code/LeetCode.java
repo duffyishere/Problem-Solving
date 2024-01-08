@@ -2869,4 +2869,34 @@ public class LeetCode {
         res += rangeSumBST_helper(node.right, low, high);
         return res;
     }
+
+    public boolean checkInclusion(String s1, String s2) {
+        if (s2.length() < s1.length()) {
+            return false;
+        }
+
+        int[] s1Freq = new int[26];
+        for (char c: s1.toCharArray()) {
+            s1Freq[c - 'a']++;
+        }
+
+        for (int i = 0; i <= s2.length() - s1.length(); i++) {
+            int[] s2Freq = new int[26];
+            for (int j = 0; j < s1.length(); j++) {
+                s2Freq[s2.charAt(i + j) - 'a']++;
+            }
+            if (checkInclusionHelper(s1Freq, s2Freq)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean checkInclusionHelper(int[] s1, int[] s2) {
+        for (int i = 0; i < 26; i++) {
+            if (s1[i] != s2[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
