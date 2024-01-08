@@ -1588,23 +1588,23 @@ public class LeetCode {
     }
 
     public int lengthOfLIS(int[] nums) {
-        List<Integer> lis = new ArrayList<>();
+        List<Integer> res = new ArrayList<>();
         for (int num : nums) {
-            if (lis.isEmpty() || lis.get(lis.size() - 1) < num) lis.add(num);
+            if (res.isEmpty() || res.get(res.size() - 1) < num) res.add(num);
             else {
                 int left = 0;
-                int right = lis.size() - 1;
+                int right = res.size() - 1;
                 while (left < right) {
                     int mid = left + (right - left) / 2;
-                    if (lis.get(mid) < num)
+                    if (res.get(mid) < num)
                         left = mid + 1;
                     else
                         right = mid;
                 }
-                lis.set(right, num);
+                res.set(right, num);
             }
         }
-        return lis.size();
+        return res.size();
     }
 
     public int lengthOfLIS_DP(int[] nums) {
@@ -2834,6 +2834,24 @@ public class LeetCode {
             }
             prev = cnt;
         }
+        return res;
+    }
+
+    public int rangeSumBST(TreeNode root, int low, int high) {
+        return helper(root, low, high);
+    }
+    private int helper(TreeNode node, int low, int high) {
+        if (node == null) {
+            return 0;
+        }
+
+        int res = 0;
+        if (low <= node.val && node.val <= high) {
+            res += node.val;
+        }
+        res += helper(node.left, low, high);
+        res += helper(node.right, low, high);
+
         return res;
     }
 }
