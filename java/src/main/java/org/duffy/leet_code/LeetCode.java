@@ -2913,4 +2913,25 @@ public class LeetCode {
         }
         return nums[left] == target? left: -1;
     }
+
+    public boolean leafSimilar(TreeNode root1, TreeNode root2) {
+        List<Integer> l1 = new ArrayList<>();
+        List<Integer> l2 = new ArrayList<>();
+        leafSimilarHelper(root1, l1);
+        leafSimilarHelper(root2, l2);
+
+        return l1.equals(l2);
+    }
+    private void leafSimilarHelper(TreeNode node, List<Integer> leaves) {
+        if (node.left == null && node.right == null) {
+            leaves.add(node.val);
+        }
+
+        if (node.left != null) {
+            leafSimilarHelper(node.left, leaves);
+        }
+        if (node.right != null) {
+            leafSimilarHelper(node.right, leaves);
+        }
+    }
 }
