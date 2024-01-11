@@ -2,8 +2,7 @@ package org.duffy.programmers;
 
 import java.util.*;
 
-public class Solution {
-
+public class Programmers {
     public int 포켄몬(int[] nums) {
         Set<Integer> set = new HashSet<>();
         for (int num: nums) set.add(num);
