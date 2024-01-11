@@ -1011,4 +1011,37 @@ public class Solution {
             dp[target][1] = Math.max(dp[target - 60][1], dp[target - 50][1] + 1);
         }
     }
+
+
+    public int 체육복(int n, int[] lost, int[] reserve) {
+        Arrays.sort(lost);
+        Arrays.sort(reserve);
+        // Set 등록
+        Set<Integer> set = new HashSet<>();
+        for (int l: lost) {
+            set.add(l);
+        }
+        int cnt = lost.length;
+        // 빌련준 애가 도난 당했는지 확인
+        for (int i = 0; i < reserve.length; i++) {
+            int r = reserve[i];
+            if (set.contains(r)) {
+                reserve[i] = -1;
+                set.remove(r);
+                cnt--;
+            }
+        }
+        // 빌려줄 수 있는 체육복
+        for (int r: reserve) {
+            if (set.contains(r - 1)) {
+                set.remove(r - 1);
+                cnt--;
+            } else if (set.contains(r + 1)) {
+                set.remove(r + 1);
+                cnt--;
+            }
+        }
+
+        return n - cnt;
+    }
 }
