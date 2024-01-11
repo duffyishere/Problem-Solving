@@ -2978,4 +2978,22 @@ public class LeetCode {
         generateGraph(node.left, node.val, graph);
         generateGraph(node.right, node.val, graph);
     }
+
+    public int maxAncestorDiff(TreeNode root) {
+        maxAncestorDiff_go(root, root.val, root.val);
+        return maxAncestorDiff_res;
+    }
+    int maxAncestorDiff_res = 0;
+    private void maxAncestorDiff_go(TreeNode node, int max, int min) {
+        if (node == null) {
+            return;
+        }
+
+        max = Math.max(max, node.val);
+        min = Math.min(min, node.val);
+        maxAncestorDiff_res = Math.max(maxAncestorDiff_res, Math.abs(max - min));
+
+        maxAncestorDiff_go(node.left, max, min);
+        maxAncestorDiff_go(node.right, max, min);
+    }
 }
