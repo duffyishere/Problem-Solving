@@ -2935,6 +2935,68 @@ public class LeetCode {
         }
     }
 
+    public int amountOfTime(TreeNode root, int start) {
+        Map<Integer, List<Integer>> graph = new HashMap<>();
+        generateGraph(root, 0, graph);
+
+        Map<Integer, Integer> visited = new HashMap<>();
+        Queue<Integer> queue = new LinkedList<>();
+        int res = 0;
+        queue.add(start);
+        visited.put(start, 0);
+        while (!queue.isEmpty()) {
+            int curr = queue.poll();
+            for (int node: graph.get(curr)) {
+                if (visited.containsKey(node)) {
+                    continue;
+                }
+                queue.offer(node);
+                visited.put(node, visited.get(curr) + 1);
+                res = Math.max(res, visited.get(node));
+            }
+        }
+        return res;
+    }
+    private void generateGraph(TreeNode node, int parent, Map<Integer, List<Integer>> graph) {
+        if (node == null) {
+            return;
+        }
+        if (!graph.containsKey(node.val)) {
+            graph.put(node.val, new ArrayList<>());
+        }
+
+        List<Integer> curr = graph.get(node.val);
+        if (parent != 0) {
+            curr.add(parent);
+        }
+        if (node.left != null) {
+            curr.add(node.left.val);
+        }
+        if (node.right != null) {
+            curr.add(node.right.val);
+        }
+        generateGraph(node.left, node.val, graph);
+        generateGraph(node.right, node.val, graph);
+    }
+
+    public int maxAncestorDiff(TreeNode root) {
+        maxAncestorDiff_go(root, root.val, root.val);
+        return maxAncestorDiff_res;
+    }
+    int maxAncestorDiff_res = 0;
+    private void maxAncestorDiff_go(TreeNode node, int max, int min) {
+        if (node == null) {
+            return;
+        }
+
+        max = Math.max(max, node.val);
+        min = Math.min(min, node.val);
+        maxAncestorDiff_res = Math.max(maxAncestorDiff_res, Math.abs(max - min));
+
+        maxAncestorDiff_go(node.left, max, min);
+        maxAncestorDiff_go(node.right, max, min);
+    }
+
     public boolean halvesAreAlike(String s) {
         Set<Character> vowels = Set.of('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
 
