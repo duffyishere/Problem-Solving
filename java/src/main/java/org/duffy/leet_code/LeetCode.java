@@ -2934,4 +2934,24 @@ public class LeetCode {
             leafSimilarHelper(node.right, leaves);
         }
     }
+
+    public boolean halvesAreAlike(String s) {
+        Set<Character> vowels = Set.of('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
+
+        int mid = s.length() / 2;
+        int cnt = 0;
+        for (int i = 0; i < mid; i++) {
+            if (vowels.contains(s.charAt(i))) {
+                cnt++;
+            }
+        }
+
+        for (int i = mid; i < s.length(); i++) {
+            if (vowels.contains(s.charAt(i))) {
+                cnt--;
+            }
+        }
+
+        return cnt == 0;
+    }
 }
