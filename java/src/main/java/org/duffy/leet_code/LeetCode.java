@@ -2996,4 +2996,21 @@ public class LeetCode {
         maxAncestorDiff_go(node.left, max, min);
         maxAncestorDiff_go(node.right, max, min);
     }
+
+    public int minSteps(String s, String t) {
+        int[] sFreq = new int[26];
+        int[] tFreq = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            sFreq[s.charAt(i) - 'a']++;
+            tFreq[t.charAt(i) - 'a']++;
+        }
+
+        int res = 0;
+        for (int i = 0; i < 26; i++) {
+            if (sFreq[i] < tFreq[i]) {
+                res += tFreq[i] - sFreq[i];
+            }
+        }
+        return res;
+    }
 }
