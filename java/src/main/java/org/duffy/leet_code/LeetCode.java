@@ -3016,4 +3016,33 @@ public class LeetCode {
 
         return cnt == 0;
     }
+
+    public boolean closeStrings(String word1, String word2) {
+        if (word1.length() != word2.length()) {
+            return false;
+        }
+
+        int[] s1Freq = new int[26];
+        int[] s2Freq = new int[26];
+        for (int i = 0; i < word1.length(); i++) {
+            s1Freq[word1.charAt(i) - 'a']++;
+            s2Freq[word2.charAt(i) - 'a']++;
+        }
+
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < 26; i++) {
+            if (s1Freq[i] == 0 && s2Freq[i] != 0 || s1Freq[i] != 0 && s2Freq[i] == 0) {
+                return false;
+            }
+            map.put(s1Freq[i], map.getOrDefault(s1Freq[i], 0) + 1);
+            map.put(s2Freq[i], map.getOrDefault(s2Freq[i], 0) - 1);
+        }
+
+        for (int val: map.values()) {
+            if (val != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
