@@ -3017,6 +3017,23 @@ public class LeetCode {
         return cnt == 0;
     }
 
+    public int minSteps(String s, String t) {
+        int[] sFreq = new int[26];
+        int[] tFreq = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            sFreq[s.charAt(i) - 'a']++;
+            tFreq[t.charAt(i) - 'a']++;
+        }
+
+        int res = 0;
+        for (int i = 0; i < 26; i++) {
+            if (sFreq[i] < tFreq[i]) {
+                res += tFreq[i] - sFreq[i];
+            }
+        }
+        return res;
+    }
+
     public boolean closeStrings(String word1, String word2) {
         if (word1.length() != word2.length()) {
             return false;
@@ -3038,7 +3055,7 @@ public class LeetCode {
             map.put(s2Freq[i], map.getOrDefault(s2Freq[i], 0) - 1);
         }
 
-        for (int val: map.values()) {
+        for (int val : map.values()) {
             if (val != 0) {
                 return false;
             }
