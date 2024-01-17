@@ -3081,4 +3081,19 @@ public class LeetCode {
         Collections.sort(res.get(1));
         return res;
     }
+
+    public boolean uniqueOccurrences(int[] arr) {
+        Map<Integer, Integer> freq = new HashMap<>();
+        for (int n: arr) {
+            freq.put(n, freq.getOrDefault(n, 0) + 1);
+        }
+
+        List<Integer> values = freq.values().stream().sorted().toList();
+        for (int i = 1; i < values.size(); i++) {
+            if (Objects.equals(values.get(i - 1), values.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
