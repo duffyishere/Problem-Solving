@@ -4,8 +4,8 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomizedSet {
-    private ArrayList<Integer> nums;
-    private Map<Integer, Integer> indexMap;
+    private final ArrayList<Integer> nums;
+    private final Map<Integer, Integer> indexMap;
     private final ThreadLocalRandom random;
 
     public RandomizedSet() {
