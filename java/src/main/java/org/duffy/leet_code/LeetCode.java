@@ -3096,4 +3096,39 @@ public class LeetCode {
         }
         return true;
     }
+
+    public int minFallingPathSum(int[][] matrix) {
+        int n = matrix.length;
+        int[][] dp = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            Arrays.fill(dp[i], Integer.MAX_VALUE);
+        }
+
+        int res = Integer.MAX_VALUE;
+        for (int i = 0; i < n; i++) {
+            res = Math.min(res, minFallingPathSum_go(0, i, matrix, dp));
+        }
+
+        return res;
+    }
+    public int minFallingPathSum_go(int row, int col, int[][] matrix, int[][] dp) {
+        int n = matrix.length;
+        if (dp[row][col] != Integer.MAX_VALUE) {
+            return dp[row][col];
+        }
+        if (row == n - 1) {
+            return dp[row][col] = matrix[row][col];
+        }
+
+        int left = Integer.MAX_VALUE, right = Integer.MAX_VALUE;
+        if (0 < col) {
+            left = minFallingPathSum_go(row + 1, col - 1, matrix, dp);
+        }
+        if (col < n - 1) {
+            right = minFallingPathSum_go(row + 1, col + 1, matrix, dp);
+        }
+        int straight = minFallingPathSum_go(row + 1, col, matrix, dp);
+
+        return dp[row][col] = Math.min(left, Math.min(straight, right)) + matrix[row][col];
+    }
 }

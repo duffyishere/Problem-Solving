@@ -1,7 +1,5 @@
 package org.duffy;
 
-import org.duffy.leet_code.TreeNode;
-
 import java.util.*;
 
 public class Main {
