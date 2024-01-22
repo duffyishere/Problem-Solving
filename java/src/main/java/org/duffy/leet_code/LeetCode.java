@@ -3131,4 +3131,24 @@ public class LeetCode {
 
         return dp[row][col] = Math.min(left, Math.min(straight, right)) + matrix[row][col];
     }
+
+    public int[] findErrorNums(int[] nums) {
+        int[] res = new int[2];
+        int n = nums.length;
+
+        for (int i = 0; i < n; i++) {
+            while (nums[i] - 1 != i && nums[nums[i] - 1] != nums[i]) {
+                swap(nums, i, nums[i] - 1);
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (nums[i] - 1 != i) {
+                res[0] = nums[i];
+                res[1] = i + 1;
+                return res;
+            }
+        }
+        return new int[] {-1, -1};
+    }
 }
