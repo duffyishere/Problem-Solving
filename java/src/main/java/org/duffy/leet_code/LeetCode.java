@@ -3151,4 +3151,32 @@ public class LeetCode {
         }
         return new int[] {-1, -1};
     }
+
+    public int maxLength(List<String> arr) {
+        int res = 0;
+        for (int i = 0; i < arr.size(); i++) {
+            Set<Character> chars = new HashSet<>();
+            res = Math.max(res, maxLength_go(arr, i, chars));
+        }
+        return res;
+    }
+
+    private int maxLength_go(List<String> arr, int i, Set<Character> chars) {
+        if (arr.size() <= i) {
+            return 0;
+        }
+        Set<Character> tmp = new HashSet<>(chars);
+        String word = arr.get(i);
+        boolean flag = false;
+        for (char c : word.toCharArray()) {
+            if (tmp.contains(c))
+                flag = true;
+            tmp.add(c);
+        }
+
+        int res = maxLength_go(arr, i + 1, chars);
+        if (!flag)
+            res = Math.max(res, maxLength_go(arr, i + 1, tmp) + word.length());
+        return res;
+    }
 }
