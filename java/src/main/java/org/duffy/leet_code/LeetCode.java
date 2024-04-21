@@ -3179,4 +3179,31 @@ public class LeetCode {
             res = Math.max(res, maxLength_go(arr, i + 1, tmp) + word.length());
         return res;
     }
+
+    private boolean validPath(int n, int[][] edges, int source, int destination) {
+        List<Integer>[] graph = new List[n];
+        for (int i = 0; i < n; i++) {
+            graph[i] = new ArrayList<>();
+        }
+        for (int[] edge: edges) {
+            graph[edge[0]].add(edge[1]);
+            graph[edge[1]].add(edge[0]);
+        }
+
+        boolean[] visited = new boolean[n];
+        Queue<Integer> queue = new LinkedList<>();
+        visited[source] = true;
+        queue.add(source);
+        while (!queue.isEmpty()) {
+            int now = queue.poll();
+            if (now == destination) return true;
+            for (int next: graph[now]) {
+                if (!visited[next])
+                    queue.offer(next);
+                visited[next] = true;
+            }
+        }
+
+        return false;
+    }
 }
