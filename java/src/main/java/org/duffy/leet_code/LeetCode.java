@@ -3180,7 +3180,7 @@ public class LeetCode {
         return res;
     }
 
-    private boolean validPath(int n, int[][] edges, int source, int destination) {
+    public boolean validPath(int n, int[][] edges, int source, int destination) {
         List<Integer>[] graph = new List[n];
         for (int i = 0; i < n; i++) {
             graph[i] = new ArrayList<>();
@@ -3206,4 +3206,53 @@ public class LeetCode {
 
         return false;
     }
-}
+
+    public int openLock(String[] deadends, String target) {
+        StringBuilder start = new StringBuilder("0000");
+        Queue<StringBuilder> queue = new LinkedList<>();
+        queue.offer(start);
+
+        Set<String> visited = new HashSet<>(Arrays.asList(deadends));
+        if (visited.contains("0000")) {
+            return -1;
+        }
+
+        int cnt = 0;
+
+        while (!queue.isEmpty()) {
+            int len = queue.size();
+            for (int i = 0; i < len; i++) {
+                StringBuilder now = queue.poll();
+                assert now != null;
+                if (now.toString().equals(target)) {
+                    return cnt;
+                }
+
+                for (int j = 0; j < 4; j++) {
+                    for (char nextCh: openLock_getNextNums(now.charAt(j))) {
+                        StringBuilder copy = new StringBuilder(now);
+                        copy.setCharAt(j, nextCh);
+
+                        if (visited.contains(copy.toString()))
+                            continue;
+
+                        queue.offer(copy);
+                        visited.add(copy.toString());
+                    }
+                }
+            }
+            cnt++;
+        }
+        return -1;
+    }
+
+    private char[] openLock_getNextNums(char now) {
+        if (now == '0')
+            return new char[]{'1', '9'};
+        else if (now == '9')
+            return new char[] {'0', '8'};
+        else {
+            int num = Character.digit(now, 10);
+            return new char[] {Character.forDigit(num - 1, 10), Character.forDigit(num + 1, 10)};
+        }
+    }}
