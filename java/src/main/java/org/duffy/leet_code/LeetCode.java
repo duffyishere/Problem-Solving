@@ -3255,4 +3255,28 @@ public class LeetCode {
             int num = Character.digit(now, 10);
             return new char[] {Character.forDigit(num - 1, 10), Character.forDigit(num + 1, 10)};
         }
-    }}
+    }
+
+    public int threeSumClosest(int[] nums, int target) {
+        int l = nums.length - 1;
+        int res = nums[0] + nums[1] + nums[2];
+        Arrays.sort(nums);
+
+        for (int i = 0; i < l - 1; i++) {
+            int j = i + 1;
+            int k = l;
+            while (j < k) {
+                int sum = nums[i] + nums[j] + nums[k];
+                if (Math.abs(target - sum) < Math.abs(target - res)) {
+                    res = sum;
+                }
+                if (sum < target) {
+                    j++;
+                } else {
+                    k--;
+                }
+            }
+        }
+        return res;
+    }
+}
