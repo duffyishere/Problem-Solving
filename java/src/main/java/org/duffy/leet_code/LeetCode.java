@@ -3279,4 +3279,40 @@ public class LeetCode {
         }
         return res;
     }
+
+    public List<Integer> findMinHeightTrees(int n, int[][] edges) {
+        if (n == 1)
+            return List.of(0);
+        Set<Integer>[] graph = new HashSet[n];
+        for (int i = 0; i < n; i++) {
+            graph[i] = new HashSet<>();
+        }
+
+        for (int[] edge : edges) {
+            graph[edge[0]].add(edge[1]);
+            graph[edge[1]].add(edge[0]);
+        }
+
+        Set<Integer> visited = new HashSet<>();
+        List<Integer> leaves = new ArrayList<>();
+        for (int i = 0; i < n; ++i) {
+            if (graph[i].size() == 1) {
+                leaves.add(i);
+                visited.add(i);
+            }
+        }
+
+        while (2 < n) {
+            n -= leaves.size();
+            List<Integer> newLeaves = new ArrayList<>();
+            for (int now : leaves) {
+                int next = graph[now].iterator().next();
+                graph[next].remove(now);
+                if (graph[next].size() == 1)
+                    newLeaves.add(next);
+            }
+            leaves = newLeaves;
+        }
+        return leaves;
+    }
 }
