@@ -3315,4 +3315,30 @@ public class LeetCode {
         }
         return leaves;
     }
+
+    public int longestIdealString(String s, int k) {
+        int[] map = new int[26];
+        for (char ch: s.toCharArray()) {
+            int t = ch - 'a';
+            int max = 0;
+            for (int i = 0; i <= k; i++) {
+                int adj1 = t + i;
+                if (adj1 < 26) {
+                    max = Math.max(max, map[adj1] + 1);
+                }
+
+                int adj2 = t - i;
+                if (0 <= adj2) {
+                    max = Math.max(max, map[adj2] + 1);
+                }
+            }
+            map[t] = max;
+        }
+
+        int res = 0;
+        for (int n: map) {
+            res = Math.max(res, n);
+        }
+        return res;
+    }
 }
