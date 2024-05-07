@@ -2,7 +2,7 @@ package org.duffy.etc;
 
 import java.util.*;
 
-public class Toss2023 {
+public class Ts23 {
     public int pr1(String s, int n) {
         int l = s.length();
         int res = -1;
