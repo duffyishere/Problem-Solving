@@ -3341,4 +3341,18 @@ public class LeetCode {
         }
         return res;
     }
+
+    public long maximumHappinessSum(int[] happiness, int k) {
+        Arrays.sort(happiness);
+        long res = 0;
+        int turn = 0;
+        for (int i = 0, j = happiness.length - 1; i < k; i++, j--) {
+            int point = happiness[j] - turn++;
+            if (0 < point) {
+                res += point;
+            }
+            System.out.println(res);
+        }
+        return res;
+    }
 }
