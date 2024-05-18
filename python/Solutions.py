@@ -13,3 +13,17 @@ def pr1972A():
                 res += 1
                 b_idx += 1
         print(res)
+
+def pr1972B():
+    for _ in range(int(input())):
+        _ = input()
+        coins = input()
+        cnt = 0
+        for c in coins:
+            if c == "U":
+                cnt += 1
+        
+        if cnt % 2 == 0:
+            print("NO")
+        else:
+            print("YES")
