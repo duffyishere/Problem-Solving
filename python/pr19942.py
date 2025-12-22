@@ -8,7 +8,7 @@ a = [list(map(int, input().split())) for _ in range(n)]
 
 MAX = 7501
 min_cost = MAX 
-result = [[] for _ in range(MAX)]
+result = {}
 for i in range(1 << n):
     tp, tf, ts, tv, tcost = 0, 0, 0, 0, 0
     tmp = []
@@ -25,12 +25,12 @@ for i in range(1 << n):
     if mp <= tp and mf <= tf and ms <= ts and mv <= tv:
         if tcost <= min_cost:
             min_cost = tcost
-            result[tcost].append(tmp)
+            result.setdefault(min_cost, []).append(tmp)
 
 if min_cost == MAX:
     print(-1)
     print("")
 else:
     print(min_cost)
-    result[min_cost].sort()
+    result.get(min_cost).sort()
     print(" ".join(map(str, result[min_cost][0])))
