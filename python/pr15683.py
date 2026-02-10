@@ -1,68 +1,75 @@
-from collections import deque
+import copy
 import sys
 
 
 input = sys.stdin.readline
 n, m = map(int, input().split())
-graph = [list(map(int, input().split())) for _ in range(n)]
-visited = [[0] * m for _ in range(n)]
-directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
-cctv = []
-res = 0
+graph = []
+cctv_positions = []
 for i in range(n):
+    row = list(map(int, input().split()))
+    graph.append(row)
     for j in range(m):
-        if 0 < graph[i][j] < 6:
-            cctv.append((i, j, graph[i][j]))
-        if graph[i][j] == 0:
-            res += 1
+        if 0 < row[j] < 6: cctv_positions.append((i, j))
 
-def update(y, x, dir):
-    dir %= 4
+directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+def watch(y, x, dir, graph):
     dy, dx = directions[dir]
+    my, mx = y + dy, x + dx
+
     while True:
-        y = y + dy
-        x = x + dx
+        if my < 0 or mx < 0 or n <= my or m <= mx:
+            break
+        if graph[my][mx] == 6:
+            break
+        if graph[my][mx] == 0:
+            graph[my][mx] = 7
+        my += dy
+        mx += dx
 
-        if y < 0 or x < 0 or n <= y or m <= x or visited[y][x] == 6:
-            return
-        if visited[y][x] != 0:
-            continue
-        visited[y][x] = 7
+def recursive(idx, graph):
+    if idx == len(cctv_positions):
+        cnt = 0
+        for i in range(n):
+            for j in range(m):
+                if graph[i][j] == 0: cnt += 1
+        return cnt
+    
+    result = 100
+    cy, cx = cctv_positions[idx]
+    cctv_type = graph[cy][cx]
+    if cctv_type == 1:
+        for dir in range(4):
+            copy_graph = copy.deepcopy(graph)
+            watch(cy, cx, dir, copy_graph)
+            result = min(result, recursive(idx + 1, copy_graph))
+    elif cctv_type == 2:
+        for dir in range(2):
+            copy_graph = copy.deepcopy(graph)
+            watch(cy, cx, dir, copy_graph)
+            watch(cy, cx, dir + 2, copy_graph)
+            result = min(result, recursive(idx + 1, copy_graph))
+    elif cctv_type == 3:
+        for dir in range(4):
+            copy_graph = copy.deepcopy(graph)
+            watch(cy, cx, dir, copy_graph)
+            watch(cy, cx, (dir + 1) % 4, copy_graph)
+            result = min(result, recursive(idx + 1, copy_graph))
+    elif cctv_type == 4:
+        for dir in range(4):
+            copy_graph = copy.deepcopy(graph)
+            watch(cy, cx, dir, copy_graph)
+            watch(cy, cx, (dir + 1) % 4, copy_graph)
+            watch(cy, cx, (dir + 3) % 4, copy_graph)
+            result = min(result, recursive(idx + 1, copy_graph))
+    elif cctv_type == 5:
+        copy_graph = copy.deepcopy(graph)
+        watch(cy, cx, 0, copy_graph)
+        watch(cy, cx, 1, copy_graph)
+        watch(cy, cx, 2, copy_graph)
+        watch(cy, cx, 3, copy_graph)
+        result = min(result, recursive(idx + 1, copy_graph))
 
-for tmp in range(1 << (2 * len(cctv))):
-    for i in range(n):
-        for j in range(m):
-            visited[i][j] = graph[i][j]
+    return result
 
-    brute = tmp
-    for i in range(len(cctv)):
-        dir = brute % 4
-        brute //= 4
-        y, x, num = cctv[i]
-
-        if num == 1:
-            update(y, x, dir)
-        elif num == 2:
-            update(y, x, dir)
-            update(y, x, dir + 2)
-        elif num == 3:
-            update(y, x, dir)
-            update(y, x, dir + 1)
-        elif num == 4:
-            update(y, x, dir)
-            update(y, x, dir + 1)
-            update(y, x, dir + 2)
-        else:
-            update(y, x, dir)
-            update(y, x, dir + 1)
-            update(y, x, dir + 2)
-            update(y, x, dir + 3)
-
-    val = 0
-    for i in range(n):
-        for j in range(m):
-            if visited[i][j] == 0:
-                val += 1
-
-    res = min(res, val)
-print(res)
+print(recursive(0, graph))
